@@ -1,0 +1,75 @@
+# ========================
+# Environment
+# ========================
+.env
+.env.local
+.env.production
+
+# ========================
+# Python
+# ========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# ========================
+# Node / React
+# ========================
+node_modules/
+frontend/dist/
+frontend/build/
+.vite/
+*.tsbuildinfo
+
+# ========================
+# ML Artifacts
+# ========================
+ml_service/artifacts/*.pkl
+ml_service/artifacts/*.joblib
+ml_service/artifacts/*.json
+!ml_service/artifacts/.gitkeep
+
+# ========================
+# Data
+# ========================
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/sample/
+
+# ========================
+# Jupyter
+# ========================
+.ipynb_checkpoints/
+
+# ========================
+# Docker
+# ========================
+*.log
+docker/mongo/data/
+
+# ========================
+# IDE
+# ========================
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ========================
+# Testing
+# ========================
+.coverage
+htmlcov/
+.pytest_cache/
