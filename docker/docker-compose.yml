@@ -57,7 +57,7 @@ services:
       context: ../backend
       dockerfile: Dockerfile
     container_name: eps-celery-worker
-    command: celery -A tasks.celery_app worker --loglevel=info
+    command: celery -A tasks.celery_app:celery_app worker --loglevel=info
     env_file:
       - ../.env
     depends_on:
@@ -73,7 +73,7 @@ services:
       context: ../backend
       dockerfile: Dockerfile
     container_name: eps-celery-beat
-    command: celery -A tasks.celery_app beat --loglevel=info
+    command: celery -A tasks.celery_app:celery_app beat --loglevel=info
     env_file:
       - ../.env
     depends_on:
@@ -100,7 +100,7 @@ services:
       - eps-network
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
       interval: 5s
       timeout: 5s
       retries: 5
