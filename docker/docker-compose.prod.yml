@@ -31,7 +31,7 @@ services:
       - "80:80"
       - "443:443"
 
-  mongo:
+  postgres:
     ports: []  # Do not expose to host in production
     deploy:
       resources:

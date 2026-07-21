@@ -1,7 +1,10 @@
 ﻿from celery import Celery
+from app.config import Settings
 
-celery_app = Celery(
-    "backend_tasks",
-    broker="redis://localhost:6379/0",
-    backend="redis://localhost:6379/0",
-)
+settings = Settings()
+
+# Use environment-configured Celery/Redis URLs (fall back to sensible defaults)
+broker_url = settings.celery_broker_url or settings.redis_url
+result_backend = settings.celery_result_backend or settings.redis_url
+
+celery_app = Celery("backend_tasks", broker=broker_url, backend=result_backend)

@@ -8,7 +8,7 @@ An intelligent, data-driven system that leverages machine learning to accurately
 |-------|-----------|
 | Frontend | React 18 + Vite |
 | Backend | FastAPI (Python 3.11+) |
-| Database | MongoDB 7+ |
+| Database | PostgreSQL 16 |
 | ML Engine | Python + XGBoost |
 | Auth | JWT |
 | Deployment | Docker + Docker Compose |

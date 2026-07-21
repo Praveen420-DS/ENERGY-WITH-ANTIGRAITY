@@ -45,7 +45,7 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - mongo
+      - postgres
       - redis
     networks:
       - eps-network
@@ -61,7 +61,7 @@ services:
     env_file:
       - ../.env
     depends_on:
-      - mongo
+      - postgres
       - redis
     networks:
       - eps-network
@@ -82,24 +82,28 @@ services:
       - eps-network
     restart: unless-stopped
 
-  # --- MongoDB ---
-  mongo:
-    image: mongo:7
-    container_name: eps-mongo
+  # --- PostgreSQL ---
+  postgres:
+    image: postgres:16-alpine
+    container_name: eps-postgres
     env_file:
       - ../.env
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
-      MONGO_INITDB_DATABASE: ${MONGO_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      - "27017:27017"
+      - "5432:5432"
     volumes:
-      - mongo_data:/data/db
-      - ./mongo/init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - eps-network
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   # --- Redis ---
   redis:
@@ -114,7 +118,7 @@ services:
     restart: unless-stopped
 
 volumes:
-  mongo_data:
+  postgres_data:
   redis_data:
   frontend_build:
 
