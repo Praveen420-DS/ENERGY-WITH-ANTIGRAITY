@@ -1,0 +1,177 @@
+{
+  "schema_name": "energy-prediction-request",
+  "schema_version": "1.0.0",
+  "additional_properties": false,
+  "target_field_prohibited": "meter_reading",
+  "building_id_required_despite_exclusion": true,
+  "known_primary_use_values": [
+    "Education",
+    "Entertainment/public assembly",
+    "Food sales and service",
+    "Healthcare",
+    "Lodging/residential",
+    "Manufacturing/industrial",
+    "Office",
+    "Other",
+    "Parking",
+    "Public services",
+    "Religious worship",
+    "Retail",
+    "Services",
+    "Technology/science",
+    "Utility",
+    "Warehouse/storage"
+  ],
+  "fields": [
+    {
+      "name": "building_id",
+      "type": "integer",
+      "required": true,
+      "accepted_range": ">= 0",
+      "example": 0,
+      "validation_rule": ">= 0",
+      "fallback_behaviour": "none",
+      "error_behaviour": "Required for traceability; excluded from predictors."
+    },
+    {
+      "name": "meter",
+      "type": "integer",
+      "required": true,
+      "accepted_range": "one of 0,1,2,3",
+      "example": 0,
+      "validation_rule": "one of 0,1,2,3",
+      "fallback_behaviour": "none",
+      "error_behaviour": "Rejected if outside fitted meter codes."
+    },
+    {
+      "name": "timestamp",
+      "type": "ISO-8601 string",
+      "required": true,
+      "accepted_range": "timezone-naive; year 1900..2100",
+      "example": "2016-07-15T14:00:00",
+      "validation_rule": "timezone-naive; year 1900..2100",
+      "fallback_behaviour": "none",
+      "error_behaviour": "Invalid/ambiguous timestamps rejected."
+    },
+    {
+      "name": "site_id",
+      "type": "integer",
+      "required": true,
+      "accepted_range": ">= 0",
+      "example": 0,
+      "validation_rule": ">= 0",
+      "fallback_behaviour": "none",
+      "error_behaviour": "Required for traceability; excluded from predictors."
+    },
+    {
+      "name": "primary_use",
+      "type": "string",
+      "required": true,
+      "accepted_range": "non-empty",
+      "example": "Education",
+      "validation_rule": "non-empty",
+      "fallback_behaviour": "none",
+      "error_behaviour": "Unknown values accepted with warning and all-zero one-hot encoding."
+    },
+    {
+      "name": "square_feet",
+      "type": "number",
+      "required": true,
+      "accepted_range": ">= 0",
+      "example": 7432,
+      "validation_rule": ">= 0",
+      "fallback_behaviour": "none",
+      "error_behaviour": "Invalid values rejected; no median fallback."
+    },
+    {
+      "name": "year_built",
+      "type": "number",
+      "required": true,
+      "accepted_range": "1800..2016",
+      "example": 2008,
+      "validation_rule": "1800..2016",
+      "fallback_behaviour": "none",
+      "error_behaviour": "Invalid values rejected; no median fallback."
+    },
+    {
+      "name": "floor_count",
+      "type": "number",
+      "required": true,
+      "accepted_range": "> 0",
+      "example": 4,
+      "validation_rule": "> 0",
+      "fallback_behaviour": "none",
+      "error_behaviour": "Invalid values rejected; no median fallback."
+    },
+    {
+      "name": "air_temperature",
+      "type": "number",
+      "required": true,
+      "accepted_range": "finite",
+      "example": 25.0,
+      "validation_rule": "finite",
+      "fallback_behaviour": "none",
+      "error_behaviour": "Invalid values rejected."
+    },
+    {
+      "name": "cloud_coverage",
+      "type": "number",
+      "required": true,
+      "accepted_range": "finite",
+      "example": 6.0,
+      "validation_rule": "finite",
+      "fallback_behaviour": "none",
+      "error_behaviour": "Invalid values rejected."
+    },
+    {
+      "name": "dew_temperature",
+      "type": "number",
+      "required": true,
+      "accepted_range": "finite",
+      "example": 20.0,
+      "validation_rule": "finite",
+      "fallback_behaviour": "none",
+      "error_behaviour": "Invalid values rejected."
+    },
+    {
+      "name": "precip_depth_1_hr",
+      "type": "number",
+      "required": true,
+      "accepted_range": "finite",
+      "example": 0.0,
+      "validation_rule": "finite",
+      "fallback_behaviour": "none",
+      "error_behaviour": "Negative sentinel values are accepted because training data contains them."
+    },
+    {
+      "name": "sea_level_pressure",
+      "type": "number",
+      "required": true,
+      "accepted_range": "finite",
+      "example": 1019.7,
+      "validation_rule": "finite",
+      "fallback_behaviour": "none",
+      "error_behaviour": "Invalid values rejected."
+    },
+    {
+      "name": "wind_direction",
+      "type": "number",
+      "required": true,
+      "accepted_range": "0..360",
+      "example": 180.0,
+      "validation_rule": "0..360",
+      "fallback_behaviour": "none",
+      "error_behaviour": "Invalid values rejected."
+    },
+    {
+      "name": "wind_speed",
+      "type": "number",
+      "required": true,
+      "accepted_range": "finite",
+      "example": 3.1,
+      "validation_rule": "finite",
+      "fallback_behaviour": "none",
+      "error_behaviour": "Invalid values rejected."
+    }
+  ]
+}

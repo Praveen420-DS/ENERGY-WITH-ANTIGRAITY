@@ -1,0 +1,21 @@
+{
+  "algorithm": "SHA-256",
+  "package_files": {
+    "model.joblib": "67f244e576cb2b2b161a04f72499e5b00d2ac2361669561472edee5a14bff507",
+    "feature_schema.json": "d9c6bf662f160ced74d1d6c20fd7c6f700b89cbe01bc00ea8bc73ac2e1eeac5d",
+    "model_metadata.json": "b7332af1455249a73dde33a72ec869c3c5ebc49c103a91263bb41f25b58868b2",
+    "metrics.json": "3999d8bc0233030ae77306ebf226f294ab9f5fc27148dc413554a3039d91e1ff",
+    "requirements.json": "bda3dad0a2aaa611587d79289cf70e038588f7e27e91e75c24e07bb71ead9882",
+    "model_card.md": "ff4220d96e4b07da145aa0622ec128b46b758a588d23df45f324c475830b9dff",
+    "example_request.json": "04c305a7573d18f6fc5bb812769ff8a2c54e073465dda16e8b7ec1e069ad067e",
+    "example_response.json": "a6af3528044c36b11b0698604a3e499055bffcb3755ab36428946cbe5cc9d91b",
+    "README.md": "e8a675077874fdfb481f774d291f26ccf064e57f4a87257b000fb64106f16acd"
+  },
+  "source_files": {
+    "scripts/week2_feature_engineering.py": "81e1ad2572ac8fa5e67ad05f6c9b2353ba9141de59a33ea7712a3d6a7ad9a226",
+    "ml_service/inference.py": "5538b0407dd6a99d3eaec62939178ad8fa69e4fcd5bf0a18687e264fbf3c3dea",
+    "scripts/week2_package_production_model.py": "35c54a1ad79485a11cf15ab68275adb8494ffdd07eea49f752970cde3c3bc37d",
+    "reports/week2_baseline_metrics.json": "db4d8bab7db6d57e486ac954cc20ed239137cf923f6b2d89daded50863d5c2e2",
+    "reports/week2_advanced_metrics.json": "9e47f0042c03f1394b4774766a134d98346e0a0b6d5765aea13b92f33272cc2f"
+  }
+}

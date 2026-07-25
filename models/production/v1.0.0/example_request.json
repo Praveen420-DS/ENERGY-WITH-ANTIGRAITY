@@ -1,0 +1,17 @@
+{
+  "building_id": 0,
+  "meter": 0,
+  "timestamp": "2016-07-15T14:00:00",
+  "site_id": 0,
+  "primary_use": "Education",
+  "square_feet": 7432,
+  "year_built": 2008,
+  "floor_count": 4,
+  "air_temperature": 25.0,
+  "cloud_coverage": 6.0,
+  "dew_temperature": 20.0,
+  "precip_depth_1_hr": 0.0,
+  "sea_level_pressure": 1019.7,
+  "wind_direction": 180.0,
+  "wind_speed": 3.1
+}

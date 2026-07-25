@@ -1,0 +1,11 @@
+{
+  "python": "3.12.9",
+  "packages": {
+    "numpy": "2.3.5",
+    "pandas": "3.0.2",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.5.3"
+  },
+  "install": "python -m pip install numpy pandas scikit-learn joblib",
+  "compatibility_note": "Pin these versions for exact artifact compatibility."
+}

@@ -1,0 +1,24 @@
+{
+  "selection_summary": {
+    "best_advanced_validation_model": "lightgbm",
+    "best_advanced_test_model": "catboost",
+    "best_mae_model": "random_forest",
+    "recommended_production_model": "random_forest",
+    "rationale": "LightGBM is the best advanced validation candidate, but it does not improve Random Forest validation MAE or test RMSE; retain Random Forest for Task 2.6."
+  },
+  "validation": {
+    "rmse": 8766.295850412074,
+    "mae": 365.49115070043587,
+    "r2": 0.010571918399819857
+  },
+  "test": {
+    "rmse": 59372.41992953956,
+    "mae": 518.002009093732,
+    "r2": 0.014992263802580341
+  },
+  "training_time_seconds": 1631.9431806999992,
+  "recorded_inference_time_seconds": {
+    "validation": 2.01855599999908,
+    "test": 1.9233304999997927
+  }
+}
