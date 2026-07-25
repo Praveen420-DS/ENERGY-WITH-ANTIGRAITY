@@ -182,3 +182,6 @@
     border-right-color: var(--border);
   }
 }
+.login-error {
+  color: #b91c1c;
+}

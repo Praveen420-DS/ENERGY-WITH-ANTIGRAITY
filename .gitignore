@@ -55,6 +55,9 @@ data/processed/*
 # Docker
 # ========================
 *.log
+!reports/week3_integration.log
+!reports/week4_deployment_readiness.log
+!reports/security_audit.log
 docker/mongo/data/
 
 # ========================
@@ -73,3 +76,6 @@ Thumbs.db
 .coverage
 htmlcov/
 .pytest_cache/
+
+# Generated validation logs
+reports/*.log

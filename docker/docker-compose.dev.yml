@@ -3,25 +3,37 @@
 # ================================================
 # Usage: docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
 
-version: "3.9"
-
 services:
 
   backend:
     volumes:
-      - ../backend:/app
+      - ../backend/app:/app/app
+      - ../backend/tasks:/app/tasks
+      - ../ml_service:/app/ml_service
+      - ../scripts:/app/scripts
+      - ../models/production:/app/models/production:ro
     command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
     environment:
       - DEBUG=true
       - APP_ENV=development
+      - API_DOCS_ENABLED=true
 
   celery-worker:
     volumes:
-      - ../backend:/app
+      - ../backend/app:/app/app
+      - ../backend/tasks:/app/tasks
       - ../ml_service:/app/ml_service
+      - ../scripts:/app/scripts
+      - ../models/production:/app/models/production:ro
     command: celery -A tasks.celery_app worker --loglevel=debug
     environment:
       - DEBUG=true
+
+  migrate:
+    volumes:
+      - ../backend/app:/app/app
+      - ../backend/alembic:/app/alembic
+      - ../backend/alembic.ini:/app/alembic.ini:ro
 
   frontend:
     volumes:

@@ -1,0 +1,156 @@
+button,
+input,
+select { font: inherit; }
+button { cursor: pointer; }
+.dashboard { min-height: 100vh; text-align: left; background: #f7f7fa; }
+.dashboard-layout { display: grid; grid-template-columns: 190px minmax(0, 1fr); }
+.sidebar {
+  min-height: calc(100vh - 72px);
+  padding: 24px 14px;
+  border-right: 1px solid var(--border);
+  background: var(--bg);
+}
+.sidebar-menu { display: grid; gap: 8px; }
+.sidebar-item {
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 8px;
+  color: var(--text);
+  background: transparent;
+  text-align: left;
+}
+.sidebar-item.active { color: var(--accent); background: var(--accent-bg); }
+.sidebar-icon { margin-right: 8px; }
+.dashboard-main { min-width: 0; padding: 28px; }
+.dashboard-header h1,
+.prediction-intro h1 {
+  margin: 0 0 8px;
+  font-size: clamp(28px, 4vw, 42px);
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 28px 0;
+}
+.dashboard-section,
+.prediction-form,
+.prediction-result {
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg);
+  box-shadow: var(--shadow);
+}
+.prediction-intro { max-width: 720px; margin-bottom: 24px; }
+.prediction-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(280px, 0.8fr);
+  gap: 20px;
+  align-items: start;
+}
+.prediction-form-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: start;
+  margin-bottom: 22px;
+}
+.prediction-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.prediction-grid label {
+  display: grid;
+  gap: 5px;
+  color: var(--text-h);
+  font-size: 15px;
+  font-weight: 600;
+}
+.prediction-grid input,
+.prediction-grid select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-h);
+  background: var(--bg);
+}
+.prediction-grid input:focus,
+.prediction-grid select:focus {
+  outline: 2px solid var(--accent-border);
+  border-color: var(--accent);
+}
+.prediction-grid small { color: var(--text); font-size: 12px; font-weight: 400; }
+.field-error { color: #b42318; font-size: 12px; font-weight: 500; }
+.prediction-actions { display: flex; gap: 10px; margin-top: 24px; }
+.primary-button,
+.secondary-button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--accent);
+}
+.primary-button { color: white; background: var(--accent); }
+.secondary-button { color: var(--accent); background: transparent; }
+button:disabled { cursor: not-allowed; opacity: 0.6; }
+.prediction-result { position: sticky; top: 20px; }
+.result-eyebrow {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.result-value {
+  margin: 10px 0;
+  color: var(--text-h);
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 700;
+  line-height: 1;
+}
+.unit-note { font-size: 13px; }
+.result-details { display: grid; gap: 10px; margin: 24px 0 0; }
+.result-details div {
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr);
+  gap: 8px;
+}
+.result-details dt { color: var(--text); }
+.result-details dd {
+  margin: 0;
+  color: var(--text-h);
+  overflow-wrap: anywhere;
+}
+.request-id { font-family: var(--mono); font-size: 12px; }
+.prediction-warnings {
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: 8px;
+  background: #fff8e6;
+  color: #6b4f00;
+}
+.prediction-warnings ul { margin-bottom: 0; padding-left: 20px; }
+.error-state { border-color: #f1a8a3; background: #fff5f4; }
+
+@media (max-width: 850px) {
+  .dashboard-layout,
+  .prediction-layout { grid-template-columns: 1fr; }
+  .sidebar {
+    min-height: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-menu { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .prediction-result { position: static; }
+}
+
+@media (max-width: 600px) {
+  .dashboard-main { padding: 18px; }
+  .prediction-grid,
+  .stats-grid { grid-template-columns: 1fr; }
+  .sidebar-menu { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .prediction-form-heading { flex-direction: column; }
+}

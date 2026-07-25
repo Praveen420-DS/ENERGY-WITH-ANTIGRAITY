@@ -18,8 +18,6 @@ function Login({ onLogin }) {
             // Call backend login API
             const data = await loginUser(email, password);
 
-            console.log("Login response:", data);
-
             // Check if access token exists
             if (data.access_token) {
 
@@ -28,8 +26,6 @@ function Login({ onLogin }) {
                     "access_token",
                     data.access_token
                 );
-
-                console.log("JWT token saved successfully");
 
                 // Tell App.jsx login was successful
                 if (onLogin) {
@@ -41,8 +37,6 @@ function Login({ onLogin }) {
             }
 
         } catch (error) {
-
-            console.error("Login error:", error);
 
             if (error.response) {
                 setError(
@@ -119,7 +113,7 @@ function Login({ onLogin }) {
 
 
             {error && (
-                <p style={{ color: "red" }}>
+                <p className="login-error" role="alert">
                     {error}
                 </p>
             )}

@@ -6,10 +6,10 @@ An intelligent, data-driven system that leverages machine learning to accurately
 
 | Layer | Technology |
 |-------|-----------|
-| Frontend | React 18 + Vite |
-| Backend | FastAPI (Python 3.11+) |
+| Frontend | React 19 + Vite |
+| Backend | FastAPI (Python 3.12) |
 | Database | PostgreSQL 16 |
-| ML Engine | Python + XGBoost |
+| ML Engine | scikit-learn Random Forest production pipeline |
 | Auth | JWT |
 | Deployment | Docker + Docker Compose |
 | Task Queue | Celery + Redis |
@@ -52,8 +52,10 @@ docker compose -f docker/docker-compose.yml up --build
 # Frontend
 cd frontend && npm install && npm run dev
 
-# Backend
-cd backend && pip install -r requirements.txt && uvicorn app.main:app --reload
+# Backend (run from the project root so ML modules are importable)
+pip install -r backend/requirements.txt
+set PYTHONPATH=%CD%\backend;%CD%
+uvicorn app.main:app --reload --port 8000
 
 # ML Service
 cd ml_service && pip install -r requirements.txt
@@ -63,6 +65,21 @@ cd ml_service && pip install -r requirements.txt
 - [System Design](docs/system_design.md)
 - [API Reference](docs/api_reference.md)
 - [Deployment Guide](docs/deployment_guide.md)
+- [Production Model Card](models/production/v1.0.0/model_card.md)
+- [Week 3 Integration Report](reports/week3_integration_report.md)
+- [Week 4 Deployment Readiness Report](reports/week4_deployment_readiness_report.md)
+
+## Validated local deployment
+
+```powershell
+Copy-Item .env.example .env
+# Replace every placeholder secret in .env.
+docker compose -f docker/docker-compose.yml up -d --build
+Invoke-RestMethod http://localhost/api/predictions/health
+```
+
+Open <http://localhost/>. See the deployment guide for migrations, health,
+backup/restore, recovery, and production-like override commands.
 
 ## License
 This project is developed as a final-year engineering project.

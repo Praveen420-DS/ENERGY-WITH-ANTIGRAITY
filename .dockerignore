@@ -1,0 +1,17 @@
+.git
+.github
+.venv
+.pytest_cache
+**/__pycache__
+**/*.py[cod]
+**/node_modules
+frontend/dist
+data
+notebooks
+reports/*
+!reports/week2_baseline_metrics.json
+!reports/week2_advanced_metrics.json
+docs
+.env
+*.log
+*.mmap

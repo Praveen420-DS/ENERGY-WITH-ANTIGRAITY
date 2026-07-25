@@ -15,11 +15,18 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - frontend_build:/usr/share/nginx/html
     depends_on:
-      - backend
-      - frontend
+      backend:
+        condition: service_healthy
+      frontend:
+        condition: service_completed_successfully
     networks:
       - eps-network
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://127.0.0.1/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   # --- Frontend (React) ---
   frontend:
@@ -31,56 +38,115 @@ services:
       - frontend_build:/output
     networks:
       - eps-network
+    restart: "no"
 
   # --- Backend (FastAPI) ---
   backend:
     build:
-      context: ../backend
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: backend/Dockerfile
     container_name: eps-backend
     env_file:
       - ../.env
     ports:
       - "8000:8000"
     depends_on:
-      postgres:
-        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
       redis:
-        condition: service_started
+        condition: service_healthy
     networks:
       - eps-network
     restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/predictions/health', timeout=5)",
+        ]
+      interval: 10s
+      timeout: 6s
+      retries: 6
+      start_period: 30s
+
+  # --- Database Migrations ---
+  migrate:
+    build:
+      context: ..
+      dockerfile: backend/Dockerfile
+    env_file:
+      - ../.env
+    command: alembic upgrade head
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - eps-network
+    restart: "no"
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
 
   # --- Celery Worker ---
   celery-worker:
     build:
-      context: ../backend
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: backend/Dockerfile
     container_name: eps-celery-worker
     command: celery -A tasks.celery_app:celery_app worker --loglevel=info
     env_file:
       - ../.env
     depends_on:
-      - postgres
-      - redis
+      migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
     networks:
       - eps-network
     restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
 
   # --- Celery Beat (Scheduler) ---
   celery-beat:
     build:
-      context: ../backend
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: backend/Dockerfile
     container_name: eps-celery-beat
-    command: celery -A tasks.celery_app:celery_app beat --loglevel=info
+    command: celery -A tasks.celery_app:celery_app beat --loglevel=info --schedule=/tmp/celerybeat-schedule
     env_file:
       - ../.env
     depends_on:
-      - redis
+      redis:
+        condition: service_healthy
     networks:
       - eps-network
     restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
 
   # --- PostgreSQL ---
   postgres:
@@ -100,7 +166,8 @@ services:
       test: [ "CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\"" ]
       interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 12
+      start_period: 10s
 
   # --- Redis ---
   redis:
@@ -113,6 +180,11 @@ services:
     networks:
       - eps-network
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
 
 volumes:
   postgres_data:

@@ -1,0 +1,84 @@
+{
+  "generated_at": "2026-07-25T16:20:00Z",
+  "status": "CONDITIONALLY READY FOR DEPLOYMENT",
+  "completion_percentage": 96,
+  "production_model": {
+    "version": "v1.0.0",
+    "sha256": "67f244e576cb2b2b161a04f72499e5b00d2ac2361669561472edee5a14bff507",
+    "checksums": "passed",
+    "load_count": 1
+  },
+  "docker": {
+    "cli": "29.6.1",
+    "engine": "29.6.1",
+    "desktop": "4.82.0",
+    "context": "desktop-linux",
+    "os_type": "linux",
+    "compose": "5.3.0",
+    "base_config": "passed",
+    "development_config": "passed",
+    "production_config": "passed",
+    "backend_image": "passed",
+    "frontend_image": "passed"
+  },
+  "services": {
+    "postgres": "healthy",
+    "redis": "healthy",
+    "migration": "exited_0",
+    "backend": "healthy",
+    "frontend_initializer": "exited_0",
+    "nginx": "healthy",
+    "celery_worker": "running",
+    "celery_beat": "running"
+  },
+  "predictions": {
+    "direct_host": 174.33691959802735,
+    "direct_container": 174.33691959802735,
+    "http_api": 174.33691959802735,
+    "frontend_display_expected": 174.3369,
+    "direct_container_absolute_difference": 0.0,
+    "direct_api_absolute_difference": 0.0,
+    "maximum_concurrent_absolute_difference": 2.842170943040401e-14
+  },
+  "tests": {
+    "backend": {"passed": 28, "failed": 0},
+    "database_backed": {"passed": 4, "failed": 0},
+    "frontend": {"passed": 8, "failed": 0},
+    "week2_host": {"passed": 29, "failed": 1},
+    "week2_failure_class": "inherited_exact_bit_assertion_with_sub_ulp_variation",
+    "frontend_lint": "passed",
+    "frontend_build": "passed"
+  },
+  "performance": {
+    "warm_http_requests": 100,
+    "p50_ms": 53.10,
+    "p95_ms": 55.55,
+    "p99_ms": 71.44,
+    "concurrency": {
+      "5": "5_passed",
+      "10": "10_passed",
+      "20": "20_passed"
+    },
+    "backend_memory_mib": 245.9
+  },
+  "security": {
+    "npm_audit_vulnerabilities": 0,
+    "python_pip_check": "passed",
+    "backend_non_root": true,
+    "model_artifact_read_only": true,
+    "rate_limit": "passed",
+    "security_headers": "passed",
+    "placeholder_production_secret_rejected": true
+  },
+  "recovery": {
+    "backend_down_api_status": 502,
+    "frontend_static_status": 200,
+    "backend_restored_ready": true,
+    "destructive_volume_operations": 0
+  },
+  "blockers": [
+    "No controllable browser was available for visual end-to-end validation.",
+    "Week 2 exact-bit determinism assertion intermittently differs by 2.84e-14."
+  ],
+  "ci": "not_added_optional"
+}

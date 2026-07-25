@@ -18,42 +18,42 @@
     "response_contract": true,
     "source_package_prediction_parity": true
   },
-  "cold_load_seconds": 1.464579200001026,
+  "cold_load_seconds": 1.333861999999499,
   "warm_latency": {
     "1": {
-      "median_seconds": 0.04111209999973653,
-      "p95_seconds": 0.04140399999923829,
-      "throughput_records_per_second": 24.323739239941734
+      "median_seconds": 0.05367420000038692,
+      "p95_seconds": 0.0688709199996083,
+      "throughput_records_per_second": 18.630925099820608
     },
     "10": {
-      "median_seconds": 0.04125869999916176,
-      "p95_seconds": 0.04269800000001851,
-      "throughput_records_per_second": 242.37312373398012
+      "median_seconds": 0.040778899998258566,
+      "p95_seconds": 0.06264271999898482,
+      "throughput_records_per_second": 245.22485894487204
     },
     "100": {
-      "median_seconds": 0.0443422999996983,
-      "p95_seconds": 0.0455508800001553,
-      "throughput_records_per_second": 2255.1829742859613
+      "median_seconds": 0.04820079999990412,
+      "p95_seconds": 0.05254379999969387,
+      "throughput_records_per_second": 2074.6543625873205
     },
     "1000": {
-      "median_seconds": 0.06109250000008615,
-      "p95_seconds": 0.09756166000115626,
-      "throughput_records_per_second": 16368.621352843473
+      "median_seconds": 0.06692600000314997,
+      "p95_seconds": 0.10626258000120287,
+      "throughput_records_per_second": 14941.876101260103
     }
   },
-  "process_rss_mb": 312.51171875,
+  "process_rss_mb": 306.4765625,
   "example_prediction": {
     "predicted_meter_reading": 174.33691959802735,
     "model_version": "v1.0.0",
-    "prediction_timestamp": "2026-07-25T13:41:07.716991+00:00",
+    "prediction_timestamp": "2026-07-25T17:25:53.394822+00:00",
     "input_timestamp": "2016-07-15 14:00:00",
     "warnings": [],
     "units": "Meter-dependent; meter codes may represent electricity, chilled water, steam, or hot water."
   },
   "unknown_category_prediction": {
-    "predicted_meter_reading": 93.99821592672693,
+    "predicted_meter_reading": 93.99821592672694,
     "model_version": "v1.0.0",
-    "prediction_timestamp": "2026-07-25T13:41:07.881645+00:00",
+    "prediction_timestamp": "2026-07-25T17:25:53.580090+00:00",
     "input_timestamp": "2016-07-15 14:00:00",
     "warnings": [
       "Unknown primary_use encoded as all-zero one-hot values.",

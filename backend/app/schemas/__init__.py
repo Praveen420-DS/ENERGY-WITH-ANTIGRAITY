@@ -3,7 +3,12 @@ from app.schemas.anomaly import AnomalyRead
 from app.schemas.energy import EnergyRecordCreate, EnergyRecordRead, EnergySummary
 from app.schemas.meter import MeterCreate, MeterRead
 from app.schemas.model_registry import ModelInfoRead
-from app.schemas.prediction import PredictionRead, PredictionRequest
+from app.schemas.prediction import (
+    ModelReadinessResponse,
+    PredictionRead,
+    ProductionPredictionRequest,
+    ProductionPredictionResponse,
+)
 from app.schemas.user import TokenResponse, UserCreate, UserRead
 
 __all__ = [
@@ -15,7 +20,9 @@ __all__ = [
     "EnergyRecordCreate",
     "EnergyRecordRead",
     "EnergySummary",
-    "PredictionRequest",
+    "ProductionPredictionRequest",
+    "ProductionPredictionResponse",
+    "ModelReadinessResponse",
     "PredictionRead",
     "AnomalyRead",
     "AlertConfigCreate",

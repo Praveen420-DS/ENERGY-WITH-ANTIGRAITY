@@ -1,0 +1,59 @@
+{
+  "timestamp": "2026-07-25T17:30:00+05:30",
+  "branch": "main",
+  "commit": "a57edd2",
+  "environment": "development-runtime-and-production-config-audit",
+  "model_version": "v1.0.0",
+  "model_sha256": "67f244e576cb2b2b161a04f72499e5b00d2ac2361669561472edee5a14bff507",
+  "total_findings": 12,
+  "findings_by_severity": {
+    "critical": 0,
+    "high": 0,
+    "medium": 5,
+    "low": 5,
+    "informational": 2
+  },
+  "findings_resolved": 9,
+  "findings_remaining": 3,
+  "csp_status": "passed-route-specific-single-header",
+  "swagger_self_host_status": "passed-pinned-5.30.3",
+  "external_swagger_request_count": 0,
+  "docs_development_status": "enabled-and-passed",
+  "docs_production_status": "disabled-by-default-and-tested",
+  "jwt_status": "passed-explicit-hs256-expiry-and-generic-errors",
+  "password_hashing_status": "passed-existing-bcrypt-with-72-byte-bound",
+  "cors_status": "passed-explicit-validated-origins",
+  "nginx_header_status": "passed",
+  "exposed_production_ports": [80],
+  "secret_scan_status": "passed-no-secret-in-source-history-image-or-bundle",
+  "dependency_audit_status": "pip-check-passed-npm-audit-zero-at-successful-run",
+  "container_security_status": "passed-with-database-and-redis-recommendations",
+  "backend_security_tests": {
+    "status": "passed",
+    "passed": 17,
+    "total": 17,
+    "included_in_backend_total": 45
+  },
+  "frontend_security_tests": {
+    "status": "passed",
+    "passed": 14,
+    "total": 14
+  },
+  "backend_regression_tests": {
+    "status": "passed",
+    "passed": 45,
+    "total": 45
+  },
+  "production_model_tests": {
+    "status": "passed-user-verified",
+    "passed": 30,
+    "total": 30
+  },
+  "e2e_registration_result": "passed-201",
+  "e2e_login_result": "passed-200",
+  "e2e_prediction_result": "passed-200-174.33691959802732",
+  "unauthorized_test_result": "passed-401",
+  "artifact_integrity_result": "passed-user-verified-sha-and-checksums",
+  "browser_csp_console_result": "blocked-no-browser-attached",
+  "final_security_readiness": "conditionally-ready-for-controlled-deployment"
+}
