@@ -1,0 +1,1 @@
+CREATE DATABASE energy_prediction_test;

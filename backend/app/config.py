@@ -16,6 +16,11 @@ class Settings(BaseSettings):
         validation_alias="DATABASE_URL",
     )
 
+    test_database_url: str | None = Field(
+        default=None,
+        validation_alias="TEST_DATABASE_URL",
+    )
+
     redis_url: str = Field(
         default="redis://redis:6379/0",
         validation_alias="REDIS_URL",
@@ -31,6 +36,8 @@ class Settings(BaseSettings):
         validation_alias="CELERY_RESULT_BACKEND",
     )
 
-    jwt_secret_key: str = "CHANGE_ME"
-    jwt_algorithm: str = "HS256"
-    jwt_expiration_minutes: int = 60
+    jwt_secret_key: str = Field(default="CHANGE_ME", validation_alias="JWT_SECRET_KEY")
+    jwt_algorithm: str = Field(default="HS256", validation_alias="JWT_ALGORITHM")
+    jwt_expiration_minutes: int = Field(
+        default=60, validation_alias="JWT_EXPIRATION_MINUTES"
+    )

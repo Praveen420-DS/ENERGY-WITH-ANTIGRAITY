@@ -1,0 +1,702 @@
+{
+  "model": "catboost",
+  "target_strategy": "log",
+  "parameters": {
+    "iterations": 450,
+    "learning_rate": 0.06,
+    "depth": 8,
+    "l2_leaf_reg": 5,
+    "loss_function": "RMSE",
+    "od_wait": 30,
+    "od_type": "Iter",
+    "thread_count": 6,
+    "random_seed": 42,
+    "verbose": false,
+    "random_strength": 1,
+    "allow_writing_files": false,
+    "task_type": "CPU",
+    "bootstrap_type": "Bernoulli",
+    "subsample": 0.8
+  },
+  "training_rows": 13358457,
+  "validation_rows": 3441800,
+  "training_duration_seconds": 2280.558876699999,
+  "validation_inference_seconds": 4.192906399999629,
+  "best_iteration": 449,
+  "rss_before_mb": 5142.64,
+  "rss_after_mb": 5149.66,
+  "validation": {
+    "rmse": 8754.261687563567,
+    "mae": 408.78569714601025,
+    "r2": 0.013286580657631664,
+    "rmsle": 1.413148255318992,
+    "log_rmse": 1.413148255318992,
+    "median_absolute_error": 38.8436260959288,
+    "negative_prediction_percentage_before_clipping": 0.06711604393050148
+  },
+  "status": "completed",
+  "test": {
+    "rmse": 59791.497677110965,
+    "mae": 533.9449540056759,
+    "r2": 0.0010379169379587383,
+    "rmsle": 1.3814409506174181,
+    "log_rmse": 1.3814409506174181,
+    "median_absolute_error": 36.55852781849476,
+    "negative_prediction_percentage_before_clipping": 0.020551295829462888
+  },
+  "test_inference_seconds": 3.4034694000001764,
+  "training_coverage": "full",
+  "predictors": [
+    "meter",
+    "primary_use",
+    "square_feet",
+    "year_built",
+    "floor_count",
+    "air_temperature",
+    "cloud_coverage",
+    "dew_temperature",
+    "precip_depth_1_hr",
+    "sea_level_pressure",
+    "wind_direction",
+    "wind_speed",
+    "hour",
+    "day_of_week",
+    "day_of_month",
+    "day_of_year",
+    "week_of_year",
+    "month",
+    "quarter",
+    "is_weekend",
+    "hour_sin",
+    "hour_cos",
+    "day_of_week_sin",
+    "day_of_week_cos",
+    "month_sin",
+    "month_cos",
+    "building_age_2016",
+    "log_square_feet",
+    "square_feet_per_floor",
+    "temperature_difference",
+    "relative_humidity",
+    "wind_direction_sin",
+    "wind_direction_cos",
+    "is_precipitating",
+    "is_freezing",
+    "is_hot",
+    "heating_degree_proxy",
+    "cooling_degree_proxy",
+    "log_square_feet_x_air_temperature",
+    "building_age_x_air_temperature",
+    "heating_degree_x_log_square_feet",
+    "cooling_degree_x_log_square_feet"
+  ],
+  "categorical_strategy": "native string categorical features",
+  "subgroup_metrics": {
+    "validation": {
+      "by_meter": {
+        "0": {
+          "rows": 2045185,
+          "rmse": 254.45383755552595,
+          "mae": 89.96950555230904
+        },
+        "1": {
+          "rows": 716363,
+          "rmse": 18941.22114862582,
+          "mae": 1091.7127249056
+        },
+        "2": {
+          "rows": 468518,
+          "rmse": 3446.4666841682515,
+          "mae": 829.3599439386996
+        },
+        "3": {
+          "rows": 211734,
+          "rmse": 2240.1856236286503,
+          "mae": 247.110356665991
+        }
+      },
+      "by_site": {
+        "0": {
+          "rows": 182841,
+          "rmse": 1284.8837529482214,
+          "mae": 562.7323722136163
+        },
+        "1": {
+          "rows": 92228,
+          "rmse": 112.68390061730713,
+          "mae": 62.47000026591735
+        },
+        "2": {
+          "rows": 422698,
+          "rmse": 213.20448998409236,
+          "mae": 86.17452876286703
+        },
+        "3": {
+          "rows": 395941,
+          "rmse": 121.23677310172586,
+          "mae": 52.93427257700822
+        },
+        "4": {
+          "rows": 129945,
+          "rmse": 106.29403377335466,
+          "mae": 60.825488946393925
+        },
+        "5": {
+          "rows": 130296,
+          "rmse": 41.85676737005883,
+          "mae": 16.226933963135462
+        },
+        "6": {
+          "rows": 114259,
+          "rmse": 45936.512797047755,
+          "mae": 4053.458734097313
+        },
+        "7": {
+          "rows": 61488,
+          "rmse": 1111.4476020363254,
+          "mae": 607.063980042831
+        },
+        "8": {
+          "rows": 100526,
+          "rmse": 124.41293445743356,
+          "mae": 35.76990263396478
+        },
+        "9": {
+          "rows": 446922,
+          "rmse": 843.9842486140221,
+          "mae": 161.87366402224472
+        },
+        "10": {
+          "rows": 67842,
+          "rmse": 3884.3486916751094,
+          "mae": 379.6521843816368
+        },
+        "11": {
+          "rows": 19496,
+          "rmse": 135.1992562825792,
+          "mae": 86.27015887954637
+        },
+        "12": {
+          "rows": 52651,
+          "rmse": 86.17186794208646,
+          "mae": 51.85990132737487
+        },
+        "13": {
+          "rows": 452086,
+          "rmse": 6683.133579623454,
+          "mae": 812.2205992975449
+        },
+        "14": {
+          "rows": 417602,
+          "rmse": 1251.4086580290023,
+          "mae": 481.9415986085648
+        },
+        "15": {
+          "rows": 354979,
+          "rmse": 438.8982546602141,
+          "mae": 157.38835018062392
+        }
+      },
+      "by_primary_use": {
+        "Education": {
+          "rows": 1384880,
+          "rmse": 3437.484498580763,
+          "mae": 337.7246711347192
+        },
+        "Entertainment/public assembly": {
+          "rows": 388270,
+          "rmse": 24971.83003296849,
+          "mae": 1303.882147496252
+        },
+        "Food sales and service": {
+          "rows": 19029,
+          "rmse": 642.9739949723328,
+          "mae": 240.6993425312315
+        },
+        "Healthcare": {
+          "rows": 66727,
+          "rmse": 1138.1199393005008,
+          "mae": 488.73816200363143
+        },
+        "Lodging/residential": {
+          "rows": 371593,
+          "rmse": 994.0849851533668,
+          "mae": 193.96499683458163
+        },
+        "Manufacturing/industrial": {
+          "rows": 21891,
+          "rmse": 257.2056927247594,
+          "mae": 129.87291991020126
+        },
+        "Office": {
+          "rows": 746850,
+          "rmse": 1794.6506053959627,
+          "mae": 274.6859850339325
+        },
+        "Other": {
+          "rows": 40583,
+          "rmse": 291.93853328405453,
+          "mae": 83.4866558503049
+        },
+        "Parking": {
+          "rows": 36589,
+          "rmse": 225.90359548604667,
+          "mae": 62.98752252928668
+        },
+        "Public services": {
+          "rows": 282297,
+          "rmse": 812.0056873792068,
+          "mae": 164.4809363022702
+        },
+        "Religious worship": {
+          "rows": 5833,
+          "rmse": 4.55834027139072,
+          "mae": 2.943387650791609
+        },
+        "Retail": {
+          "rows": 18928,
+          "rmse": 413.22882173998994,
+          "mae": 176.1825662066864
+        },
+        "Services": {
+          "rows": 16084,
+          "rmse": 11744.530109426023,
+          "mae": 3548.2614645015387
+        },
+        "Technology/science": {
+          "rows": 13148,
+          "rmse": 177.67740805553638,
+          "mae": 47.992967980409055
+        },
+        "Utility": {
+          "rows": 10155,
+          "rmse": 338.9554977837576,
+          "mae": 203.21840791604774
+        },
+        "Warehouse/storage": {
+          "rows": 18943,
+          "rmse": 40.53782535364697,
+          "mae": 25.834857535406446
+        }
+      },
+      "by_target_decile": {
+        "0": {
+          "rows": 344180,
+          "rmse": 182.35057665748909,
+          "mae": 63.814842205814784
+        },
+        "1": {
+          "rows": 344180,
+          "rmse": 51.28116184238684,
+          "mae": 15.293674292917848
+        },
+        "2": {
+          "rows": 344180,
+          "rmse": 40.722393342472735,
+          "mae": 17.274867305048787
+        },
+        "3": {
+          "rows": 344180,
+          "rmse": 46.64822838129489,
+          "mae": 24.77285094307841
+        },
+        "4": {
+          "rows": 344180,
+          "rmse": 60.987051052484645,
+          "mae": 34.96812413128129
+        },
+        "5": {
+          "rows": 344180,
+          "rmse": 83.13373617886268,
+          "mae": 51.50904491373775
+        },
+        "6": {
+          "rows": 344180,
+          "rmse": 110.73544785371577,
+          "mae": 81.87177811099427
+        },
+        "7": {
+          "rows": 344180,
+          "rmse": 173.86488465223513,
+          "mae": 142.8518737919393
+        },
+        "8": {
+          "rows": 344180,
+          "rmse": 356.26887085331356,
+          "mae": 305.23664110033803
+        },
+        "9": {
+          "rows": 344180,
+          "rmse": 27679.436619956385,
+          "mae": 3350.263274664952
+        }
+      },
+      "zero_vs_nonzero": {
+        "zero": {
+          "rows": 281329,
+          "mae": 73.81609136973103
+        },
+        "nonzero": {
+          "rows": 3160471,
+          "mae": 438.6029820454556
+        }
+      },
+      "high_consumption": {
+        "threshold": 38625.0,
+        "rows": 3046,
+        "rmse": 292293.15797994594,
+        "mae": 188663.3948451244
+      },
+      "building_error_summary": {
+        "building_count": 1445,
+        "median_building_mae": 45.29166780427587,
+        "maximum_building_mae": 151657.70434230645
+      }
+    },
+    "test": {
+      "by_meter": {
+        "0": {
+          "rows": 2023232,
+          "rmse": 326.0976749770038,
+          "mae": 92.76741282075405
+        },
+        "1": {
+          "rows": 717484,
+          "rmse": 2657.2228848138916,
+          "mae": 239.50135912175998
+        },
+        "2": {
+          "rows": 463756,
+          "rmse": 162219.86266819853,
+          "mae": 2914.3915398608374
+        },
+        "3": {
+          "rows": 211371,
+          "rmse": 3484.2166243085303,
+          "mae": 533.5508619518794
+        }
+      },
+      "by_site": {
+        "0": {
+          "rows": 186996,
+          "rmse": 901.6216814551493,
+          "mae": 464.5430417717314
+        },
+        "1": {
+          "rows": 92231,
+          "rmse": 130.86288330610944,
+          "mae": 76.14551788123633
+        },
+        "2": {
+          "rows": 421553,
+          "rmse": 165.3205108693686,
+          "mae": 67.81561025782702
+        },
+        "3": {
+          "rows": 394853,
+          "rmse": 119.38262784580435,
+          "mae": 49.477859226180506
+        },
+        "4": {
+          "rows": 132037,
+          "rmse": 115.50213420991128,
+          "mae": 61.50572274385299
+        },
+        "5": {
+          "rows": 130296,
+          "rmse": 42.63415285877659,
+          "mae": 18.566321109156277
+        },
+        "6": {
+          "rows": 115142,
+          "rmse": 651.289889597679,
+          "mae": 250.9609375799088
+        },
+        "7": {
+          "rows": 61488,
+          "rmse": 1949.4847812963262,
+          "mae": 978.0873405554003
+        },
+        "8": {
+          "rows": 87374,
+          "rmse": 137.5818577782,
+          "mae": 36.25391740347662
+        },
+        "9": {
+          "rows": 447512,
+          "rmse": 344.58436691937476,
+          "mae": 138.04080426252122
+        },
+        "10": {
+          "rows": 67106,
+          "rmse": 5928.286378799315,
+          "mae": 713.7017914668812
+        },
+        "11": {
+          "rows": 20444,
+          "rmse": 111.55145821810119,
+          "mae": 75.13394945012053
+        },
+        "12": {
+          "rows": 52657,
+          "rmse": 87.9791961231605,
+          "mae": 52.749447357980934
+        },
+        "13": {
+          "rows": 452255,
+          "rmse": 164298.00262362385,
+          "mae": 2648.0572597381442
+        },
+        "14": {
+          "rows": 418211,
+          "rmse": 1108.13001651541,
+          "mae": 423.12476417421004
+        },
+        "15": {
+          "rows": 335688,
+          "rmse": 843.84689287111,
+          "mae": 269.8270772476264
+        }
+      },
+      "by_primary_use": {
+        "Education": {
+          "rows": 1379020,
+          "rmse": 94075.74311321642,
+          "mae": 899.3566721760749
+        },
+        "Entertainment/public assembly": {
+          "rows": 384385,
+          "rmse": 2522.746124511277,
+          "mae": 259.3997919779299
+        },
+        "Food sales and service": {
+          "rows": 19009,
+          "rmse": 635.2624060574756,
+          "mae": 256.54110379956575
+        },
+        "Healthcare": {
+          "rows": 66642,
+          "rmse": 1986.6104272094449,
+          "mae": 671.6060101545278
+        },
+        "Lodging/residential": {
+          "rows": 368467,
+          "rmse": 1063.4854620892577,
+          "mae": 255.5979212546116
+        },
+        "Manufacturing/industrial": {
+          "rows": 21527,
+          "rmse": 512.9450755954429,
+          "mae": 233.00644009289738
+        },
+        "Office": {
+          "rows": 741998,
+          "rmse": 1333.0857330102294,
+          "mae": 282.7318216623791
+        },
+        "Other": {
+          "rows": 40085,
+          "rmse": 443.13542379058686,
+          "mae": 139.63090853063736
+        },
+        "Parking": {
+          "rows": 36585,
+          "rmse": 885.9600883533773,
+          "mae": 204.52994277922173
+        },
+        "Public services": {
+          "rows": 276116,
+          "rmse": 803.8825901701626,
+          "mae": 168.58706881129808
+        },
+        "Religious worship": {
+          "rows": 5664,
+          "rmse": 3.2142107550121994,
+          "mae": 2.2233126111915102
+        },
+        "Retail": {
+          "rows": 19031,
+          "rmse": 400.2664944334307,
+          "mae": 155.75274603250193
+        },
+        "Services": {
+          "rows": 16104,
+          "rmse": 12143.500338325499,
+          "mae": 3661.31677195598
+        },
+        "Technology/science": {
+          "rows": 12865,
+          "rmse": 186.7007066889565,
+          "mae": 84.4705731621658
+        },
+        "Utility": {
+          "rows": 9764,
+          "rmse": 334.5457369726169,
+          "mae": 209.390011956083
+        },
+        "Warehouse/storage": {
+          "rows": 18581,
+          "rmse": 65.68677456366802,
+          "mae": 33.21603191867869
+        }
+      },
+      "by_target_decile": {
+        "0": {
+          "rows": 341585,
+          "rmse": 148.86813887682152,
+          "mae": 43.21899958502918
+        },
+        "1": {
+          "rows": 341584,
+          "rmse": 50.83039231929064,
+          "mae": 13.573635345051263
+        },
+        "2": {
+          "rows": 341584,
+          "rmse": 53.445851621949,
+          "mae": 17.848031812733684
+        },
+        "3": {
+          "rows": 341584,
+          "rmse": 48.99740928708852,
+          "mae": 24.050316343531197
+        },
+        "4": {
+          "rows": 341585,
+          "rmse": 64.28048869975099,
+          "mae": 36.72047639299525
+        },
+        "5": {
+          "rows": 341584,
+          "rmse": 86.56003820112193,
+          "mae": 55.346151632362655
+        },
+        "6": {
+          "rows": 341584,
+          "rmse": 127.7504431540234,
+          "mae": 86.87156152130382
+        },
+        "7": {
+          "rows": 341584,
+          "rmse": 192.1352236951574,
+          "mae": 149.25068842738614
+        },
+        "8": {
+          "rows": 341584,
+          "rmse": 381.48698511388784,
+          "mae": 321.22687347923033
+        },
+        "9": {
+          "rows": 341585,
+          "rmse": 189076.48792946083,
+          "mae": 4591.3338196207405
+        }
+      },
+      "zero_vs_nonzero": {
+        "zero": {
+          "rows": 245728,
+          "mae": 50.636979544175865
+        },
+        "nonzero": {
+          "rows": 3170115,
+          "mae": 571.4080434987937
+        }
+      },
+      "high_consumption": {
+        "threshold": 38625.0,
+        "rows": 3890,
+        "rmse": 1771461.9860912692,
+        "mae": 227194.58809179114
+      },
+      "building_error_summary": {
+        "building_count": 1445,
+        "median_building_mae": 46.317176727812225,
+        "maximum_building_mae": 262819.8304359132
+      }
+    }
+  },
+  "feature_importance": [
+    {
+      "feature": "meter",
+      "importance": 27.530856630157537
+    },
+    {
+      "feature": "log_square_feet",
+      "importance": 10.418989847175741
+    },
+    {
+      "feature": "square_feet_per_floor",
+      "importance": 9.843186562938044
+    },
+    {
+      "feature": "square_feet",
+      "importance": 9.44685639190344
+    },
+    {
+      "feature": "primary_use",
+      "importance": 6.258966951921396
+    },
+    {
+      "feature": "day_of_year",
+      "importance": 5.692047594287243
+    },
+    {
+      "feature": "building_age_2016",
+      "importance": 4.7813592769359525
+    },
+    {
+      "feature": "dew_temperature",
+      "importance": 4.3615806178126455
+    },
+    {
+      "feature": "floor_count",
+      "importance": 4.272474127841079
+    },
+    {
+      "feature": "year_built",
+      "importance": 4.109297276772955
+    },
+    {
+      "feature": "log_square_feet_x_air_temperature",
+      "importance": 2.948463455453586
+    },
+    {
+      "feature": "building_age_x_air_temperature",
+      "importance": 1.515699256163896
+    },
+    {
+      "feature": "cloud_coverage",
+      "importance": 1.4048312705427382
+    },
+    {
+      "feature": "heating_degree_proxy",
+      "importance": 1.116483215793624
+    },
+    {
+      "feature": "sea_level_pressure",
+      "importance": 0.931214614549316
+    },
+    {
+      "feature": "air_temperature",
+      "importance": 0.8986457799381165
+    },
+    {
+      "feature": "day_of_month",
+      "importance": 0.606566503734951
+    },
+    {
+      "feature": "heating_degree_x_log_square_feet",
+      "importance": 0.48031764453383985
+    },
+    {
+      "feature": "hour_cos",
+      "importance": 0.4268157794289096
+    },
+    {
+      "feature": "hour",
+      "importance": 0.3827026327481504
+    }
+  ],
+  "importance_type": "prediction-values-change",
+  "feature_importance_plot": "reports/figures/advanced/catboost_feature_importance.png"
+}

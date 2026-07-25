@@ -1,0 +1,781 @@
+{
+  "task": "Week 2 Task 2.4 - Baseline Model Training",
+  "status": "passed",
+  "completion_percentage": 100,
+  "generated_at_utc": "2026-07-25T12:22:45.300933+00:00",
+  "random_state": 42,
+  "dataset": {
+    "path": "data/processed/feature_dataset.parquet",
+    "sha256": "c96c89e9e3ca82892ab86c46906ce9d167eacea92ff512a359590fe4f571572b",
+    "rows": 20216100,
+    "columns": 46,
+    "predictor_count": 42,
+    "schema": [
+      {
+        "name": "building_id",
+        "type": "int64"
+      },
+      {
+        "name": "meter",
+        "type": "int64"
+      },
+      {
+        "name": "timestamp",
+        "type": "timestamp[us]"
+      },
+      {
+        "name": "meter_reading",
+        "type": "double"
+      },
+      {
+        "name": "site_id",
+        "type": "int64"
+      },
+      {
+        "name": "primary_use",
+        "type": "large_string"
+      },
+      {
+        "name": "square_feet",
+        "type": "int64"
+      },
+      {
+        "name": "year_built",
+        "type": "double"
+      },
+      {
+        "name": "floor_count",
+        "type": "double"
+      },
+      {
+        "name": "air_temperature",
+        "type": "double"
+      },
+      {
+        "name": "cloud_coverage",
+        "type": "double"
+      },
+      {
+        "name": "dew_temperature",
+        "type": "double"
+      },
+      {
+        "name": "precip_depth_1_hr",
+        "type": "double"
+      },
+      {
+        "name": "sea_level_pressure",
+        "type": "double"
+      },
+      {
+        "name": "wind_direction",
+        "type": "double"
+      },
+      {
+        "name": "wind_speed",
+        "type": "double"
+      },
+      {
+        "name": "hour",
+        "type": "int8"
+      },
+      {
+        "name": "day_of_week",
+        "type": "int8"
+      },
+      {
+        "name": "day_of_month",
+        "type": "int8"
+      },
+      {
+        "name": "day_of_year",
+        "type": "int16"
+      },
+      {
+        "name": "week_of_year",
+        "type": "int8"
+      },
+      {
+        "name": "month",
+        "type": "int8"
+      },
+      {
+        "name": "quarter",
+        "type": "int8"
+      },
+      {
+        "name": "is_weekend",
+        "type": "bool"
+      },
+      {
+        "name": "hour_sin",
+        "type": "float"
+      },
+      {
+        "name": "hour_cos",
+        "type": "float"
+      },
+      {
+        "name": "day_of_week_sin",
+        "type": "float"
+      },
+      {
+        "name": "day_of_week_cos",
+        "type": "float"
+      },
+      {
+        "name": "month_sin",
+        "type": "float"
+      },
+      {
+        "name": "month_cos",
+        "type": "float"
+      },
+      {
+        "name": "building_age_2016",
+        "type": "int16"
+      },
+      {
+        "name": "log_square_feet",
+        "type": "float"
+      },
+      {
+        "name": "square_feet_per_floor",
+        "type": "float"
+      },
+      {
+        "name": "temperature_difference",
+        "type": "float"
+      },
+      {
+        "name": "relative_humidity",
+        "type": "float"
+      },
+      {
+        "name": "wind_direction_sin",
+        "type": "float"
+      },
+      {
+        "name": "wind_direction_cos",
+        "type": "float"
+      },
+      {
+        "name": "is_precipitating",
+        "type": "bool"
+      },
+      {
+        "name": "is_freezing",
+        "type": "bool"
+      },
+      {
+        "name": "is_hot",
+        "type": "bool"
+      },
+      {
+        "name": "heating_degree_proxy",
+        "type": "float"
+      },
+      {
+        "name": "cooling_degree_proxy",
+        "type": "float"
+      },
+      {
+        "name": "log_square_feet_x_air_temperature",
+        "type": "float"
+      },
+      {
+        "name": "building_age_x_air_temperature",
+        "type": "float"
+      },
+      {
+        "name": "heating_degree_x_log_square_feet",
+        "type": "float"
+      },
+      {
+        "name": "cooling_degree_x_log_square_feet",
+        "type": "float"
+      }
+    ],
+    "missing_values": 0,
+    "duplicate_logical_keys": 0,
+    "invalid_timestamps": 0,
+    "timestamp_min": "2016-01-01 00:00:00",
+    "timestamp_max": "2016-12-31 23:00:00",
+    "task_2_3_report_match": true,
+    "feature_count_consistent": true
+  },
+  "target": "meter_reading",
+  "predictors": [
+    "meter",
+    "primary_use",
+    "square_feet",
+    "year_built",
+    "floor_count",
+    "air_temperature",
+    "cloud_coverage",
+    "dew_temperature",
+    "precip_depth_1_hr",
+    "sea_level_pressure",
+    "wind_direction",
+    "wind_speed",
+    "hour",
+    "day_of_week",
+    "day_of_month",
+    "day_of_year",
+    "week_of_year",
+    "month",
+    "quarter",
+    "is_weekend",
+    "hour_sin",
+    "hour_cos",
+    "day_of_week_sin",
+    "day_of_week_cos",
+    "month_sin",
+    "month_cos",
+    "building_age_2016",
+    "log_square_feet",
+    "square_feet_per_floor",
+    "temperature_difference",
+    "relative_humidity",
+    "wind_direction_sin",
+    "wind_direction_cos",
+    "is_precipitating",
+    "is_freezing",
+    "is_hot",
+    "heating_degree_proxy",
+    "cooling_degree_proxy",
+    "log_square_feet_x_air_temperature",
+    "building_age_x_air_temperature",
+    "heating_degree_x_log_square_feet",
+    "cooling_degree_x_log_square_feet"
+  ],
+  "excluded_columns": {
+    "timestamp": "Used only to define chronological partitions; raw epoch magnitude is not a predictor.",
+    "building_id": "High-cardinality identity could encourage memorization and is not portable to unseen buildings.",
+    "site_id": "Site identity could proxy geography/collection artifacts; weather and building attributes are retained."
+  },
+  "categorical_predictors": [
+    "primary_use",
+    "meter"
+  ],
+  "transformed_feature_count": 60,
+  "transformed_feature_names": [
+    "numeric__square_feet",
+    "numeric__year_built",
+    "numeric__floor_count",
+    "numeric__air_temperature",
+    "numeric__cloud_coverage",
+    "numeric__dew_temperature",
+    "numeric__precip_depth_1_hr",
+    "numeric__sea_level_pressure",
+    "numeric__wind_direction",
+    "numeric__wind_speed",
+    "numeric__hour",
+    "numeric__day_of_week",
+    "numeric__day_of_month",
+    "numeric__day_of_year",
+    "numeric__week_of_year",
+    "numeric__month",
+    "numeric__quarter",
+    "numeric__is_weekend",
+    "numeric__hour_sin",
+    "numeric__hour_cos",
+    "numeric__day_of_week_sin",
+    "numeric__day_of_week_cos",
+    "numeric__month_sin",
+    "numeric__month_cos",
+    "numeric__building_age_2016",
+    "numeric__log_square_feet",
+    "numeric__square_feet_per_floor",
+    "numeric__temperature_difference",
+    "numeric__relative_humidity",
+    "numeric__wind_direction_sin",
+    "numeric__wind_direction_cos",
+    "numeric__is_precipitating",
+    "numeric__is_freezing",
+    "numeric__is_hot",
+    "numeric__heating_degree_proxy",
+    "numeric__cooling_degree_proxy",
+    "numeric__log_square_feet_x_air_temperature",
+    "numeric__building_age_x_air_temperature",
+    "numeric__heating_degree_x_log_square_feet",
+    "numeric__cooling_degree_x_log_square_feet",
+    "categorical__primary_use_Education",
+    "categorical__primary_use_Entertainment/public assembly",
+    "categorical__primary_use_Food sales and service",
+    "categorical__primary_use_Healthcare",
+    "categorical__primary_use_Lodging/residential",
+    "categorical__primary_use_Manufacturing/industrial",
+    "categorical__primary_use_Office",
+    "categorical__primary_use_Other",
+    "categorical__primary_use_Parking",
+    "categorical__primary_use_Public services",
+    "categorical__primary_use_Religious worship",
+    "categorical__primary_use_Retail",
+    "categorical__primary_use_Services",
+    "categorical__primary_use_Technology/science",
+    "categorical__primary_use_Utility",
+    "categorical__primary_use_Warehouse/storage",
+    "categorical__meter_0",
+    "categorical__meter_1",
+    "categorical__meter_2",
+    "categorical__meter_3"
+  ],
+  "splits": {
+    "train": {
+      "start": "2016-01-01 00:00:00",
+      "end": "2016-08-31 23:00:00",
+      "rows": 13358457,
+      "percentage": 66.07830887263123
+    },
+    "validation": {
+      "start": "2016-09-01 00:00:00",
+      "end": "2016-10-31 23:00:00",
+      "rows": 3441800,
+      "percentage": 17.02504439530869
+    },
+    "test": {
+      "start": "2016-11-01 00:00:00",
+      "end": "2016-12-31 23:00:00",
+      "rows": 3415843,
+      "percentage": 16.89664673206009
+    }
+  },
+  "preprocessing_fit_partition": "train",
+  "preprocessing_time_seconds": 206.91720179999993,
+  "models": {
+    "linear_regression": {
+      "model_path": "models/baseline/linear_regression.joblib",
+      "parameters": {
+        "copy_X": false,
+        "fit_intercept": true,
+        "n_jobs": 1,
+        "positive": false,
+        "tol": 1e-06
+      },
+      "training_time_seconds": 22.41186689999995,
+      "inference_time_seconds": {
+        "validation": 0.28356780000012805,
+        "test": 0.20604650000041147
+      },
+      "validation": {
+        "rmse": 13488.747788002931,
+        "mae": 7962.931663174403,
+        "r2": -1.3425844387371284
+      },
+      "test": {
+        "rmse": 60550.04194847276,
+        "mae": 8051.8183451165005,
+        "r2": -0.024469509145459645
+      },
+      "reload_successful": true,
+      "reproducible_predictions": true,
+      "feature_analysis_plot": "reports/figures/baseline/linear_regression_feature_analysis.png",
+      "feature_analysis": [
+        {
+          "feature": "numeric__log_square_feet_x_air_temperature",
+          "value": 202586.78125,
+          "absolute_value": 202586.78125
+        },
+        {
+          "feature": "numeric__heating_degree_x_log_square_feet",
+          "value": 130722.28125,
+          "absolute_value": 130722.28125
+        },
+        {
+          "feature": "numeric__cooling_degree_x_log_square_feet",
+          "value": -115218.0,
+          "absolute_value": 115218.0
+        },
+        {
+          "feature": "numeric__year_built",
+          "value": -49684.68359375,
+          "absolute_value": 49684.68359375
+        },
+        {
+          "feature": "numeric__building_age_2016",
+          "value": -48719.703125,
+          "absolute_value": 48719.703125
+        },
+        {
+          "feature": "numeric__heating_degree_proxy",
+          "value": 42132.3671875,
+          "absolute_value": 42132.3671875
+        },
+        {
+          "feature": "numeric__month",
+          "value": 36535.80859375,
+          "absolute_value": 36535.80859375
+        },
+        {
+          "feature": "numeric__day_of_year",
+          "value": -35928.28125,
+          "absolute_value": 35928.28125
+        },
+        {
+          "feature": "numeric__log_square_feet",
+          "value": -33276.6328125,
+          "absolute_value": 33276.6328125
+        },
+        {
+          "feature": "numeric__air_temperature",
+          "value": 26151.3203125,
+          "absolute_value": 26151.3203125
+        },
+        {
+          "feature": "numeric__dew_temperature",
+          "value": 24827.525390625,
+          "absolute_value": 24827.525390625
+        },
+        {
+          "feature": "numeric__temperature_difference",
+          "value": 20110.591796875,
+          "absolute_value": 20110.591796875
+        },
+        {
+          "feature": "categorical__meter_2",
+          "value": 14069.443359375,
+          "absolute_value": 14069.443359375
+        },
+        {
+          "feature": "numeric__square_feet",
+          "value": 12533.6484375,
+          "absolute_value": 12533.6484375
+        },
+        {
+          "feature": "categorical__primary_use_Parking",
+          "value": -10868.5751953125,
+          "absolute_value": 10868.5751953125
+        },
+        {
+          "feature": "numeric__cooling_degree_proxy",
+          "value": -9200.3232421875,
+          "absolute_value": 9200.3232421875
+        },
+        {
+          "feature": "numeric__square_feet_per_floor",
+          "value": -7917.037109375,
+          "absolute_value": 7917.037109375
+        },
+        {
+          "feature": "categorical__primary_use_Education",
+          "value": 5321.06640625,
+          "absolute_value": 5321.06640625
+        },
+        {
+          "feature": "categorical__meter_0",
+          "value": -5155.6015625,
+          "absolute_value": 5155.6015625
+        },
+        {
+          "feature": "categorical__meter_1",
+          "value": -4861.8134765625,
+          "absolute_value": 4861.8134765625
+        }
+      ]
+    },
+    "decision_tree": {
+      "model_path": "models/baseline/decision_tree.joblib",
+      "parameters": {
+        "ccp_alpha": 0.0,
+        "criterion": "squared_error",
+        "max_depth": 16,
+        "max_features": null,
+        "max_leaf_nodes": null,
+        "min_impurity_decrease": 0.0,
+        "min_samples_leaf": 20,
+        "min_samples_split": 2,
+        "min_weight_fraction_leaf": 0.0,
+        "monotonic_cst": null,
+        "random_state": 42,
+        "splitter": "best"
+      },
+      "training_time_seconds": 384.9897475000007,
+      "inference_time_seconds": {
+        "validation": 0.46207570000024134,
+        "test": 0.45053250000000844
+      },
+      "validation": {
+        "rmse": 8768.779821322545,
+        "mae": 391.24333249874854,
+        "r2": 0.010011120814036323
+      },
+      "test": {
+        "rmse": 59798.40869926374,
+        "mae": 484.41731605869006,
+        "r2": 0.0008069727956594441
+      },
+      "reload_successful": true,
+      "reproducible_predictions": true,
+      "feature_analysis_plot": "reports/figures/baseline/decision_tree_feature_analysis.png",
+      "feature_analysis": [
+        {
+          "feature": "numeric__month_sin",
+          "value": 0.23119480167704473,
+          "absolute_value": 0.23119480167704473
+        },
+        {
+          "feature": "categorical__meter_2",
+          "value": 0.2047835196201835,
+          "absolute_value": 0.2047835196201835
+        },
+        {
+          "feature": "numeric__log_square_feet",
+          "value": 0.20462576787396428,
+          "absolute_value": 0.20462576787396428
+        },
+        {
+          "feature": "numeric__building_age_x_air_temperature",
+          "value": 0.15775434517083065,
+          "absolute_value": 0.15775434517083065
+        },
+        {
+          "feature": "numeric__day_of_year",
+          "value": 0.07690632542732972,
+          "absolute_value": 0.07690632542732972
+        },
+        {
+          "feature": "numeric__dew_temperature",
+          "value": 0.07429898527067803,
+          "absolute_value": 0.07429898527067803
+        },
+        {
+          "feature": "numeric__sea_level_pressure",
+          "value": 0.009803887431721328,
+          "absolute_value": 0.009803887431721328
+        },
+        {
+          "feature": "numeric__day_of_month",
+          "value": 0.008979122579233315,
+          "absolute_value": 0.008979122579233315
+        },
+        {
+          "feature": "numeric__day_of_week_sin",
+          "value": 0.008147383601195476,
+          "absolute_value": 0.008147383601195476
+        },
+        {
+          "feature": "numeric__hour",
+          "value": 0.006992352110599795,
+          "absolute_value": 0.006992352110599795
+        },
+        {
+          "feature": "numeric__week_of_year",
+          "value": 0.003820036649820988,
+          "absolute_value": 0.003820036649820988
+        },
+        {
+          "feature": "numeric__cloud_coverage",
+          "value": 0.0027858536271225818,
+          "absolute_value": 0.0027858536271225818
+        },
+        {
+          "feature": "numeric__wind_direction_sin",
+          "value": 0.002623840625538288,
+          "absolute_value": 0.002623840625538288
+        },
+        {
+          "feature": "numeric__wind_speed",
+          "value": 0.002005163995824723,
+          "absolute_value": 0.002005163995824723
+        },
+        {
+          "feature": "numeric__wind_direction_cos",
+          "value": 0.0010894076764699887,
+          "absolute_value": 0.0010894076764699887
+        },
+        {
+          "feature": "numeric__log_square_feet_x_air_temperature",
+          "value": 0.0007565434161975291,
+          "absolute_value": 0.0007565434161975291
+        },
+        {
+          "feature": "numeric__day_of_week",
+          "value": 0.0006382916279926359,
+          "absolute_value": 0.0006382916279926359
+        },
+        {
+          "feature": "numeric__month",
+          "value": 0.0004883053054569565,
+          "absolute_value": 0.0004883053054569565
+        },
+        {
+          "feature": "numeric__wind_direction",
+          "value": 0.0004391124281627331,
+          "absolute_value": 0.0004391124281627331
+        },
+        {
+          "feature": "numeric__day_of_week_cos",
+          "value": 0.0004215530141873481,
+          "absolute_value": 0.0004215530141873481
+        }
+      ]
+    },
+    "random_forest": {
+      "model_path": "models/baseline/random_forest.joblib",
+      "parameters": {
+        "bootstrap": true,
+        "ccp_alpha": 0.0,
+        "criterion": "squared_error",
+        "max_depth": 16,
+        "max_features": 0.7,
+        "max_leaf_nodes": null,
+        "max_samples": null,
+        "min_impurity_decrease": 0.0,
+        "min_samples_leaf": 20,
+        "min_samples_split": 2,
+        "min_weight_fraction_leaf": 0.0,
+        "monotonic_cst": null,
+        "n_estimators": 30,
+        "n_jobs": -1,
+        "oob_score": false,
+        "random_state": 42,
+        "verbose": 0,
+        "warm_start": false
+      },
+      "training_time_seconds": 1631.9431806999992,
+      "inference_time_seconds": {
+        "validation": 2.01855599999908,
+        "test": 1.9233304999997927
+      },
+      "validation": {
+        "rmse": 8766.295850412074,
+        "mae": 365.49115070043587,
+        "r2": 0.010571918399819857
+      },
+      "test": {
+        "rmse": 59372.41992953956,
+        "mae": 518.002009093732,
+        "r2": 0.014992263802580341
+      },
+      "reload_successful": true,
+      "reproducible_predictions": true,
+      "feature_analysis_plot": "reports/figures/baseline/random_forest_feature_analysis.png",
+      "feature_analysis": [
+        {
+          "feature": "numeric__month_sin",
+          "value": 0.2214222202333904,
+          "absolute_value": 0.2214222202333904
+        },
+        {
+          "feature": "numeric__square_feet",
+          "value": 0.1285219230390606,
+          "absolute_value": 0.1285219230390606
+        },
+        {
+          "feature": "categorical__meter_2",
+          "value": 0.11407114551363964,
+          "absolute_value": 0.11407114551363964
+        },
+        {
+          "feature": "categorical__meter_0",
+          "value": 0.10175375362565105,
+          "absolute_value": 0.10175375362565105
+        },
+        {
+          "feature": "numeric__day_of_year",
+          "value": 0.09790577371736586,
+          "absolute_value": 0.09790577371736586
+        },
+        {
+          "feature": "numeric__log_square_feet",
+          "value": 0.08234902391868011,
+          "absolute_value": 0.08234902391868011
+        },
+        {
+          "feature": "numeric__dew_temperature",
+          "value": 0.06486532816953794,
+          "absolute_value": 0.06486532816953794
+        },
+        {
+          "feature": "numeric__log_square_feet_x_air_temperature",
+          "value": 0.030871406252940898,
+          "absolute_value": 0.030871406252940898
+        },
+        {
+          "feature": "numeric__day_of_month",
+          "value": 0.023299870322929805,
+          "absolute_value": 0.023299870322929805
+        },
+        {
+          "feature": "numeric__building_age_x_air_temperature",
+          "value": 0.022451757644740417,
+          "absolute_value": 0.022451757644740417
+        },
+        {
+          "feature": "numeric__week_of_year",
+          "value": 0.020428542216784928,
+          "absolute_value": 0.020428542216784928
+        },
+        {
+          "feature": "numeric__heating_degree_x_log_square_feet",
+          "value": 0.01769341153662423,
+          "absolute_value": 0.01769341153662423
+        },
+        {
+          "feature": "numeric__air_temperature",
+          "value": 0.013033395966365656,
+          "absolute_value": 0.013033395966365656
+        },
+        {
+          "feature": "numeric__quarter",
+          "value": 0.009801979016869708,
+          "absolute_value": 0.009801979016869708
+        },
+        {
+          "feature": "numeric__heating_degree_proxy",
+          "value": 0.009499225838350719,
+          "absolute_value": 0.009499225838350719
+        },
+        {
+          "feature": "numeric__square_feet_per_floor",
+          "value": 0.006711888156240635,
+          "absolute_value": 0.006711888156240635
+        },
+        {
+          "feature": "numeric__month",
+          "value": 0.004716673861011173,
+          "absolute_value": 0.004716673861011173
+        },
+        {
+          "feature": "numeric__sea_level_pressure",
+          "value": 0.004240805878235707,
+          "absolute_value": 0.004240805878235707
+        },
+        {
+          "feature": "numeric__day_of_week_sin",
+          "value": 0.003726075255380575,
+          "absolute_value": 0.003726075255380575
+        },
+        {
+          "feature": "numeric__wind_speed",
+          "value": 0.003287527800576394,
+          "absolute_value": 0.003287527800576394
+        }
+      ]
+    }
+  },
+  "best_baseline": "random_forest",
+  "leakage_checks": {
+    "chronological_order_strict": true,
+    "shuffle_used": false,
+    "preprocessor_fit_on_training_only": true,
+    "target_used_as_predictor": false,
+    "target_derived_features": false
+  },
+  "integrity": {
+    "input_sha256_before": "c96c89e9e3ca82892ab86c46906ce9d167eacea92ff512a359590fe4f571572b",
+    "input_sha256_after": "c96c89e9e3ca82892ab86c46906ce9d167eacea92ff512a359590fe4f571572b",
+    "input_unchanged": true,
+    "models_reload_successfully": true,
+    "metrics_reproducible": true,
+    "feature_count_consistent": true
+  },
+  "environment": {
+    "python": "3.12.9",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "pandas": "3.0.2",
+    "numpy": "2.3.5",
+    "scikit_learn": "1.9.0"
+  }
+}

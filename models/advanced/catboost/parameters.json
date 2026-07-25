@@ -1,0 +1,17 @@
+{
+  "iterations": 450,
+  "learning_rate": 0.06,
+  "depth": 8,
+  "l2_leaf_reg": 5,
+  "loss_function": "RMSE",
+  "od_wait": 30,
+  "od_type": "Iter",
+  "thread_count": 6,
+  "random_seed": 42,
+  "verbose": false,
+  "random_strength": 1,
+  "allow_writing_files": false,
+  "task_type": "CPU",
+  "bootstrap_type": "Bernoulli",
+  "subsample": 0.8
+}

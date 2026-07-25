@@ -1,0 +1,132 @@
+{
+  "datasets": {
+    "train.csv": {
+      "rows": 20216100,
+      "columns": 4,
+      "file_mb": 647.18
+    },
+    "building_metadata.csv": {
+      "rows": 1449,
+      "columns": 6,
+      "file_mb": 0.04
+    },
+    "weather_train.csv": {
+      "rows": 139773,
+      "columns": 9,
+      "file_mb": 7.1
+    }
+  },
+  "time": {
+    "start": "2016-01-01 00:00:00",
+    "end": "2016-12-31 23:00:00",
+    "hours": 8784,
+    "invalid_train": 0,
+    "invalid_weather": 0
+  },
+  "relationships": {
+    "metadata_building_id_unique": true,
+    "weather_site_timestamp_duplicates": 0,
+    "train_duplicate_keys": 0,
+    "unmatched_building_ids": [],
+    "train_sites_without_weather": [],
+    "unmatched_weather_rows": 90495,
+    "weather_match_pct": 99.5524,
+    "sample_weather_match_pct": 99.5499
+  },
+  "duplicates": {
+    "train_duplicate_keys": 0,
+    "building_rows": 0,
+    "weather_rows": 0
+  },
+  "missing": {
+    "train": {
+      "building_id": 0,
+      "meter": 0,
+      "timestamp": 0,
+      "meter_reading": 0
+    },
+    "building": {
+      "site_id": 0,
+      "building_id": 0,
+      "primary_use": 0,
+      "square_feet": 0,
+      "year_built": 774,
+      "floor_count": 1094
+    },
+    "weather": {
+      "site_id": 0,
+      "timestamp": 0,
+      "air_temperature": 55,
+      "cloud_coverage": 69173,
+      "dew_temperature": 113,
+      "precip_depth_1_hr": 50289,
+      "sea_level_pressure": 10618,
+      "wind_direction": 6268,
+      "wind_speed": 304
+    }
+  },
+  "target": {
+    "mean": 2117.121076211683,
+    "std": 153235.6212084959,
+    "min": 0.0,
+    "max": 21904700.0,
+    "zero_count": 1873976,
+    "zero_pct": 9.2697,
+    "sample_skew": 94.5954040410278,
+    "sample_median": 79.28,
+    "sample_p99": 5529.56
+  },
+  "meters": {
+    "0": 12060910,
+    "1": 4182440,
+    "2": 2708713,
+    "3": 1264037
+  },
+  "constants": {
+    "train.csv": [],
+    "building_metadata.csv": [],
+    "weather_train.csv": []
+  },
+  "estimated_csv_memory_mb": 654.33,
+  "sample": {
+    "rows": 101080,
+    "weather_match_pct": 99.5499
+  },
+  "skewness": {
+    "meter_reading": 94.5954040410278,
+    "precip_depth_1_hr": 18.89309788214186,
+    "square_feet": 2.6816753844593184,
+    "floor_count": 2.4696785306971485,
+    "meter": 1.1826083759177874,
+    "cloud_coverage": 1.1677039977640544,
+    "wind_speed": 0.8035015151930738,
+    "site_id": -0.047539852975288836,
+    "wind_direction": -0.07839072153189246,
+    "sea_level_pressure": -0.08995668363335899,
+    "log_target": -0.2760146278153381,
+    "building_id": -0.31501657373199654,
+    "air_temperature": -0.3572066754966546,
+    "year_built": -0.40658285666278693,
+    "dew_temperature": -0.42517870392054014
+  },
+  "primary_use_count": {
+    "Education": 549,
+    "Office": 279,
+    "Entertainment/public assembly": 184,
+    "Public services": 156,
+    "Lodging/residential": 147,
+    "Other": 25,
+    "Healthcare": 23,
+    "Parking": 22,
+    "Warehouse/storage": 13,
+    "Manufacturing/industrial": 12,
+    "Retail": 11,
+    "Services": 10,
+    "Technology/science": 6,
+    "Food sales and service": 5,
+    "Utility": 4,
+    "Religious worship": 3
+  },
+  "site_count": 16,
+  "building_count": 1449
+}

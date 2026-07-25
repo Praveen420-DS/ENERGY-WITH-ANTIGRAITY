@@ -1,0 +1,95 @@
+{
+  "strategy": "Two sequential left joins: train -> building metadata -> weather",
+  "merge_keys": {
+    "metadata": [
+      "building_id"
+    ],
+    "weather": [
+      "site_id",
+      "timestamp"
+    ]
+  },
+  "source_rows": {
+    "train": 20216100,
+    "building_metadata": 1449,
+    "weather_train": 139773
+  },
+  "output": {
+    "path": "data/processed/merged_energy_data.parquet",
+    "format": "Parquet (Snappy)",
+    "rows": 20216100,
+    "columns": 16,
+    "column_names": [
+      "building_id",
+      "meter",
+      "timestamp",
+      "meter_reading",
+      "site_id",
+      "primary_use",
+      "square_feet",
+      "year_built",
+      "floor_count",
+      "air_temperature",
+      "cloud_coverage",
+      "dew_temperature",
+      "precip_depth_1_hr",
+      "sea_level_pressure",
+      "wind_direction",
+      "wind_speed"
+    ],
+    "file_size_mb": 146.07,
+    "row_groups": 41
+  },
+  "key_validation": {
+    "metadata_null_keys": 0,
+    "weather_null_keys": 0,
+    "metadata_duplicate_keys": 0,
+    "weather_duplicate_keys": 0,
+    "train_duplicate_keys": 0,
+    "output_duplicate_keys": 0,
+    "output_duplicate_rows": 0
+  },
+  "unmatched": {
+    "metadata_rows": 0,
+    "weather_rows": 90495
+  },
+  "success_rates": {
+    "metadata_percent": 100.0,
+    "weather_percent": 99.5524,
+    "overall_complete_match_percent": 99.5524,
+    "row_retention_percent": 100.0
+  },
+  "integrity": {
+    "source_output_row_count_equal": true,
+    "written_row_count_equal": true,
+    "schema_matches_expected": true,
+    "target_preserved": true,
+    "passed": true
+  },
+  "missing_values_preserved": {
+    "source_train": {
+      "building_id": 0,
+      "meter": 0,
+      "timestamp": 0,
+      "meter_reading": 0
+    },
+    "merged_output": {
+      "building_id": 0,
+      "meter": 0,
+      "timestamp": 0,
+      "meter_reading": 0,
+      "site_id": 0,
+      "primary_use": 0,
+      "square_feet": 0,
+      "year_built": 12127645,
+      "floor_count": 16709167,
+      "air_temperature": 96658,
+      "cloud_coverage": 8825365,
+      "dew_temperature": 100140,
+      "precip_depth_1_hr": 3749023,
+      "sea_level_pressure": 1231669,
+      "wind_direction": 1449048,
+      "wind_speed": 143676
+    }
+  }
+}

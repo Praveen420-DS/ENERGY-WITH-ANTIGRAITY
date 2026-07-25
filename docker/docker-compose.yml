@@ -3,8 +3,6 @@
 # ================================================
 # Usage: docker compose -f docker-compose.yml up --build
 
-version: "3.9"
-
 services:
 
   # --- Reverse Proxy ---
@@ -30,7 +28,7 @@ services:
       dockerfile: Dockerfile
     container_name: eps-frontend
     volumes:
-      - frontend_build:/app/dist
+      - frontend_build:/output
     networks:
       - eps-network
 
@@ -45,8 +43,10 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - postgres
-      - redis
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
     networks:
       - eps-network
     restart: unless-stopped
@@ -88,19 +88,16 @@ services:
     container_name: eps-postgres
     env_file:
       - ../.env
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./postgres/init-test-db.sql:/docker-entrypoint-initdb.d/10-init-test-db.sql:ro
     networks:
       - eps-network
     restart: unless-stopped
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
+      test: [ "CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\"" ]
       interval: 5s
       timeout: 5s
       retries: 5

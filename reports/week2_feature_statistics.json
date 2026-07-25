@@ -1,0 +1,670 @@
+{
+  "input": {
+    "path": "data/processed/clean_dataset.parquet",
+    "rows": 20216100,
+    "columns": 16,
+    "file_size_mb": 147.78,
+    "logical_memory_mb": 2741.57,
+    "sha256": "251ca27b85f2063f9929f4716c71440fcf1a1a1129f2481a0fa3e9457723dc4b"
+  },
+  "output": {
+    "path": "data/processed/feature_dataset.parquet",
+    "rows": 20216100,
+    "columns": 46,
+    "file_size_mb": 313.51,
+    "logical_memory_mb": 4295.98,
+    "row_groups": 41
+  },
+  "added_column_count": 30,
+  "engineered_features": [
+    "hour",
+    "day_of_week",
+    "day_of_month",
+    "day_of_year",
+    "week_of_year",
+    "month",
+    "quarter",
+    "is_weekend",
+    "hour_sin",
+    "hour_cos",
+    "day_of_week_sin",
+    "day_of_week_cos",
+    "month_sin",
+    "month_cos",
+    "building_age_2016",
+    "log_square_feet",
+    "square_feet_per_floor",
+    "temperature_difference",
+    "relative_humidity",
+    "wind_direction_sin",
+    "wind_direction_cos",
+    "is_precipitating",
+    "is_freezing",
+    "is_hot",
+    "heating_degree_proxy",
+    "cooling_degree_proxy",
+    "log_square_feet_x_air_temperature",
+    "building_age_x_air_temperature",
+    "heating_degree_x_log_square_feet",
+    "cooling_degree_x_log_square_feet"
+  ],
+  "feature_dictionary": [
+    {
+      "feature_name": "hour",
+      "source_columns": [
+        "timestamp"
+      ],
+      "formula": "timestamp hour",
+      "data_type": "int8",
+      "expected_range": "0..23",
+      "modelling_purpose": "daily cycle",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": 0.0,
+        "max": 23.0
+      }
+    },
+    {
+      "feature_name": "day_of_week",
+      "source_columns": [
+        "timestamp"
+      ],
+      "formula": "Monday=0 through Sunday=6",
+      "data_type": "int8",
+      "expected_range": "0..6",
+      "modelling_purpose": "weekly cycle",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": 0.0,
+        "max": 6.0
+      }
+    },
+    {
+      "feature_name": "day_of_month",
+      "source_columns": [
+        "timestamp"
+      ],
+      "formula": "calendar day",
+      "data_type": "int8",
+      "expected_range": "1..31",
+      "modelling_purpose": "within-month timing",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": 1.0,
+        "max": 31.0
+      }
+    },
+    {
+      "feature_name": "day_of_year",
+      "source_columns": [
+        "timestamp"
+      ],
+      "formula": "calendar ordinal day",
+      "data_type": "int16",
+      "expected_range": "1..366",
+      "modelling_purpose": "annual progression",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": 1.0,
+        "max": 366.0
+      }
+    },
+    {
+      "feature_name": "week_of_year",
+      "source_columns": [
+        "timestamp"
+      ],
+      "formula": "ISO week number",
+      "data_type": "int8",
+      "expected_range": "1..53",
+      "modelling_purpose": "annual weekly cycle",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": 1.0,
+        "max": 53.0
+      }
+    },
+    {
+      "feature_name": "month",
+      "source_columns": [
+        "timestamp"
+      ],
+      "formula": "calendar month",
+      "data_type": "int8",
+      "expected_range": "1..12",
+      "modelling_purpose": "seasonality",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": 1.0,
+        "max": 12.0
+      }
+    },
+    {
+      "feature_name": "quarter",
+      "source_columns": [
+        "timestamp"
+      ],
+      "formula": "calendar quarter",
+      "data_type": "int8",
+      "expected_range": "1..4",
+      "modelling_purpose": "coarse seasonality",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": 1.0,
+        "max": 4.0
+      }
+    },
+    {
+      "feature_name": "is_weekend",
+      "source_columns": [
+        "timestamp"
+      ],
+      "formula": "day_of_week >= 5",
+      "data_type": "bool",
+      "expected_range": "False..True",
+      "modelling_purpose": "occupancy schedule proxy",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": false,
+        "max": true
+      }
+    },
+    {
+      "feature_name": "hour_sin",
+      "source_columns": [
+        "timestamp"
+      ],
+      "formula": "sin(2*pi*hour/24)",
+      "data_type": "float32",
+      "expected_range": "-1..1",
+      "modelling_purpose": "continuous cyclical hour",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": -1.0,
+        "max": 1.0
+      }
+    },
+    {
+      "feature_name": "hour_cos",
+      "source_columns": [
+        "timestamp"
+      ],
+      "formula": "cos(2*pi*hour/24)",
+      "data_type": "float32",
+      "expected_range": "-1..1",
+      "modelling_purpose": "continuous cyclical hour",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": -1.0,
+        "max": 1.0
+      }
+    },
+    {
+      "feature_name": "day_of_week_sin",
+      "source_columns": [
+        "timestamp"
+      ],
+      "formula": "sin(2*pi*day_of_week/7)",
+      "data_type": "float32",
+      "expected_range": "-1..1",
+      "modelling_purpose": "continuous weekly cycle",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": -0.9749279022216797,
+        "max": 0.9749279022216797
+      }
+    },
+    {
+      "feature_name": "day_of_week_cos",
+      "source_columns": [
+        "timestamp"
+      ],
+      "formula": "cos(2*pi*day_of_week/7)",
+      "data_type": "float32",
+      "expected_range": "-1..1",
+      "modelling_purpose": "continuous weekly cycle",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": -0.9009688496589661,
+        "max": 1.0
+      }
+    },
+    {
+      "feature_name": "month_sin",
+      "source_columns": [
+        "timestamp"
+      ],
+      "formula": "sin(2*pi*(month-1)/12)",
+      "data_type": "float32",
+      "expected_range": "-1..1",
+      "modelling_purpose": "continuous annual cycle",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": -1.0,
+        "max": 1.0
+      }
+    },
+    {
+      "feature_name": "month_cos",
+      "source_columns": [
+        "timestamp"
+      ],
+      "formula": "cos(2*pi*(month-1)/12)",
+      "data_type": "float32",
+      "expected_range": "-1..1",
+      "modelling_purpose": "continuous annual cycle",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": -1.0,
+        "max": 1.0
+      }
+    },
+    {
+      "feature_name": "building_age_2016",
+      "source_columns": [
+        "year_built"
+      ],
+      "formula": "max(0, 2016-year_built)",
+      "data_type": "int16",
+      "expected_range": "0..116",
+      "modelling_purpose": "building vintage",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": 0.0,
+        "max": 116.0
+      }
+    },
+    {
+      "feature_name": "log_square_feet",
+      "source_columns": [
+        "square_feet"
+      ],
+      "formula": "log1p(square_feet)",
+      "data_type": "float32",
+      "expected_range": ">=0",
+      "modelling_purpose": "compress area scale",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": 5.648974418640137,
+        "max": 13.68198013305664
+      }
+    },
+    {
+      "feature_name": "square_feet_per_floor",
+      "source_columns": [
+        "square_feet",
+        "floor_count"
+      ],
+      "formula": "square_feet/max(floor_count,1)",
+      "data_type": "float32",
+      "expected_range": ">0",
+      "modelling_purpose": "approximate floor plate",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": 141.5,
+        "max": 875000.0
+      }
+    },
+    {
+      "feature_name": "temperature_difference",
+      "source_columns": [
+        "air_temperature",
+        "dew_temperature"
+      ],
+      "formula": "air_temperature-dew_temperature",
+      "data_type": "float32",
+      "expected_range": "observed",
+      "modelling_purpose": "air moisture spread",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": -1.100000023841858,
+        "max": 51.70000076293945
+      }
+    },
+    {
+      "feature_name": "relative_humidity",
+      "source_columns": [
+        "air_temperature",
+        "dew_temperature"
+      ],
+      "formula": "100*exp(17.625*Td/(243.04+Td)-17.625*T/(243.04+T)), clipped",
+      "data_type": "float32",
+      "expected_range": "0..100",
+      "modelling_purpose": "Magnus-formula humidity approximation",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": 3.7593791484832764,
+        "max": 100.0
+      }
+    },
+    {
+      "feature_name": "wind_direction_sin",
+      "source_columns": [
+        "wind_direction"
+      ],
+      "formula": "sin(direction*pi/180)",
+      "data_type": "float32",
+      "expected_range": "-1..1",
+      "modelling_purpose": "circular wind direction",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": -1.0,
+        "max": 1.0
+      }
+    },
+    {
+      "feature_name": "wind_direction_cos",
+      "source_columns": [
+        "wind_direction"
+      ],
+      "formula": "cos(direction*pi/180)",
+      "data_type": "float32",
+      "expected_range": "-1..1",
+      "modelling_purpose": "circular wind direction",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": -1.0,
+        "max": 1.0
+      }
+    },
+    {
+      "feature_name": "is_precipitating",
+      "source_columns": [
+        "precip_depth_1_hr"
+      ],
+      "formula": "precip_depth_1_hr > 0",
+      "data_type": "bool",
+      "expected_range": "False..True",
+      "modelling_purpose": "active precipitation",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": false,
+        "max": true
+      }
+    },
+    {
+      "feature_name": "is_freezing",
+      "source_columns": [
+        "air_temperature"
+      ],
+      "formula": "air_temperature <= 0 C",
+      "data_type": "bool",
+      "expected_range": "False..True",
+      "modelling_purpose": "freezing conditions",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": false,
+        "max": true
+      }
+    },
+    {
+      "feature_name": "is_hot",
+      "source_columns": [
+        "air_temperature"
+      ],
+      "formula": "air_temperature >= 30 C",
+      "data_type": "bool",
+      "expected_range": "False..True",
+      "modelling_purpose": "documented hot-weather threshold",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": false,
+        "max": true
+      }
+    },
+    {
+      "feature_name": "heating_degree_proxy",
+      "source_columns": [
+        "air_temperature"
+      ],
+      "formula": "max(0,18-air_temperature)",
+      "data_type": "float32",
+      "expected_range": ">=0",
+      "modelling_purpose": "heating demand; 18 C balance point",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": 0.0,
+        "max": 46.900001525878906
+      }
+    },
+    {
+      "feature_name": "cooling_degree_proxy",
+      "source_columns": [
+        "air_temperature"
+      ],
+      "formula": "max(0,air_temperature-18)",
+      "data_type": "float32",
+      "expected_range": ">=0",
+      "modelling_purpose": "cooling demand; 18 C balance point",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": 0.0,
+        "max": 29.200000762939453
+      }
+    },
+    {
+      "feature_name": "log_square_feet_x_air_temperature",
+      "source_columns": [
+        "square_feet",
+        "air_temperature"
+      ],
+      "formula": "log1p(square_feet)*air_temperature",
+      "data_type": "float32",
+      "expected_range": "observed",
+      "modelling_purpose": "size-temperature interaction",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": -394.9606628417969,
+        "max": 642.1187133789062
+      }
+    },
+    {
+      "feature_name": "building_age_x_air_temperature",
+      "source_columns": [
+        "year_built",
+        "air_temperature"
+      ],
+      "formula": "building_age_2016*air_temperature",
+      "data_type": "float32",
+      "expected_range": "observed",
+      "modelling_purpose": "vintage-temperature interaction",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": -3024.0,
+        "max": 5144.7998046875
+      }
+    },
+    {
+      "feature_name": "heating_degree_x_log_square_feet",
+      "source_columns": [
+        "air_temperature",
+        "square_feet"
+      ],
+      "formula": "heating_degree_proxy*log_square_feet",
+      "data_type": "float32",
+      "expected_range": ">=0",
+      "modelling_purpose": "size-adjusted heating exposure",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": 0.0,
+        "max": 640.9569702148438
+      }
+    },
+    {
+      "feature_name": "cooling_degree_x_log_square_feet",
+      "source_columns": [
+        "air_temperature",
+        "square_feet"
+      ],
+      "formula": "cooling_degree_proxy*log_square_feet",
+      "data_type": "float32",
+      "expected_range": ">=0",
+      "modelling_purpose": "size-adjusted cooling exposure",
+      "leakage_risk": "None apparent: deterministic predictor/timestamp inputs only; no target usage",
+      "observed_range": {
+        "min": 0.0,
+        "max": 397.2429504394531
+      }
+    }
+  ],
+  "categorical_handling": {
+    "categorical_model_inputs": [
+      "primary_use",
+      "meter",
+      "site_id",
+      "building_id"
+    ],
+    "numeric_identifiers": [
+      "building_id",
+      "site_id",
+      "meter"
+    ],
+    "grouping_or_splitting_identifiers": [
+      "building_id",
+      "meter",
+      "site_id",
+      "timestamp"
+    ],
+    "linear_model_note": "Do not treat integer IDs as continuous; encode after time splitting using training data only."
+  },
+  "lag_rolling_decision": "Deferred: the prediction horizon and inference-time availability of prior meter readings are not yet established. Any future implementation must sort chronologically, group by building_id and meter, shift before rolling, handle initial rows explicitly, and fit only within time-safe partitions.",
+  "validation": {
+    "required_columns_present": true,
+    "expected_rows": true,
+    "preprocessing_report_match": true,
+    "input_missing_values": 0,
+    "invalid_timestamps": 0,
+    "input_duplicate_keys": 0,
+    "output_duplicate_keys": 0,
+    "remaining_missing_values": 0,
+    "infinite_values": 0,
+    "target_unchanged": true,
+    "original_columns_unchanged": true,
+    "input_file_unchanged": true,
+    "no_target_derived_features": true,
+    "ranges": {
+      "hour": {
+        "min": 0.0,
+        "max": 23.0
+      },
+      "day_of_week": {
+        "min": 0.0,
+        "max": 6.0
+      },
+      "day_of_month": {
+        "min": 1.0,
+        "max": 31.0
+      },
+      "day_of_year": {
+        "min": 1.0,
+        "max": 366.0
+      },
+      "week_of_year": {
+        "min": 1.0,
+        "max": 53.0
+      },
+      "month": {
+        "min": 1.0,
+        "max": 12.0
+      },
+      "quarter": {
+        "min": 1.0,
+        "max": 4.0
+      },
+      "is_weekend": {
+        "min": false,
+        "max": true
+      },
+      "hour_sin": {
+        "min": -1.0,
+        "max": 1.0
+      },
+      "hour_cos": {
+        "min": -1.0,
+        "max": 1.0
+      },
+      "day_of_week_sin": {
+        "min": -0.9749279022216797,
+        "max": 0.9749279022216797
+      },
+      "day_of_week_cos": {
+        "min": -0.9009688496589661,
+        "max": 1.0
+      },
+      "month_sin": {
+        "min": -1.0,
+        "max": 1.0
+      },
+      "month_cos": {
+        "min": -1.0,
+        "max": 1.0
+      },
+      "building_age_2016": {
+        "min": 0.0,
+        "max": 116.0
+      },
+      "log_square_feet": {
+        "min": 5.648974418640137,
+        "max": 13.68198013305664
+      },
+      "square_feet_per_floor": {
+        "min": 141.5,
+        "max": 875000.0
+      },
+      "temperature_difference": {
+        "min": -1.100000023841858,
+        "max": 51.70000076293945
+      },
+      "relative_humidity": {
+        "min": 3.7593791484832764,
+        "max": 100.0
+      },
+      "wind_direction_sin": {
+        "min": -1.0,
+        "max": 1.0
+      },
+      "wind_direction_cos": {
+        "min": -1.0,
+        "max": 1.0
+      },
+      "is_precipitating": {
+        "min": false,
+        "max": true
+      },
+      "is_freezing": {
+        "min": false,
+        "max": true
+      },
+      "is_hot": {
+        "min": false,
+        "max": true
+      },
+      "heating_degree_proxy": {
+        "min": 0.0,
+        "max": 46.900001525878906
+      },
+      "cooling_degree_proxy": {
+        "min": 0.0,
+        "max": 29.200000762939453
+      },
+      "log_square_feet_x_air_temperature": {
+        "min": -394.9606628417969,
+        "max": 642.1187133789062
+      },
+      "building_age_x_air_temperature": {
+        "min": -3024.0,
+        "max": 5144.7998046875
+      },
+      "heating_degree_x_log_square_feet": {
+        "min": 0.0,
+        "max": 640.9569702148438
+      },
+      "cooling_degree_x_log_square_feet": {
+        "min": 0.0,
+        "max": 397.2429504394531
+      }
+    },
+    "passed": true
+  },
+  "processing_duration_seconds": 53.91
+}

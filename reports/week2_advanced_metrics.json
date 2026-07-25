@@ -1,0 +1,3213 @@
+{
+  "task": "Week 2 Task 2.5 - Advanced Model Training and Comparison",
+  "status": "passed",
+  "completion_percentage": 100,
+  "generated_at_utc": "2026-07-25T13:26:57.078911+00:00",
+  "dataset": {
+    "path": "data/processed/feature_dataset.parquet",
+    "sha256": "c96c89e9e3ca82892ab86c46906ce9d167eacea92ff512a359590fe4f571572b",
+    "size_bytes": 328740131,
+    "mtime_ns": 1784977278527487300,
+    "rows": 20216100,
+    "columns": 46,
+    "schema": [
+      {
+        "name": "building_id",
+        "type": "int64"
+      },
+      {
+        "name": "meter",
+        "type": "int64"
+      },
+      {
+        "name": "timestamp",
+        "type": "timestamp[us]"
+      },
+      {
+        "name": "meter_reading",
+        "type": "double"
+      },
+      {
+        "name": "site_id",
+        "type": "int64"
+      },
+      {
+        "name": "primary_use",
+        "type": "large_string"
+      },
+      {
+        "name": "square_feet",
+        "type": "int64"
+      },
+      {
+        "name": "year_built",
+        "type": "double"
+      },
+      {
+        "name": "floor_count",
+        "type": "double"
+      },
+      {
+        "name": "air_temperature",
+        "type": "double"
+      },
+      {
+        "name": "cloud_coverage",
+        "type": "double"
+      },
+      {
+        "name": "dew_temperature",
+        "type": "double"
+      },
+      {
+        "name": "precip_depth_1_hr",
+        "type": "double"
+      },
+      {
+        "name": "sea_level_pressure",
+        "type": "double"
+      },
+      {
+        "name": "wind_direction",
+        "type": "double"
+      },
+      {
+        "name": "wind_speed",
+        "type": "double"
+      },
+      {
+        "name": "hour",
+        "type": "int8"
+      },
+      {
+        "name": "day_of_week",
+        "type": "int8"
+      },
+      {
+        "name": "day_of_month",
+        "type": "int8"
+      },
+      {
+        "name": "day_of_year",
+        "type": "int16"
+      },
+      {
+        "name": "week_of_year",
+        "type": "int8"
+      },
+      {
+        "name": "month",
+        "type": "int8"
+      },
+      {
+        "name": "quarter",
+        "type": "int8"
+      },
+      {
+        "name": "is_weekend",
+        "type": "bool"
+      },
+      {
+        "name": "hour_sin",
+        "type": "float"
+      },
+      {
+        "name": "hour_cos",
+        "type": "float"
+      },
+      {
+        "name": "day_of_week_sin",
+        "type": "float"
+      },
+      {
+        "name": "day_of_week_cos",
+        "type": "float"
+      },
+      {
+        "name": "month_sin",
+        "type": "float"
+      },
+      {
+        "name": "month_cos",
+        "type": "float"
+      },
+      {
+        "name": "building_age_2016",
+        "type": "int16"
+      },
+      {
+        "name": "log_square_feet",
+        "type": "float"
+      },
+      {
+        "name": "square_feet_per_floor",
+        "type": "float"
+      },
+      {
+        "name": "temperature_difference",
+        "type": "float"
+      },
+      {
+        "name": "relative_humidity",
+        "type": "float"
+      },
+      {
+        "name": "wind_direction_sin",
+        "type": "float"
+      },
+      {
+        "name": "wind_direction_cos",
+        "type": "float"
+      },
+      {
+        "name": "is_precipitating",
+        "type": "bool"
+      },
+      {
+        "name": "is_freezing",
+        "type": "bool"
+      },
+      {
+        "name": "is_hot",
+        "type": "bool"
+      },
+      {
+        "name": "heating_degree_proxy",
+        "type": "float"
+      },
+      {
+        "name": "cooling_degree_proxy",
+        "type": "float"
+      },
+      {
+        "name": "log_square_feet_x_air_temperature",
+        "type": "float"
+      },
+      {
+        "name": "building_age_x_air_temperature",
+        "type": "float"
+      },
+      {
+        "name": "heating_degree_x_log_square_feet",
+        "type": "float"
+      },
+      {
+        "name": "cooling_degree_x_log_square_feet",
+        "type": "float"
+      }
+    ],
+    "missing_values": 0,
+    "infinite_values": 0,
+    "invalid_timestamps": 0,
+    "duplicate_logical_keys": 0,
+    "timestamp_min": "2016-01-01 00:00:00",
+    "timestamp_max": "2016-12-31 23:00:00",
+    "task_2_3_schema_match": true,
+    "baseline_split_counts_match": true
+  },
+  "splits": {
+    "train": {
+      "start": "2016-01-01 00:00:00",
+      "end": "2016-08-31 23:00:00",
+      "rows": 13358457,
+      "percentage": 66.07830887263123
+    },
+    "validation": {
+      "start": "2016-09-01 00:00:00",
+      "end": "2016-10-31 23:00:00",
+      "rows": 3441800,
+      "percentage": 17.02504439530869
+    },
+    "test": {
+      "start": "2016-11-01 00:00:00",
+      "end": "2016-12-31 23:00:00",
+      "rows": 3415843,
+      "percentage": 16.89664673206009
+    }
+  },
+  "target": "meter_reading",
+  "predictors": [
+    "meter",
+    "primary_use",
+    "square_feet",
+    "year_built",
+    "floor_count",
+    "air_temperature",
+    "cloud_coverage",
+    "dew_temperature",
+    "precip_depth_1_hr",
+    "sea_level_pressure",
+    "wind_direction",
+    "wind_speed",
+    "hour",
+    "day_of_week",
+    "day_of_month",
+    "day_of_year",
+    "week_of_year",
+    "month",
+    "quarter",
+    "is_weekend",
+    "hour_sin",
+    "hour_cos",
+    "day_of_week_sin",
+    "day_of_week_cos",
+    "month_sin",
+    "month_cos",
+    "building_age_2016",
+    "log_square_feet",
+    "square_feet_per_floor",
+    "temperature_difference",
+    "relative_humidity",
+    "wind_direction_sin",
+    "wind_direction_cos",
+    "is_precipitating",
+    "is_freezing",
+    "is_hot",
+    "heating_degree_proxy",
+    "cooling_degree_proxy",
+    "log_square_feet_x_air_temperature",
+    "building_age_x_air_temperature",
+    "heating_degree_x_log_square_feet",
+    "cooling_degree_x_log_square_feet"
+  ],
+  "numeric_predictors": [
+    "square_feet",
+    "year_built",
+    "floor_count",
+    "air_temperature",
+    "cloud_coverage",
+    "dew_temperature",
+    "precip_depth_1_hr",
+    "sea_level_pressure",
+    "wind_direction",
+    "wind_speed",
+    "hour",
+    "day_of_week",
+    "day_of_month",
+    "day_of_year",
+    "week_of_year",
+    "month",
+    "quarter",
+    "is_weekend",
+    "hour_sin",
+    "hour_cos",
+    "day_of_week_sin",
+    "day_of_week_cos",
+    "month_sin",
+    "month_cos",
+    "building_age_2016",
+    "log_square_feet",
+    "square_feet_per_floor",
+    "temperature_difference",
+    "relative_humidity",
+    "wind_direction_sin",
+    "wind_direction_cos",
+    "is_precipitating",
+    "is_freezing",
+    "is_hot",
+    "heating_degree_proxy",
+    "cooling_degree_proxy",
+    "log_square_feet_x_air_temperature",
+    "building_age_x_air_temperature",
+    "heating_degree_x_log_square_feet",
+    "cooling_degree_x_log_square_feet"
+  ],
+  "categorical_predictors": [
+    "primary_use",
+    "meter"
+  ],
+  "excluded_columns": {
+    "timestamp": "Used only to define chronological partitions; raw epoch magnitude is not a predictor.",
+    "building_id": "High-cardinality identity could encourage memorization and is not portable to unseen buildings.",
+    "site_id": "Site identity could proxy geography/collection artifacts; weather and building attributes are retained."
+  },
+  "random_seed": 42,
+  "environment": {
+    "cpu_count": 8,
+    "n_jobs": 6,
+    "ram_gib": 15.692100524902344,
+    "gpu": "not verified; CPU used",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.9",
+    "libraries": {
+      "xgboost": "3.2.0",
+      "lightgbm": "4.6.0",
+      "catboost": "1.2.8",
+      "pandas": "3.0.2",
+      "numpy": "2.3.5",
+      "scikit_learn": "1.9.0"
+    }
+  },
+  "training_design": {
+    "screening_train_rows": 2000000,
+    "screening_validation_rows": 500000,
+    "subset_method": "evenly spaced row indices via linspace; order preserved",
+    "coverage_audit": {
+      "meter": {
+        "full_train": 4,
+        "screen_train": 4
+      },
+      "primary_use": {
+        "full_train": 16,
+        "screen_train": 16
+      },
+      "building_id": {
+        "full_train": 1446,
+        "screen_train": 1446
+      }
+    },
+    "finalists_use_full_training_data": true,
+    "early_stopping_validation_only": true
+  },
+  "target_strategy": {
+    "raw": "fit meter_reading directly",
+    "log": "fit log1p(meter_reading), inverse with expm1, clip negative inverse predictions to zero only",
+    "selection_basis": "validation RMSE, then validation MAE"
+  },
+  "experiments": [
+    {
+      "model": "xgboost",
+      "target_strategy": "raw",
+      "parameters": {
+        "objective": "reg:squarederror",
+        "base_score": null,
+        "booster": null,
+        "callbacks": null,
+        "colsample_bylevel": null,
+        "colsample_bynode": null,
+        "colsample_bytree": 0.8,
+        "device": null,
+        "early_stopping_rounds": 30,
+        "enable_categorical": false,
+        "eval_metric": null,
+        "feature_types": null,
+        "feature_weights": null,
+        "gamma": null,
+        "grow_policy": null,
+        "importance_type": null,
+        "interaction_constraints": null,
+        "learning_rate": 0.06,
+        "max_bin": 128,
+        "max_cat_threshold": null,
+        "max_cat_to_onehot": null,
+        "max_delta_step": null,
+        "max_depth": 8,
+        "max_leaves": null,
+        "min_child_weight": 20,
+        "missing": NaN,
+        "monotone_constraints": null,
+        "multi_strategy": null,
+        "n_estimators": 250,
+        "n_jobs": 6,
+        "num_parallel_tree": null,
+        "random_state": 42,
+        "reg_alpha": 0.1,
+        "reg_lambda": 2,
+        "sampling_method": null,
+        "scale_pos_weight": null,
+        "subsample": 0.8,
+        "tree_method": "hist",
+        "validate_parameters": null,
+        "verbosity": null
+      },
+      "training_rows": 2000000,
+      "validation_rows": 500000,
+      "training_duration_seconds": 10.614633099999992,
+      "validation_inference_seconds": 0.12827250000009371,
+      "best_iteration": 33,
+      "rss_before_mb": 4311.97,
+      "rss_after_mb": 4422.39,
+      "validation": {
+        "rmse": 9226.677408471589,
+        "mae": 712.0673217773438,
+        "r2": 0.020701885223388672,
+        "rmsle": 2.8876072983395487,
+        "log_rmse": 2.8876072983395487,
+        "median_absolute_error": 380.1612854003906,
+        "negative_prediction_percentage_before_clipping": 0.13
+      },
+      "status": "completed",
+      "experiment_id": "xgboost_raw_screen",
+      "training_coverage": "deterministic screening subset"
+    },
+    {
+      "model": "xgboost",
+      "target_strategy": "log",
+      "parameters": {
+        "objective": "reg:squarederror",
+        "base_score": null,
+        "booster": null,
+        "callbacks": null,
+        "colsample_bylevel": null,
+        "colsample_bynode": null,
+        "colsample_bytree": 0.8,
+        "device": null,
+        "early_stopping_rounds": 30,
+        "enable_categorical": false,
+        "eval_metric": null,
+        "feature_types": null,
+        "feature_weights": null,
+        "gamma": null,
+        "grow_policy": null,
+        "importance_type": null,
+        "interaction_constraints": null,
+        "learning_rate": 0.06,
+        "max_bin": 128,
+        "max_cat_threshold": null,
+        "max_cat_to_onehot": null,
+        "max_delta_step": null,
+        "max_depth": 8,
+        "max_leaves": null,
+        "min_child_weight": 20,
+        "missing": NaN,
+        "monotone_constraints": null,
+        "multi_strategy": null,
+        "n_estimators": 250,
+        "n_jobs": 6,
+        "num_parallel_tree": null,
+        "random_state": 42,
+        "reg_alpha": 0.1,
+        "reg_lambda": 2,
+        "sampling_method": null,
+        "scale_pos_weight": null,
+        "subsample": 0.8,
+        "tree_method": "hist",
+        "validate_parameters": null,
+        "verbosity": null
+      },
+      "training_rows": 2000000,
+      "validation_rows": 500000,
+      "training_duration_seconds": 35.24122829999942,
+      "validation_inference_seconds": 0.6108712999994168,
+      "best_iteration": 249,
+      "rss_before_mb": 4421.41,
+      "rss_after_mb": 4431.95,
+      "validation": {
+        "rmse": 9248.531559117911,
+        "mae": 404.63348388671875,
+        "r2": 0.016057312488555908,
+        "rmsle": 1.3401574749010894,
+        "log_rmse": 1.3401574749010894,
+        "median_absolute_error": 33.163848876953125,
+        "negative_prediction_percentage_before_clipping": 0.1776
+      },
+      "status": "completed",
+      "experiment_id": "xgboost_log_screen",
+      "training_coverage": "deterministic screening subset"
+    },
+    {
+      "model": "lightgbm",
+      "target_strategy": "raw",
+      "parameters": {
+        "boosting_type": "gbdt",
+        "class_weight": null,
+        "colsample_bytree": 1.0,
+        "importance_type": "split",
+        "learning_rate": 0.06,
+        "max_depth": 10,
+        "min_child_samples": 100,
+        "min_child_weight": 0.001,
+        "min_split_gain": 0.0,
+        "n_estimators": 250,
+        "n_jobs": 6,
+        "num_leaves": 63,
+        "objective": "regression",
+        "random_state": 42,
+        "reg_alpha": 0.1,
+        "reg_lambda": 2,
+        "subsample": 1.0,
+        "subsample_for_bin": 200000,
+        "subsample_freq": 0,
+        "feature_fraction": 0.8,
+        "bagging_fraction": 0.8,
+        "bagging_freq": 1,
+        "max_bin": 127,
+        "deterministic": true,
+        "force_col_wise": true,
+        "verbosity": -1
+      },
+      "training_rows": 2000000,
+      "validation_rows": 500000,
+      "training_duration_seconds": 5.07947729999978,
+      "validation_inference_seconds": 0.12591260000044713,
+      "best_iteration": 13,
+      "rss_before_mb": 4422.57,
+      "rss_after_mb": 4418.18,
+      "validation": {
+        "rmse": 9368.420592347406,
+        "mae": 1509.512033550345,
+        "r2": -0.009617685712375312,
+        "rmsle": 3.699985019894018,
+        "log_rmse": 3.699985019894018,
+        "median_absolute_error": 1318.2877416297824,
+        "negative_prediction_percentage_before_clipping": 0.030400000000000003
+      },
+      "status": "completed",
+      "experiment_id": "lightgbm_raw_screen",
+      "training_coverage": "deterministic screening subset"
+    },
+    {
+      "model": "lightgbm",
+      "target_strategy": "log",
+      "parameters": {
+        "boosting_type": "gbdt",
+        "class_weight": null,
+        "colsample_bytree": 1.0,
+        "importance_type": "split",
+        "learning_rate": 0.06,
+        "max_depth": 10,
+        "min_child_samples": 100,
+        "min_child_weight": 0.001,
+        "min_split_gain": 0.0,
+        "n_estimators": 250,
+        "n_jobs": 6,
+        "num_leaves": 63,
+        "objective": "regression",
+        "random_state": 42,
+        "reg_alpha": 0.1,
+        "reg_lambda": 2,
+        "subsample": 1.0,
+        "subsample_for_bin": 200000,
+        "subsample_freq": 0,
+        "feature_fraction": 0.8,
+        "bagging_fraction": 0.8,
+        "bagging_freq": 1,
+        "max_bin": 127,
+        "deterministic": true,
+        "force_col_wise": true,
+        "verbosity": -1
+      },
+      "training_rows": 2000000,
+      "validation_rows": 500000,
+      "training_duration_seconds": 24.49574830000165,
+      "validation_inference_seconds": 1.4607292999990023,
+      "best_iteration": 250,
+      "rss_before_mb": 4423.78,
+      "rss_after_mb": 4423.29,
+      "validation": {
+        "rmse": 9256.416780631243,
+        "mae": 416.6145181117729,
+        "r2": 0.014378901546218126,
+        "rmsle": 1.3885207457388995,
+        "log_rmse": 1.3885207457388995,
+        "median_absolute_error": 36.40649842565731,
+        "negative_prediction_percentage_before_clipping": 0.0242
+      },
+      "status": "completed",
+      "experiment_id": "lightgbm_log_screen",
+      "training_coverage": "deterministic screening subset"
+    },
+    {
+      "model": "catboost",
+      "target_strategy": "raw",
+      "parameters": {
+        "iterations": 250,
+        "learning_rate": 0.06,
+        "depth": 8,
+        "l2_leaf_reg": 5,
+        "loss_function": "RMSE",
+        "od_wait": 30,
+        "od_type": "Iter",
+        "thread_count": 6,
+        "random_seed": 42,
+        "verbose": false,
+        "random_strength": 1,
+        "allow_writing_files": false,
+        "task_type": "CPU",
+        "bootstrap_type": "Bernoulli",
+        "subsample": 0.8
+      },
+      "training_rows": 2000000,
+      "validation_rows": 500000,
+      "training_duration_seconds": 42.98195149999992,
+      "validation_inference_seconds": 0.41047489999982645,
+      "best_iteration": 20,
+      "rss_before_mb": 4418.57,
+      "rss_after_mb": 5449.11,
+      "validation": {
+        "rmse": 9321.201905684306,
+        "mae": 1215.6725617522936,
+        "r2": 0.0005340107180011877,
+        "rmsle": 3.4792065938287196,
+        "log_rmse": 3.4792065938287196,
+        "median_absolute_error": 973.0181701361295,
+        "negative_prediction_percentage_before_clipping": 0.0031999999999999997
+      },
+      "status": "completed",
+      "experiment_id": "catboost_raw_screen",
+      "training_coverage": "deterministic screening subset"
+    },
+    {
+      "model": "catboost",
+      "target_strategy": "log",
+      "parameters": {
+        "iterations": 250,
+        "learning_rate": 0.06,
+        "depth": 8,
+        "l2_leaf_reg": 5,
+        "loss_function": "RMSE",
+        "od_wait": 30,
+        "od_type": "Iter",
+        "thread_count": 6,
+        "random_seed": 42,
+        "verbose": false,
+        "random_strength": 1,
+        "allow_writing_files": false,
+        "task_type": "CPU",
+        "bootstrap_type": "Bernoulli",
+        "subsample": 0.8
+      },
+      "training_rows": 2000000,
+      "validation_rows": 500000,
+      "training_duration_seconds": 192.8235229999991,
+      "validation_inference_seconds": 0.4659568999995827,
+      "best_iteration": 249,
+      "rss_before_mb": 4447.12,
+      "rss_after_mb": 5956.3,
+      "validation": {
+        "rmse": 9286.056343161772,
+        "mae": 449.175934893932,
+        "r2": 0.00805676841302383,
+        "rmsle": 1.4926606806237475,
+        "log_rmse": 1.4926606806237475,
+        "median_absolute_error": 41.81161176145413,
+        "negative_prediction_percentage_before_clipping": 0.02
+      },
+      "status": "completed",
+      "experiment_id": "catboost_log_screen",
+      "training_coverage": "deterministic screening subset"
+    }
+  ],
+  "selected_strategy_by_family": {
+    "xgboost": "raw",
+    "lightgbm": "log",
+    "catboost": "log"
+  },
+  "final_candidates": {
+    "xgboost": {
+      "model": "models/advanced/xgboost/model.json",
+      "target_strategy": "raw",
+      "parameters": {
+        "objective": "reg:squarederror",
+        "base_score": null,
+        "booster": null,
+        "callbacks": null,
+        "colsample_bylevel": null,
+        "colsample_bynode": null,
+        "colsample_bytree": 0.8,
+        "device": null,
+        "early_stopping_rounds": 30,
+        "enable_categorical": false,
+        "eval_metric": null,
+        "feature_types": null,
+        "feature_weights": null,
+        "gamma": null,
+        "grow_policy": null,
+        "importance_type": null,
+        "interaction_constraints": null,
+        "learning_rate": 0.06,
+        "max_bin": 128,
+        "max_cat_threshold": null,
+        "max_cat_to_onehot": null,
+        "max_delta_step": null,
+        "max_depth": 8,
+        "max_leaves": null,
+        "min_child_weight": 20,
+        "missing": NaN,
+        "monotone_constraints": null,
+        "multi_strategy": null,
+        "n_estimators": 450,
+        "n_jobs": 6,
+        "num_parallel_tree": null,
+        "random_state": 42,
+        "reg_alpha": 0.1,
+        "reg_lambda": 2,
+        "sampling_method": null,
+        "scale_pos_weight": null,
+        "subsample": 0.8,
+        "tree_method": "hist",
+        "validate_parameters": null,
+        "verbosity": null
+      },
+      "training_rows": 13358457,
+      "validation_rows": 3441800,
+      "training_duration_seconds": 70.38287200000013,
+      "validation_inference_seconds": 0.9920442000002367,
+      "best_iteration": 33,
+      "rss_before_mb": 6257.99,
+      "rss_after_mb": 6272.36,
+      "validation": {
+        "rmse": 8731.46120706343,
+        "mae": 702.0707567948084,
+        "r2": 0.018419678901579695,
+        "rmsle": 2.8854164699459655,
+        "log_rmse": 2.8854164699459655,
+        "median_absolute_error": 377.7978163957596,
+        "negative_prediction_percentage_before_clipping": 0.014469173107095125
+      },
+      "status": "completed",
+      "test": {
+        "rmse": 59926.46691842314,
+        "mae": 1024.7393358826664,
+        "r2": -0.0034771508143041086,
+        "rmsle": 2.9272781594332127,
+        "log_rmse": 2.9272781594332127,
+        "median_absolute_error": 383.49214363098145,
+        "negative_prediction_percentage_before_clipping": 0.06343968384963829
+      },
+      "test_inference_seconds": 0.8083610999983648,
+      "training_coverage": "full",
+      "predictors": [
+        "meter",
+        "primary_use",
+        "square_feet",
+        "year_built",
+        "floor_count",
+        "air_temperature",
+        "cloud_coverage",
+        "dew_temperature",
+        "precip_depth_1_hr",
+        "sea_level_pressure",
+        "wind_direction",
+        "wind_speed",
+        "hour",
+        "day_of_week",
+        "day_of_month",
+        "day_of_year",
+        "week_of_year",
+        "month",
+        "quarter",
+        "is_weekend",
+        "hour_sin",
+        "hour_cos",
+        "day_of_week_sin",
+        "day_of_week_cos",
+        "month_sin",
+        "month_cos",
+        "building_age_2016",
+        "log_square_feet",
+        "square_feet_per_floor",
+        "temperature_difference",
+        "relative_humidity",
+        "wind_direction_sin",
+        "wind_direction_cos",
+        "is_precipitating",
+        "is_freezing",
+        "is_hot",
+        "heating_degree_proxy",
+        "cooling_degree_proxy",
+        "log_square_feet_x_air_temperature",
+        "building_age_x_air_temperature",
+        "heating_degree_x_log_square_feet",
+        "cooling_degree_x_log_square_feet"
+      ],
+      "categorical_strategy": "training-fitted ordinal codes",
+      "subgroup_metrics": {
+        "validation": {
+          "by_meter": {
+            "0": {
+              "rows": 2045185,
+              "rmse": 463.2947001505971,
+              "mae": 378.3243264593261
+            },
+            "1": {
+              "rows": 716363,
+              "rmse": 18917.421896706514,
+              "mae": 1415.1078777678158
+            },
+            "2": {
+              "rows": 468518,
+              "rmse": 3129.3379986541136,
+              "mae": 1005.4836568951135
+            },
+            "3": {
+              "rows": 211734,
+              "rmse": 2180.0676047404095,
+              "mae": 745.3964716298939
+            }
+          },
+          "by_site": {
+            "0": {
+              "rows": 182841,
+              "rmse": 788.72129558138,
+              "mae": 471.6033123607955
+            },
+            "1": {
+              "rows": 92228,
+              "rmse": 356.9006711611636,
+              "mae": 337.1054004913016
+            },
+            "2": {
+              "rows": 422698,
+              "rmse": 851.0527254025847,
+              "mae": 538.3853092035641
+            },
+            "3": {
+              "rows": 395941,
+              "rmse": 408.72665510010603,
+              "mae": 369.31271005431427
+            },
+            "4": {
+              "rows": 129945,
+              "rmse": 359.2881344881742,
+              "mae": 342.89556570919194
+            },
+            "5": {
+              "rows": 130296,
+              "rmse": 388.4552633215444,
+              "mae": 384.61342518464954
+            },
+            "6": {
+              "rows": 114259,
+              "rmse": 45882.28368884773,
+              "mae": 4328.405911602464
+            },
+            "7": {
+              "rows": 61488,
+              "rmse": 1299.2789701640604,
+              "mae": 914.2621230614739
+            },
+            "8": {
+              "rows": 100526,
+              "rmse": 358.64993796060844,
+              "mae": 354.9438121276257
+            },
+            "9": {
+              "rows": 446922,
+              "rmse": 971.8946305798884,
+              "mae": 529.7625101407625
+            },
+            "10": {
+              "rows": 67842,
+              "rmse": 3485.768454786482,
+              "mae": 843.5970711568622
+            },
+            "11": {
+              "rows": 19496,
+              "rmse": 514.1365095424429,
+              "mae": 467.2279959949785
+            },
+            "12": {
+              "rows": 52651,
+              "rmse": 442.087647047264,
+              "mae": 392.8341901181724
+            },
+            "13": {
+              "rows": 452086,
+              "rmse": 6528.93832599257,
+              "mae": 1091.3330161290999
+            },
+            "14": {
+              "rows": 417602,
+              "rmse": 1114.043355661151,
+              "mae": 606.8137987395381
+            },
+            "15": {
+              "rows": 354979,
+              "rmse": 669.0956832709879,
+              "mae": 488.96115339592524
+            }
+          },
+          "by_primary_use": {
+            "Education": {
+              "rows": 1384880,
+              "rmse": 3615.6944030853147,
+              "mae": 624.3352942793618
+            },
+            "Entertainment/public assembly": {
+              "rows": 388270,
+              "rmse": 24937.909378293945,
+              "mae": 1672.210924140215
+            },
+            "Food sales and service": {
+              "rows": 19029,
+              "rmse": 635.1366234603347,
+              "mae": 423.974171340547
+            },
+            "Healthcare": {
+              "rows": 66727,
+              "rmse": 1258.1646381139467,
+              "mae": 729.7109064128126
+            },
+            "Lodging/residential": {
+              "rows": 371593,
+              "rmse": 944.5695806362713,
+              "mae": 477.4389322235747
+            },
+            "Manufacturing/industrial": {
+              "rows": 21891,
+              "rmse": 395.65401748464427,
+              "mae": 349.85305245691774
+            },
+            "Office": {
+              "rows": 746850,
+              "rmse": 1650.2837056330068,
+              "mae": 604.1173848737848
+            },
+            "Other": {
+              "rows": 40583,
+              "rmse": 424.6869781389126,
+              "mae": 386.3835483130744
+            },
+            "Parking": {
+              "rows": 36589,
+              "rmse": 496.782789909021,
+              "mae": 433.7298962026407
+            },
+            "Public services": {
+              "rows": 282297,
+              "rmse": 747.9148497116967,
+              "mae": 468.8056391389407
+            },
+            "Religious worship": {
+              "rows": 5833,
+              "rmse": 406.41663144157434,
+              "mae": 404.35838268172347
+            },
+            "Retail": {
+              "rows": 18928,
+              "rmse": 400.2682981344682,
+              "mae": 372.9211831290081
+            },
+            "Services": {
+              "rows": 16084,
+              "rmse": 3155.9493946443517,
+              "mae": 1309.8041732202169
+            },
+            "Technology/science": {
+              "rows": 13148,
+              "rmse": 364.21394472255406,
+              "mae": 330.78116612449617
+            },
+            "Utility": {
+              "rows": 10155,
+              "rmse": 425.72980064610965,
+              "mae": 362.3966833194449
+            },
+            "Warehouse/storage": {
+              "rows": 18943,
+              "rmse": 420.07072628227286,
+              "mae": 373.0272541274218
+            }
+          },
+          "by_month": {
+            "2016-09": {
+              "rows": 1694451,
+              "rmse": 10579.235434766875,
+              "mae": 727.3145060377502
+            },
+            "2016-10": {
+              "rows": 1747349,
+              "rmse": 6452.6593652273195,
+              "mae": 677.5912188499262
+            }
+          },
+          "by_target_decile": {
+            "0": {
+              "rows": 344180,
+              "rmse": 1018.6656604537868,
+              "mae": 695.1801696456774
+            },
+            "1": {
+              "rows": 344180,
+              "rmse": 568.1362534075585,
+              "mae": 454.44464855047477
+            },
+            "2": {
+              "rows": 344180,
+              "rmse": 544.3468977244125,
+              "mae": 440.6411384293796
+            },
+            "3": {
+              "rows": 344180,
+              "rmse": 572.8394623556815,
+              "mae": 454.17553465257606
+            },
+            "4": {
+              "rows": 344180,
+              "rmse": 614.8595747380431,
+              "mae": 466.6369609237583
+            },
+            "5": {
+              "rows": 344180,
+              "rmse": 578.9151552885049,
+              "mae": 448.50886869714833
+            },
+            "6": {
+              "rows": 344180,
+              "rmse": 604.1441472253117,
+              "mae": 445.55379751926864
+            },
+            "7": {
+              "rows": 344180,
+              "rmse": 668.2395514511448,
+              "mae": 438.6379022917802
+            },
+            "8": {
+              "rows": 344180,
+              "rmse": 720.723220200874,
+              "mae": 376.09070361286626
+            },
+            "9": {
+              "rows": 344180,
+              "rmse": 27538.247215773576,
+              "mae": 2800.8378436251546
+            }
+          },
+          "zero_vs_nonzero": {
+            "zero": {
+              "rows": 281329,
+              "mae": 736.5413567530308
+            },
+            "nonzero": {
+              "rows": 3160471,
+              "mae": 699.0023598958502
+            }
+          },
+          "high_consumption": {
+            "threshold": 38625.0,
+            "rows": 3046,
+            "rmse": 290493.03815760964,
+            "mae": 175805.14027626204
+          },
+          "building_error_summary": {
+            "building_count": 1445,
+            "median_building_mae": 374.15947244367527,
+            "maximum_building_mae": 151670.6236110702
+          }
+        },
+        "test": {
+          "by_meter": {
+            "0": {
+              "rows": 2023232,
+              "rmse": 1627.0749819919145,
+              "mae": 466.2610582064053
+            },
+            "1": {
+              "rows": 717484,
+              "rmse": 2989.722709836173,
+              "mae": 966.8871385578377
+            },
+            "2": {
+              "rows": 463756,
+              "rmse": 162545.9435056348,
+              "mae": 3535.821412005262
+            },
+            "3": {
+              "rows": 211371,
+              "rmse": 3196.7497285390164,
+              "mae": 1057.4295788705567
+            }
+          },
+          "by_site": {
+            "0": {
+              "rows": 186996,
+              "rmse": 627.3414466673257,
+              "mae": 399.19150779853936
+            },
+            "1": {
+              "rows": 92231,
+              "rmse": 366.141638839501,
+              "mae": 339.26560899570165
+            },
+            "2": {
+              "rows": 421553,
+              "rmse": 1096.682244026605,
+              "mae": 660.364973297715
+            },
+            "3": {
+              "rows": 394853,
+              "rmse": 2138.0469187803888,
+              "mae": 474.3296022910968
+            },
+            "4": {
+              "rows": 132037,
+              "rmse": 463.4791246730141,
+              "mae": 383.08292711476713
+            },
+            "5": {
+              "rows": 130296,
+              "rmse": 408.1883170195039,
+              "mae": 385.66156663227986
+            },
+            "6": {
+              "rows": 115142,
+              "rmse": 993.8286334335709,
+              "mae": 623.0573883251357
+            },
+            "7": {
+              "rows": 61488,
+              "rmse": 2076.1133958149408,
+              "mae": 1340.3904318131224
+            },
+            "8": {
+              "rows": 87374,
+              "rmse": 359.68629142345446,
+              "mae": 356.1057879185378
+            },
+            "9": {
+              "rows": 447512,
+              "rmse": 1120.654579409909,
+              "mae": 740.7710079654214
+            },
+            "10": {
+              "rows": 67106,
+              "rmse": 5063.269481078317,
+              "mae": 1080.4555200947639
+            },
+            "11": {
+              "rows": 20444,
+              "rmse": 562.8679791219957,
+              "mae": 518.5812604414481
+            },
+            "12": {
+              "rows": 52657,
+              "rmse": 753.2212890816058,
+              "mae": 511.7135912151954
+            },
+            "13": {
+              "rows": 452255,
+              "rmse": 164649.05661748047,
+              "mae": 3599.5298170675533
+            },
+            "14": {
+              "rows": 418211,
+              "rmse": 1587.6313589864037,
+              "mae": 842.0656396393643
+            },
+            "15": {
+              "rows": 335688,
+              "rmse": 1062.8445485376012,
+              "mae": 658.3943543133657
+            }
+          },
+          "by_primary_use": {
+            "Education": {
+              "rows": 1379020,
+              "rmse": 94292.69503838949,
+              "mae": 1541.6060768779246
+            },
+            "Entertainment/public assembly": {
+              "rows": 384385,
+              "rmse": 2312.9222315046954,
+              "mae": 716.3155466423601
+            },
+            "Food sales and service": {
+              "rows": 19009,
+              "rmse": 622.745749571775,
+              "mae": 436.4760391895245
+            },
+            "Healthcare": {
+              "rows": 66642,
+              "rmse": 2510.096534107043,
+              "mae": 1496.9699807042641
+            },
+            "Lodging/residential": {
+              "rows": 368467,
+              "rmse": 1871.2426443583304,
+              "mae": 611.6584828944626
+            },
+            "Manufacturing/industrial": {
+              "rows": 21527,
+              "rmse": 509.83059247135856,
+              "mae": 395.3474225598327
+            },
+            "Office": {
+              "rows": 741998,
+              "rmse": 1316.16731211431,
+              "mae": 677.6406303574057
+            },
+            "Other": {
+              "rows": 40085,
+              "rmse": 439.89014731097996,
+              "mae": 396.34671684586897
+            },
+            "Parking": {
+              "rows": 36585,
+              "rmse": 741.6965989648066,
+              "mae": 524.9096328015901
+            },
+            "Public services": {
+              "rows": 276116,
+              "rmse": 975.9067326476475,
+              "mae": 573.3233454731217
+            },
+            "Religious worship": {
+              "rows": 5664,
+              "rmse": 392.8878505856661,
+              "mae": 392.0958817742652
+            },
+            "Retail": {
+              "rows": 19031,
+              "rmse": 422.6830610871125,
+              "mae": 393.0174294975461
+            },
+            "Services": {
+              "rows": 16104,
+              "rmse": 5671.211914010315,
+              "mae": 2138.351502619134
+            },
+            "Technology/science": {
+              "rows": 12865,
+              "rmse": 382.7415616319911,
+              "mae": 358.39894639691147
+            },
+            "Utility": {
+              "rows": 9764,
+              "rmse": 405.74491113441223,
+              "mae": 358.3104201226584
+            },
+            "Warehouse/storage": {
+              "rows": 18581,
+              "rmse": 693.835074057811,
+              "mae": 468.68548397693957
+            }
+          },
+          "by_month": {
+            "2016-11": {
+              "rows": 1689024,
+              "rmse": 84861.26721701106,
+              "mae": 1146.4214730792933
+            },
+            "2016-12": {
+              "rows": 1726819,
+              "rmse": 7742.483377983361,
+              "mae": 905.720463553606
+            }
+          },
+          "by_target_decile": {
+            "0": {
+              "rows": 341585,
+              "rmse": 1352.63666472357,
+              "mae": 832.1823427056274
+            },
+            "1": {
+              "rows": 341584,
+              "rmse": 663.5137186753682,
+              "mae": 477.7067354455715
+            },
+            "2": {
+              "rows": 341584,
+              "rmse": 676.7886233411901,
+              "mae": 470.0643511282219
+            },
+            "3": {
+              "rows": 341584,
+              "rmse": 998.2295238055851,
+              "mae": 499.60340733129226
+            },
+            "4": {
+              "rows": 341585,
+              "rmse": 1076.2477823810939,
+              "mae": 521.0955303374562
+            },
+            "5": {
+              "rows": 341584,
+              "rmse": 1430.3220031027806,
+              "mae": 541.697645116843
+            },
+            "6": {
+              "rows": 341584,
+              "rmse": 1001.6362948297362,
+              "mae": 595.6514980804502
+            },
+            "7": {
+              "rows": 341584,
+              "rmse": 2558.0693108465903,
+              "mae": 748.1034801403998
+            },
+            "8": {
+              "rows": 341584,
+              "rmse": 2713.3088744643696,
+              "mae": 755.9737256546089
+            },
+            "9": {
+              "rows": 341585,
+              "rmse": 189446.30712884248,
+              "mae": 4805.305613290313
+            }
+          },
+          "zero_vs_nonzero": {
+            "zero": {
+              "rows": 245728,
+              "mae": 919.553437020602
+            },
+            "nonzero": {
+              "rows": 3170115,
+              "mae": 1032.8927058883528
+            }
+          },
+          "high_consumption": {
+            "threshold": 38625.0,
+            "rows": 3890,
+            "rmse": 1767394.7307184958,
+            "mae": 213239.5818125276
+          },
+          "building_error_summary": {
+            "building_count": 1445,
+            "median_building_mae": 376.52891882423495,
+            "maximum_building_mae": 365710.5861466017
+          }
+        }
+      },
+      "feature_importance": [
+        {
+          "feature": "month_sin",
+          "importance": 0.5200865864753723
+        },
+        {
+          "feature": "meter",
+          "importance": 0.09231717139482498
+        },
+        {
+          "feature": "air_temperature",
+          "importance": 0.052262961864471436
+        },
+        {
+          "feature": "day_of_month",
+          "importance": 0.04736451432108879
+        },
+        {
+          "feature": "floor_count",
+          "importance": 0.046324338763952255
+        },
+        {
+          "feature": "dew_temperature",
+          "importance": 0.03162812814116478
+        },
+        {
+          "feature": "day_of_year",
+          "importance": 0.026713944971561432
+        },
+        {
+          "feature": "month",
+          "importance": 0.017509382218122482
+        },
+        {
+          "feature": "building_age_x_air_temperature",
+          "importance": 0.016259215772151947
+        },
+        {
+          "feature": "day_of_week_sin",
+          "importance": 0.01567729562520981
+        },
+        {
+          "feature": "day_of_week_cos",
+          "importance": 0.013277022168040276
+        },
+        {
+          "feature": "week_of_year",
+          "importance": 0.012662799097597599
+        },
+        {
+          "feature": "relative_humidity",
+          "importance": 0.010754521004855633
+        },
+        {
+          "feature": "sea_level_pressure",
+          "importance": 0.010535393841564655
+        },
+        {
+          "feature": "is_weekend",
+          "importance": 0.008036896586418152
+        },
+        {
+          "feature": "month_cos",
+          "importance": 0.007852449081838131
+        },
+        {
+          "feature": "wind_speed",
+          "importance": 0.007819406688213348
+        },
+        {
+          "feature": "log_square_feet_x_air_temperature",
+          "importance": 0.007437217514961958
+        },
+        {
+          "feature": "primary_use",
+          "importance": 0.006474941037595272
+        },
+        {
+          "feature": "heating_degree_proxy",
+          "importance": 0.006299510598182678
+        }
+      ],
+      "importance_type": "gain",
+      "feature_importance_plot": "reports/figures/advanced/xgboost_feature_importance.png",
+      "preprocessing": "models/advanced/xgboost/preprocessing.joblib",
+      "artifact_size_bytes": 1779459,
+      "reload_successful": true,
+      "deterministic_smoke_test": true
+    },
+    "lightgbm": {
+      "model": "models/advanced/lightgbm/model.txt",
+      "target_strategy": "log",
+      "parameters": {
+        "boosting_type": "gbdt",
+        "class_weight": null,
+        "colsample_bytree": 1.0,
+        "importance_type": "split",
+        "learning_rate": 0.06,
+        "max_depth": 10,
+        "min_child_samples": 100,
+        "min_child_weight": 0.001,
+        "min_split_gain": 0.0,
+        "n_estimators": 450,
+        "n_jobs": 6,
+        "num_leaves": 63,
+        "objective": "regression",
+        "random_state": 42,
+        "reg_alpha": 0.1,
+        "reg_lambda": 2,
+        "subsample": 1.0,
+        "subsample_for_bin": 200000,
+        "subsample_freq": 0,
+        "feature_fraction": 0.8,
+        "bagging_fraction": 0.8,
+        "bagging_freq": 1,
+        "max_bin": 127,
+        "deterministic": true,
+        "force_col_wise": true,
+        "verbosity": -1
+      },
+      "training_rows": 13358457,
+      "validation_rows": 3441800,
+      "training_duration_seconds": 243.80530869999893,
+      "validation_inference_seconds": 18.133987600000182,
+      "best_iteration": 450,
+      "rss_before_mb": 6261.89,
+      "rss_after_mb": 2090.21,
+      "validation": {
+        "rmse": 8730.623056290207,
+        "mae": 382.79153105446807,
+        "r2": 0.018608117651677247,
+        "rmsle": 1.319876237975916,
+        "log_rmse": 1.319876237975916,
+        "median_absolute_error": 32.61902426430238,
+        "negative_prediction_percentage_before_clipping": 0.0778081236562264
+      },
+      "status": "completed",
+      "test": {
+        "rmse": 59794.51770317576,
+        "mae": 527.7050957045245,
+        "r2": 0.000937000659346432,
+        "rmsle": 1.334012713662116,
+        "log_rmse": 1.334012713662116,
+        "median_absolute_error": 33.2958487959614,
+        "negative_prediction_percentage_before_clipping": 0.03483766671945988
+      },
+      "test_inference_seconds": 23.161844199999905,
+      "training_coverage": "full",
+      "predictors": [
+        "meter",
+        "primary_use",
+        "square_feet",
+        "year_built",
+        "floor_count",
+        "air_temperature",
+        "cloud_coverage",
+        "dew_temperature",
+        "precip_depth_1_hr",
+        "sea_level_pressure",
+        "wind_direction",
+        "wind_speed",
+        "hour",
+        "day_of_week",
+        "day_of_month",
+        "day_of_year",
+        "week_of_year",
+        "month",
+        "quarter",
+        "is_weekend",
+        "hour_sin",
+        "hour_cos",
+        "day_of_week_sin",
+        "day_of_week_cos",
+        "month_sin",
+        "month_cos",
+        "building_age_2016",
+        "log_square_feet",
+        "square_feet_per_floor",
+        "temperature_difference",
+        "relative_humidity",
+        "wind_direction_sin",
+        "wind_direction_cos",
+        "is_precipitating",
+        "is_freezing",
+        "is_hot",
+        "heating_degree_proxy",
+        "cooling_degree_proxy",
+        "log_square_feet_x_air_temperature",
+        "building_age_x_air_temperature",
+        "heating_degree_x_log_square_feet",
+        "cooling_degree_x_log_square_feet"
+      ],
+      "categorical_strategy": "training-defined native categorical levels",
+      "subgroup_metrics": {
+        "validation": {
+          "by_meter": {
+            "0": {
+              "rows": 2045185,
+              "rmse": 236.69886587219304,
+              "mae": 80.64263412300993
+            },
+            "1": {
+              "rows": 716363,
+              "rmse": 18933.62142164421,
+              "mae": 1049.4220394211004
+            },
+            "2": {
+              "rows": 468518,
+              "rmse": 3067.3459961373405,
+              "mae": 749.0340594445966
+            },
+            "3": {
+              "rows": 211734,
+              "rmse": 2195.988699270907,
+              "mae": 235.48285124599283
+            }
+          },
+          "by_site": {
+            "0": {
+              "rows": 182841,
+              "rmse": 1089.6436533935334,
+              "mae": 478.90144073147013
+            },
+            "1": {
+              "rows": 92228,
+              "rmse": 85.5226779508583,
+              "mae": 46.61137874110126
+            },
+            "2": {
+              "rows": 422698,
+              "rmse": 194.85142032660065,
+              "mae": 76.81663376686173
+            },
+            "3": {
+              "rows": 395941,
+              "rmse": 112.79580534772754,
+              "mae": 45.724608371694984
+            },
+            "4": {
+              "rows": 129945,
+              "rmse": 75.53087702702884,
+              "mae": 42.58316812792664
+            },
+            "5": {
+              "rows": 130296,
+              "rmse": 37.73706278817072,
+              "mae": 13.994538755462985
+            },
+            "6": {
+              "rows": 114259,
+              "rmse": 45937.115657724375,
+              "mae": 4025.78385779597
+            },
+            "7": {
+              "rows": 61488,
+              "rmse": 1050.2105168228386,
+              "mae": 597.5629881322216
+            },
+            "8": {
+              "rows": 100526,
+              "rmse": 109.04576863847589,
+              "mae": 31.099127033421187
+            },
+            "9": {
+              "rows": 446922,
+              "rmse": 816.9858713762894,
+              "mae": 147.49546756166706
+            },
+            "10": {
+              "rows": 67842,
+              "rmse": 3815.8044882935164,
+              "mae": 372.9273770744555
+            },
+            "11": {
+              "rows": 19496,
+              "rmse": 132.87862327733683,
+              "mae": 85.09961660389864
+            },
+            "12": {
+              "rows": 52651,
+              "rmse": 88.69564567641498,
+              "mae": 48.555260165371706
+            },
+            "13": {
+              "rows": 452086,
+              "rmse": 6486.896327291253,
+              "mae": 741.9880017107428
+            },
+            "14": {
+              "rows": 417602,
+              "rmse": 1153.408328891205,
+              "mae": 443.86792686696293
+            },
+            "15": {
+              "rows": 354979,
+              "rmse": 413.24293472279874,
+              "mae": 145.38982641790295
+            }
+          },
+          "by_primary_use": {
+            "Education": {
+              "rows": 1384880,
+              "rmse": 3403.3072716757015,
+              "mae": 304.16462893326957
+            },
+            "Entertainment/public assembly": {
+              "rows": 388270,
+              "rmse": 24970.681949845693,
+              "mae": 1300.2085281069333
+            },
+            "Food sales and service": {
+              "rows": 19029,
+              "rmse": 616.5611122562289,
+              "mae": 220.04793573903444
+            },
+            "Healthcare": {
+              "rows": 66727,
+              "rmse": 939.9386950071116,
+              "mae": 396.55963455655547
+            },
+            "Lodging/residential": {
+              "rows": 371593,
+              "rmse": 999.189483556369,
+              "mae": 188.17271736124192
+            },
+            "Manufacturing/industrial": {
+              "rows": 21891,
+              "rmse": 279.20532072220266,
+              "mae": 126.40512172107826
+            },
+            "Office": {
+              "rows": 746850,
+              "rmse": 1616.1555931358462,
+              "mae": 249.77067039454548
+            },
+            "Other": {
+              "rows": 40583,
+              "rmse": 267.65716405931244,
+              "mae": 70.92176402549573
+            },
+            "Parking": {
+              "rows": 36589,
+              "rmse": 217.6737937457639,
+              "mae": 60.03225188256572
+            },
+            "Public services": {
+              "rows": 282297,
+              "rmse": 749.609854875849,
+              "mae": 149.4183117459345
+            },
+            "Religious worship": {
+              "rows": 5833,
+              "rmse": 4.306602570183393,
+              "mae": 2.8920548600795035
+            },
+            "Retail": {
+              "rows": 18928,
+              "rmse": 329.89587430343323,
+              "mae": 141.6157059993044
+            },
+            "Services": {
+              "rows": 16084,
+              "rmse": 10128.823877845214,
+              "mae": 3008.542386413371
+            },
+            "Technology/science": {
+              "rows": 13148,
+              "rmse": 175.0939330629834,
+              "mae": 45.3387186374301
+            },
+            "Utility": {
+              "rows": 10155,
+              "rmse": 347.73632246402684,
+              "mae": 218.51541889427932
+            },
+            "Warehouse/storage": {
+              "rows": 18943,
+              "rmse": 32.84281142910612,
+              "mae": 20.63453462537423
+            }
+          },
+          "by_month": {
+            "2016-09": {
+              "rows": 1694451,
+              "rmse": 10615.500855841377,
+              "mae": 443.08822942456675
+            },
+            "2016-10": {
+              "rows": 1747349,
+              "rmse": 6392.387452630986,
+              "mae": 324.320212016364
+            }
+          },
+          "by_target_decile": {
+            "0": {
+              "rows": 344180,
+              "rmse": 225.61920103501143,
+              "mae": 67.03478975857495
+            },
+            "1": {
+              "rows": 344180,
+              "rmse": 62.75026739803853,
+              "mae": 13.510725252283745
+            },
+            "2": {
+              "rows": 344180,
+              "rmse": 39.295753436715714,
+              "mae": 14.941185451549883
+            },
+            "3": {
+              "rows": 344180,
+              "rmse": 54.80363938602322,
+              "mae": 22.91892843381851
+            },
+            "4": {
+              "rows": 344180,
+              "rmse": 66.30112257943661,
+              "mae": 33.51011535300387
+            },
+            "5": {
+              "rows": 344180,
+              "rmse": 85.43330607760205,
+              "mae": 48.80174927952663
+            },
+            "6": {
+              "rows": 344180,
+              "rmse": 108.93701669162705,
+              "mae": 75.49645826460248
+            },
+            "7": {
+              "rows": 344180,
+              "rmse": 168.6870462916393,
+              "mae": 128.61304763739523
+            },
+            "8": {
+              "rows": 344180,
+              "rmse": 335.0710161199785,
+              "mae": 277.581128439784
+            },
+            "9": {
+              "rows": 344180,
+              "rmse": 27604.603065929437,
+              "mae": 3145.507182674141
+            }
+          },
+          "zero_vs_nonzero": {
+            "zero": {
+              "rows": 281329,
+              "mae": 78.98801794714247
+            },
+            "nonzero": {
+              "rows": 3160471,
+              "mae": 409.83456943038436
+            }
+          },
+          "high_consumption": {
+            "threshold": 38625.0,
+            "rows": 3046,
+            "rmse": 291937.58307441854,
+            "mae": 186515.4449029173
+          },
+          "building_error_summary": {
+            "building_count": 1445,
+            "median_building_mae": 39.355868140948026,
+            "maximum_building_mae": 151659.50486347097
+          }
+        },
+        "test": {
+          "by_meter": {
+            "0": {
+              "rows": 2023232,
+              "rmse": 328.12142260677314,
+              "mae": 87.8096815366858
+            },
+            "1": {
+              "rows": 717484,
+              "rmse": 2640.7542666748955,
+              "mae": 220.8770430860899
+            },
+            "2": {
+              "rows": 463756,
+              "rmse": 162230.50618714176,
+              "mae": 2937.831782038316
+            },
+            "3": {
+              "rows": 211371,
+              "rmse": 3268.4829275476623,
+              "mae": 491.9574555603976
+            }
+          },
+          "by_site": {
+            "0": {
+              "rows": 186996,
+              "rmse": 828.820479661088,
+              "mae": 444.4049268740306
+            },
+            "1": {
+              "rows": 92231,
+              "rmse": 98.49521031630498,
+              "mae": 57.996784376908934
+            },
+            "2": {
+              "rows": 421553,
+              "rmse": 155.30149237098001,
+              "mae": 64.96511514703124
+            },
+            "3": {
+              "rows": 394853,
+              "rmse": 115.06303632216532,
+              "mae": 43.6144889403133
+            },
+            "4": {
+              "rows": 132037,
+              "rmse": 84.6963034423799,
+              "mae": 45.44188181484555
+            },
+            "5": {
+              "rows": 130296,
+              "rmse": 38.87917593003599,
+              "mae": 16.81538341689051
+            },
+            "6": {
+              "rows": 115142,
+              "rmse": 639.5319548739658,
+              "mae": 240.09029561519205
+            },
+            "7": {
+              "rows": 61488,
+              "rmse": 1987.923930179764,
+              "mae": 1039.2753707307145
+            },
+            "8": {
+              "rows": 87374,
+              "rmse": 119.44754915479086,
+              "mae": 31.5794452629374
+            },
+            "9": {
+              "rows": 447512,
+              "rmse": 261.80890524405675,
+              "mae": 115.12056648470859
+            },
+            "10": {
+              "rows": 67106,
+              "rmse": 5569.094094376486,
+              "mae": 672.7878447391727
+            },
+            "11": {
+              "rows": 20444,
+              "rmse": 89.24000182404386,
+              "mae": 61.325308753725615
+            },
+            "12": {
+              "rows": 52657,
+              "rmse": 88.26286961962207,
+              "mae": 48.62234151940129
+            },
+            "13": {
+              "rows": 452255,
+              "rmse": 164308.29187137322,
+              "mae": 2666.0950011838822
+            },
+            "14": {
+              "rows": 418211,
+              "rmse": 1157.576895674333,
+              "mae": 408.8511862219961
+            },
+            "15": {
+              "rows": 335688,
+              "rmse": 802.3096771659266,
+              "mae": 267.4527400281945
+            }
+          },
+          "by_primary_use": {
+            "Education": {
+              "rows": 1379020,
+              "rmse": 94080.66502836606,
+              "mae": 880.9089737007383
+            },
+            "Entertainment/public assembly": {
+              "rows": 384385,
+              "rmse": 2383.870074422905,
+              "mae": 261.1292386257353
+            },
+            "Food sales and service": {
+              "rows": 19009,
+              "rmse": 578.1724233932459,
+              "mae": 219.3688049675212
+            },
+            "Healthcare": {
+              "rows": 66642,
+              "rmse": 1823.9181638380066,
+              "mae": 576.4452774545023
+            },
+            "Lodging/residential": {
+              "rows": 368467,
+              "rmse": 1078.0957324595684,
+              "mae": 257.56687848689626
+            },
+            "Manufacturing/industrial": {
+              "rows": 21527,
+              "rmse": 603.8571200277006,
+              "mae": 272.51946454043014
+            },
+            "Office": {
+              "rows": 741998,
+              "rmse": 1612.3102217227363,
+              "mae": 304.57869821415636
+            },
+            "Other": {
+              "rows": 40085,
+              "rmse": 357.6803135006966,
+              "mae": 113.39448448462612
+            },
+            "Parking": {
+              "rows": 36585,
+              "rmse": 865.0678810019506,
+              "mae": 193.35089623080356
+            },
+            "Public services": {
+              "rows": 276116,
+              "rmse": 952.7488331925126,
+              "mae": 169.89907819838996
+            },
+            "Religious worship": {
+              "rows": 5664,
+              "rmse": 3.2361327717300474,
+              "mae": 2.2571172764136636
+            },
+            "Retail": {
+              "rows": 19031,
+              "rmse": 373.36139182420885,
+              "mae": 146.50073113777495
+            },
+            "Services": {
+              "rows": 16104,
+              "rmse": 10985.861237897425,
+              "mae": 3268.0732884586296
+            },
+            "Technology/science": {
+              "rows": 12865,
+              "rmse": 167.66106416968685,
+              "mae": 75.78075725298572
+            },
+            "Utility": {
+              "rows": 9764,
+              "rmse": 430.4201383412698,
+              "mae": 263.39447503533773
+            },
+            "Warehouse/storage": {
+              "rows": 18581,
+              "rmse": 57.8651618996173,
+              "mae": 28.590404157859364
+            }
+          },
+          "by_month": {
+            "2016-11": {
+              "rows": 1689024,
+              "rmse": 85002.13779723279,
+              "mae": 703.1625785508552
+            },
+            "2016-12": {
+              "rows": 1726819,
+              "rmse": 2300.5639929771105,
+              "mae": 356.0878622208526
+            }
+          },
+          "by_target_decile": {
+            "0": {
+              "rows": 341585,
+              "rmse": 229.03185856968796,
+              "mae": 51.633685122736345
+            },
+            "1": {
+              "rows": 341584,
+              "rmse": 70.6487002112373,
+              "mae": 14.135520203660304
+            },
+            "2": {
+              "rows": 341584,
+              "rmse": 65.17073799071468,
+              "mae": 18.990141596299182
+            },
+            "3": {
+              "rows": 341584,
+              "rmse": 60.29127304226081,
+              "mae": 24.900986109552203
+            },
+            "4": {
+              "rows": 341585,
+              "rmse": 76.0922752965892,
+              "mae": 36.52163401691477
+            },
+            "5": {
+              "rows": 341584,
+              "rmse": 97.15074588823067,
+              "mae": 52.2926261252469
+            },
+            "6": {
+              "rows": 341584,
+              "rmse": 147.5136712056482,
+              "mae": 81.26530800203001
+            },
+            "7": {
+              "rows": 341584,
+              "rmse": 194.31752961736544,
+              "mae": 136.38341523808538
+            },
+            "8": {
+              "rows": 341584,
+              "rmse": 373.45461586759217,
+              "mae": 302.8060481851882
+            },
+            "9": {
+              "rows": 341585,
+              "rmse": 189085.93458948936,
+              "mae": 4558.112624950986
+            }
+          },
+          "zero_vs_nonzero": {
+            "zero": {
+              "rows": 245728,
+              "mae": 62.19576346867923
+            },
+            "nonzero": {
+              "rows": 3170115,
+              "mae": 563.7885428954465
+            }
+          },
+          "high_consumption": {
+            "threshold": 38625.0,
+            "rows": 3890,
+            "rmse": 1771595.8786553221,
+            "mae": 229045.25654616815
+          },
+          "building_error_summary": {
+            "building_count": 1445,
+            "median_building_mae": 38.61072393336118,
+            "maximum_building_mae": 255732.67166710386
+          }
+        }
+      },
+      "feature_importance": [
+        {
+          "feature": "square_feet",
+          "importance": 95890068.33641052
+        },
+        {
+          "feature": "meter",
+          "importance": 40969557.618118286
+        },
+        {
+          "feature": "square_feet_per_floor",
+          "importance": 24122215.403915405
+        },
+        {
+          "feature": "year_built",
+          "importance": 21217132.027809143
+        },
+        {
+          "feature": "primary_use",
+          "importance": 21045636.4846344
+        },
+        {
+          "feature": "log_square_feet",
+          "importance": 19428537.463760376
+        },
+        {
+          "feature": "building_age_2016",
+          "importance": 13439504.600624084
+        },
+        {
+          "feature": "dew_temperature",
+          "importance": 13001872.851249695
+        },
+        {
+          "feature": "day_of_year",
+          "importance": 12802579.156944275
+        },
+        {
+          "feature": "heating_degree_x_log_square_feet",
+          "importance": 11290390.154159546
+        },
+        {
+          "feature": "floor_count",
+          "importance": 10373738.97541809
+        },
+        {
+          "feature": "log_square_feet_x_air_temperature",
+          "importance": 8061299.749710083
+        },
+        {
+          "feature": "air_temperature",
+          "importance": 5836348.767242432
+        },
+        {
+          "feature": "building_age_x_air_temperature",
+          "importance": 4510760.888038635
+        },
+        {
+          "feature": "cloud_coverage",
+          "importance": 4445684.806381226
+        },
+        {
+          "feature": "heating_degree_proxy",
+          "importance": 3051943.9750213623
+        },
+        {
+          "feature": "sea_level_pressure",
+          "importance": 2486006.295150757
+        },
+        {
+          "feature": "week_of_year",
+          "importance": 1819263.2125549316
+        },
+        {
+          "feature": "hour",
+          "importance": 1376762.574142456
+        },
+        {
+          "feature": "hour_cos",
+          "importance": 1281239.41065979
+        }
+      ],
+      "importance_type": "gain",
+      "feature_importance_plot": "reports/figures/advanced/lightgbm_feature_importance.png",
+      "preprocessing": "models/advanced/lightgbm/preprocessing.joblib",
+      "artifact_size_bytes": 2755875,
+      "reload_successful": true,
+      "deterministic_smoke_test": true
+    },
+    "catboost": {
+      "model": "models/advanced/catboost/model.cbm",
+      "target_strategy": "log",
+      "parameters": {
+        "iterations": 450,
+        "learning_rate": 0.06,
+        "depth": 8,
+        "l2_leaf_reg": 5,
+        "loss_function": "RMSE",
+        "od_wait": 30,
+        "od_type": "Iter",
+        "thread_count": 6,
+        "random_seed": 42,
+        "verbose": false,
+        "random_strength": 1,
+        "allow_writing_files": false,
+        "task_type": "CPU",
+        "bootstrap_type": "Bernoulli",
+        "subsample": 0.8
+      },
+      "training_rows": 13358457,
+      "validation_rows": 3441800,
+      "training_duration_seconds": 2280.558876699999,
+      "validation_inference_seconds": 4.192906399999629,
+      "best_iteration": 449,
+      "rss_before_mb": 5142.64,
+      "rss_after_mb": 5149.66,
+      "validation": {
+        "rmse": 8754.261687563567,
+        "mae": 408.78569714601025,
+        "r2": 0.013286580657631664,
+        "rmsle": 1.413148255318992,
+        "log_rmse": 1.413148255318992,
+        "median_absolute_error": 38.8436260959288,
+        "negative_prediction_percentage_before_clipping": 0.06711604393050148
+      },
+      "status": "completed",
+      "test": {
+        "rmse": 59791.497677110965,
+        "mae": 533.9449540056759,
+        "r2": 0.0010379169379587383,
+        "rmsle": 1.3814409506174181,
+        "log_rmse": 1.3814409506174181,
+        "median_absolute_error": 36.55852781849476,
+        "negative_prediction_percentage_before_clipping": 0.020551295829462888
+      },
+      "test_inference_seconds": 3.4034694000001764,
+      "training_coverage": "full",
+      "predictors": [
+        "meter",
+        "primary_use",
+        "square_feet",
+        "year_built",
+        "floor_count",
+        "air_temperature",
+        "cloud_coverage",
+        "dew_temperature",
+        "precip_depth_1_hr",
+        "sea_level_pressure",
+        "wind_direction",
+        "wind_speed",
+        "hour",
+        "day_of_week",
+        "day_of_month",
+        "day_of_year",
+        "week_of_year",
+        "month",
+        "quarter",
+        "is_weekend",
+        "hour_sin",
+        "hour_cos",
+        "day_of_week_sin",
+        "day_of_week_cos",
+        "month_sin",
+        "month_cos",
+        "building_age_2016",
+        "log_square_feet",
+        "square_feet_per_floor",
+        "temperature_difference",
+        "relative_humidity",
+        "wind_direction_sin",
+        "wind_direction_cos",
+        "is_precipitating",
+        "is_freezing",
+        "is_hot",
+        "heating_degree_proxy",
+        "cooling_degree_proxy",
+        "log_square_feet_x_air_temperature",
+        "building_age_x_air_temperature",
+        "heating_degree_x_log_square_feet",
+        "cooling_degree_x_log_square_feet"
+      ],
+      "categorical_strategy": "native string categorical features",
+      "subgroup_metrics": {
+        "validation": {
+          "by_meter": {
+            "0": {
+              "rows": 2045185,
+              "rmse": 254.45383755552595,
+              "mae": 89.96950555230904
+            },
+            "1": {
+              "rows": 716363,
+              "rmse": 18941.22114862582,
+              "mae": 1091.7127249056
+            },
+            "2": {
+              "rows": 468518,
+              "rmse": 3446.4666841682515,
+              "mae": 829.3599439386996
+            },
+            "3": {
+              "rows": 211734,
+              "rmse": 2240.1856236286503,
+              "mae": 247.110356665991
+            }
+          },
+          "by_site": {
+            "0": {
+              "rows": 182841,
+              "rmse": 1284.8837529482214,
+              "mae": 562.7323722136163
+            },
+            "1": {
+              "rows": 92228,
+              "rmse": 112.68390061730713,
+              "mae": 62.47000026591735
+            },
+            "2": {
+              "rows": 422698,
+              "rmse": 213.20448998409236,
+              "mae": 86.17452876286703
+            },
+            "3": {
+              "rows": 395941,
+              "rmse": 121.23677310172586,
+              "mae": 52.93427257700822
+            },
+            "4": {
+              "rows": 129945,
+              "rmse": 106.29403377335466,
+              "mae": 60.825488946393925
+            },
+            "5": {
+              "rows": 130296,
+              "rmse": 41.85676737005883,
+              "mae": 16.226933963135462
+            },
+            "6": {
+              "rows": 114259,
+              "rmse": 45936.512797047755,
+              "mae": 4053.458734097313
+            },
+            "7": {
+              "rows": 61488,
+              "rmse": 1111.4476020363254,
+              "mae": 607.063980042831
+            },
+            "8": {
+              "rows": 100526,
+              "rmse": 124.41293445743356,
+              "mae": 35.76990263396478
+            },
+            "9": {
+              "rows": 446922,
+              "rmse": 843.9842486140221,
+              "mae": 161.87366402224472
+            },
+            "10": {
+              "rows": 67842,
+              "rmse": 3884.3486916751094,
+              "mae": 379.6521843816368
+            },
+            "11": {
+              "rows": 19496,
+              "rmse": 135.1992562825792,
+              "mae": 86.27015887954637
+            },
+            "12": {
+              "rows": 52651,
+              "rmse": 86.17186794208646,
+              "mae": 51.85990132737487
+            },
+            "13": {
+              "rows": 452086,
+              "rmse": 6683.133579623454,
+              "mae": 812.2205992975449
+            },
+            "14": {
+              "rows": 417602,
+              "rmse": 1251.4086580290023,
+              "mae": 481.9415986085648
+            },
+            "15": {
+              "rows": 354979,
+              "rmse": 438.8982546602141,
+              "mae": 157.38835018062392
+            }
+          },
+          "by_primary_use": {
+            "Education": {
+              "rows": 1384880,
+              "rmse": 3437.484498580763,
+              "mae": 337.7246711347192
+            },
+            "Entertainment/public assembly": {
+              "rows": 388270,
+              "rmse": 24971.83003296849,
+              "mae": 1303.882147496252
+            },
+            "Food sales and service": {
+              "rows": 19029,
+              "rmse": 642.9739949723328,
+              "mae": 240.6993425312315
+            },
+            "Healthcare": {
+              "rows": 66727,
+              "rmse": 1138.1199393005008,
+              "mae": 488.73816200363143
+            },
+            "Lodging/residential": {
+              "rows": 371593,
+              "rmse": 994.0849851533668,
+              "mae": 193.96499683458163
+            },
+            "Manufacturing/industrial": {
+              "rows": 21891,
+              "rmse": 257.2056927247594,
+              "mae": 129.87291991020126
+            },
+            "Office": {
+              "rows": 746850,
+              "rmse": 1794.6506053959627,
+              "mae": 274.6859850339325
+            },
+            "Other": {
+              "rows": 40583,
+              "rmse": 291.93853328405453,
+              "mae": 83.4866558503049
+            },
+            "Parking": {
+              "rows": 36589,
+              "rmse": 225.90359548604667,
+              "mae": 62.98752252928668
+            },
+            "Public services": {
+              "rows": 282297,
+              "rmse": 812.0056873792068,
+              "mae": 164.4809363022702
+            },
+            "Religious worship": {
+              "rows": 5833,
+              "rmse": 4.55834027139072,
+              "mae": 2.943387650791609
+            },
+            "Retail": {
+              "rows": 18928,
+              "rmse": 413.22882173998994,
+              "mae": 176.1825662066864
+            },
+            "Services": {
+              "rows": 16084,
+              "rmse": 11744.530109426023,
+              "mae": 3548.2614645015387
+            },
+            "Technology/science": {
+              "rows": 13148,
+              "rmse": 177.67740805553638,
+              "mae": 47.992967980409055
+            },
+            "Utility": {
+              "rows": 10155,
+              "rmse": 338.9554977837576,
+              "mae": 203.21840791604774
+            },
+            "Warehouse/storage": {
+              "rows": 18943,
+              "rmse": 40.53782535364697,
+              "mae": 25.834857535406446
+            }
+          },
+          "by_month": {
+            "2016-09": {
+              "rows": 1694451,
+              "rmse": 10641.509085826241,
+              "mae": 475.8645391349454
+            },
+            "2016-10": {
+              "rows": 1747349,
+              "rmse": 6414.095564914941,
+              "mae": 343.73755227798836
+            }
+          },
+          "by_target_decile": {
+            "0": {
+              "rows": 344180,
+              "rmse": 182.35057665748909,
+              "mae": 63.814842205814784
+            },
+            "1": {
+              "rows": 344180,
+              "rmse": 51.28116184238684,
+              "mae": 15.293674292917848
+            },
+            "2": {
+              "rows": 344180,
+              "rmse": 40.722393342472735,
+              "mae": 17.274867305048787
+            },
+            "3": {
+              "rows": 344180,
+              "rmse": 46.64822838129489,
+              "mae": 24.77285094307841
+            },
+            "4": {
+              "rows": 344180,
+              "rmse": 60.987051052484645,
+              "mae": 34.96812413128129
+            },
+            "5": {
+              "rows": 344180,
+              "rmse": 83.13373617886268,
+              "mae": 51.50904491373775
+            },
+            "6": {
+              "rows": 344180,
+              "rmse": 110.73544785371577,
+              "mae": 81.87177811099427
+            },
+            "7": {
+              "rows": 344180,
+              "rmse": 173.86488465223513,
+              "mae": 142.8518737919393
+            },
+            "8": {
+              "rows": 344180,
+              "rmse": 356.26887085331356,
+              "mae": 305.23664110033803
+            },
+            "9": {
+              "rows": 344180,
+              "rmse": 27679.436619956385,
+              "mae": 3350.263274664952
+            }
+          },
+          "zero_vs_nonzero": {
+            "zero": {
+              "rows": 281329,
+              "mae": 73.81609136973103
+            },
+            "nonzero": {
+              "rows": 3160471,
+              "mae": 438.6029820454556
+            }
+          },
+          "high_consumption": {
+            "threshold": 38625.0,
+            "rows": 3046,
+            "rmse": 292293.15797994594,
+            "mae": 188663.3948451244
+          },
+          "building_error_summary": {
+            "building_count": 1445,
+            "median_building_mae": 45.29166780427587,
+            "maximum_building_mae": 151657.70434230645
+          }
+        },
+        "test": {
+          "by_meter": {
+            "0": {
+              "rows": 2023232,
+              "rmse": 326.0976749770038,
+              "mae": 92.76741282075405
+            },
+            "1": {
+              "rows": 717484,
+              "rmse": 2657.2228848138916,
+              "mae": 239.50135912175998
+            },
+            "2": {
+              "rows": 463756,
+              "rmse": 162219.86266819853,
+              "mae": 2914.3915398608374
+            },
+            "3": {
+              "rows": 211371,
+              "rmse": 3484.2166243085303,
+              "mae": 533.5508619518794
+            }
+          },
+          "by_site": {
+            "0": {
+              "rows": 186996,
+              "rmse": 901.6216814551493,
+              "mae": 464.5430417717314
+            },
+            "1": {
+              "rows": 92231,
+              "rmse": 130.86288330610944,
+              "mae": 76.14551788123633
+            },
+            "2": {
+              "rows": 421553,
+              "rmse": 165.3205108693686,
+              "mae": 67.81561025782702
+            },
+            "3": {
+              "rows": 394853,
+              "rmse": 119.38262784580435,
+              "mae": 49.477859226180506
+            },
+            "4": {
+              "rows": 132037,
+              "rmse": 115.50213420991128,
+              "mae": 61.50572274385299
+            },
+            "5": {
+              "rows": 130296,
+              "rmse": 42.63415285877659,
+              "mae": 18.566321109156277
+            },
+            "6": {
+              "rows": 115142,
+              "rmse": 651.289889597679,
+              "mae": 250.9609375799088
+            },
+            "7": {
+              "rows": 61488,
+              "rmse": 1949.4847812963262,
+              "mae": 978.0873405554003
+            },
+            "8": {
+              "rows": 87374,
+              "rmse": 137.5818577782,
+              "mae": 36.25391740347662
+            },
+            "9": {
+              "rows": 447512,
+              "rmse": 344.58436691937476,
+              "mae": 138.04080426252122
+            },
+            "10": {
+              "rows": 67106,
+              "rmse": 5928.286378799315,
+              "mae": 713.7017914668812
+            },
+            "11": {
+              "rows": 20444,
+              "rmse": 111.55145821810119,
+              "mae": 75.13394945012053
+            },
+            "12": {
+              "rows": 52657,
+              "rmse": 87.9791961231605,
+              "mae": 52.749447357980934
+            },
+            "13": {
+              "rows": 452255,
+              "rmse": 164298.00262362385,
+              "mae": 2648.0572597381442
+            },
+            "14": {
+              "rows": 418211,
+              "rmse": 1108.13001651541,
+              "mae": 423.12476417421004
+            },
+            "15": {
+              "rows": 335688,
+              "rmse": 843.84689287111,
+              "mae": 269.8270772476264
+            }
+          },
+          "by_primary_use": {
+            "Education": {
+              "rows": 1379020,
+              "rmse": 94075.74311321642,
+              "mae": 899.3566721760749
+            },
+            "Entertainment/public assembly": {
+              "rows": 384385,
+              "rmse": 2522.746124511277,
+              "mae": 259.3997919779299
+            },
+            "Food sales and service": {
+              "rows": 19009,
+              "rmse": 635.2624060574756,
+              "mae": 256.54110379956575
+            },
+            "Healthcare": {
+              "rows": 66642,
+              "rmse": 1986.6104272094449,
+              "mae": 671.6060101545278
+            },
+            "Lodging/residential": {
+              "rows": 368467,
+              "rmse": 1063.4854620892577,
+              "mae": 255.5979212546116
+            },
+            "Manufacturing/industrial": {
+              "rows": 21527,
+              "rmse": 512.9450755954429,
+              "mae": 233.00644009289738
+            },
+            "Office": {
+              "rows": 741998,
+              "rmse": 1333.0857330102294,
+              "mae": 282.7318216623791
+            },
+            "Other": {
+              "rows": 40085,
+              "rmse": 443.13542379058686,
+              "mae": 139.63090853063736
+            },
+            "Parking": {
+              "rows": 36585,
+              "rmse": 885.9600883533773,
+              "mae": 204.52994277922173
+            },
+            "Public services": {
+              "rows": 276116,
+              "rmse": 803.8825901701626,
+              "mae": 168.58706881129808
+            },
+            "Religious worship": {
+              "rows": 5664,
+              "rmse": 3.2142107550121994,
+              "mae": 2.2233126111915102
+            },
+            "Retail": {
+              "rows": 19031,
+              "rmse": 400.2664944334307,
+              "mae": 155.75274603250193
+            },
+            "Services": {
+              "rows": 16104,
+              "rmse": 12143.500338325499,
+              "mae": 3661.31677195598
+            },
+            "Technology/science": {
+              "rows": 12865,
+              "rmse": 186.7007066889565,
+              "mae": 84.4705731621658
+            },
+            "Utility": {
+              "rows": 9764,
+              "rmse": 334.5457369726169,
+              "mae": 209.390011956083
+            },
+            "Warehouse/storage": {
+              "rows": 18581,
+              "rmse": 65.68677456366802,
+              "mae": 33.21603191867869
+            }
+          },
+          "by_month": {
+            "2016-11": {
+              "rows": 1689024,
+              "rmse": 84996.99110877847,
+              "mae": 715.3645336143288
+            },
+            "2016-12": {
+              "rows": 1726819,
+              "rmse": 2331.08908962408,
+              "mae": 356.49611656010353
+            }
+          },
+          "by_target_decile": {
+            "0": {
+              "rows": 341585,
+              "rmse": 148.86813887682152,
+              "mae": 43.21899958502918
+            },
+            "1": {
+              "rows": 341584,
+              "rmse": 50.83039231929064,
+              "mae": 13.573635345051263
+            },
+            "2": {
+              "rows": 341584,
+              "rmse": 53.445851621949,
+              "mae": 17.848031812733684
+            },
+            "3": {
+              "rows": 341584,
+              "rmse": 48.99740928708852,
+              "mae": 24.050316343531197
+            },
+            "4": {
+              "rows": 341585,
+              "rmse": 64.28048869975099,
+              "mae": 36.72047639299525
+            },
+            "5": {
+              "rows": 341584,
+              "rmse": 86.56003820112193,
+              "mae": 55.346151632362655
+            },
+            "6": {
+              "rows": 341584,
+              "rmse": 127.7504431540234,
+              "mae": 86.87156152130382
+            },
+            "7": {
+              "rows": 341584,
+              "rmse": 192.1352236951574,
+              "mae": 149.25068842738614
+            },
+            "8": {
+              "rows": 341584,
+              "rmse": 381.48698511388784,
+              "mae": 321.22687347923033
+            },
+            "9": {
+              "rows": 341585,
+              "rmse": 189076.48792946083,
+              "mae": 4591.3338196207405
+            }
+          },
+          "zero_vs_nonzero": {
+            "zero": {
+              "rows": 245728,
+              "mae": 50.636979544175865
+            },
+            "nonzero": {
+              "rows": 3170115,
+              "mae": 571.4080434987937
+            }
+          },
+          "high_consumption": {
+            "threshold": 38625.0,
+            "rows": 3890,
+            "rmse": 1771461.9860912692,
+            "mae": 227194.58809179114
+          },
+          "building_error_summary": {
+            "building_count": 1445,
+            "median_building_mae": 46.317176727812225,
+            "maximum_building_mae": 262819.8304359132
+          }
+        }
+      },
+      "feature_importance": [
+        {
+          "feature": "meter",
+          "importance": 27.530856630157537
+        },
+        {
+          "feature": "log_square_feet",
+          "importance": 10.418989847175741
+        },
+        {
+          "feature": "square_feet_per_floor",
+          "importance": 9.843186562938044
+        },
+        {
+          "feature": "square_feet",
+          "importance": 9.44685639190344
+        },
+        {
+          "feature": "primary_use",
+          "importance": 6.258966951921396
+        },
+        {
+          "feature": "day_of_year",
+          "importance": 5.692047594287243
+        },
+        {
+          "feature": "building_age_2016",
+          "importance": 4.7813592769359525
+        },
+        {
+          "feature": "dew_temperature",
+          "importance": 4.3615806178126455
+        },
+        {
+          "feature": "floor_count",
+          "importance": 4.272474127841079
+        },
+        {
+          "feature": "year_built",
+          "importance": 4.109297276772955
+        },
+        {
+          "feature": "log_square_feet_x_air_temperature",
+          "importance": 2.948463455453586
+        },
+        {
+          "feature": "building_age_x_air_temperature",
+          "importance": 1.515699256163896
+        },
+        {
+          "feature": "cloud_coverage",
+          "importance": 1.4048312705427382
+        },
+        {
+          "feature": "heating_degree_proxy",
+          "importance": 1.116483215793624
+        },
+        {
+          "feature": "sea_level_pressure",
+          "importance": 0.931214614549316
+        },
+        {
+          "feature": "air_temperature",
+          "importance": 0.8986457799381165
+        },
+        {
+          "feature": "day_of_month",
+          "importance": 0.606566503734951
+        },
+        {
+          "feature": "heating_degree_x_log_square_feet",
+          "importance": 0.48031764453383985
+        },
+        {
+          "feature": "hour_cos",
+          "importance": 0.4268157794289096
+        },
+        {
+          "feature": "hour",
+          "importance": 0.3827026327481504
+        }
+      ],
+      "importance_type": "prediction-values-change",
+      "feature_importance_plot": "reports/figures/advanced/catboost_feature_importance.png",
+      "preprocessing": "models/advanced/catboost/preprocessing.joblib",
+      "artifact_size_bytes": 1956394,
+      "reload_successful": true,
+      "deterministic_smoke_test": true
+    }
+  },
+  "comparison": {
+    "linear_regression": {
+      "target_strategy": "raw",
+      "training_coverage": "full",
+      "validation": {
+        "rmse": 13488.748582906162,
+        "mae": 7962.933870857737,
+        "r2": -1.3425847146411982,
+        "rmsle": 4.512269320551713,
+        "log_rmse": 4.512269320551713,
+        "median_absolute_error": 6421.489907078096,
+        "negative_prediction_percentage_before_clipping": 62.41379510721134
+      },
+      "test": {
+        "rmse": 60550.04201161989,
+        "mae": 8051.818405998227,
+        "r2": -0.02446951128241337,
+        "rmsle": 4.257421916103775,
+        "log_rmse": 4.257421916103775,
+        "median_absolute_error": 6288.683312884328,
+        "negative_prediction_percentage_before_clipping": 58.24767121908121
+      },
+      "training_time_seconds": 22.41186689999995,
+      "test_inference_seconds": 0.20604650000041147,
+      "artifact_size_bytes": 3919
+    },
+    "decision_tree": {
+      "target_strategy": "raw",
+      "training_coverage": "full",
+      "validation": {
+        "rmse": 8768.779821610215,
+        "mae": 391.24333252844883,
+        "r2": 0.010011120832281395,
+        "rmsle": 1.6887842606825048,
+        "log_rmse": 1.6887842606825048,
+        "median_absolute_error": 43.42775037661169,
+        "negative_prediction_percentage_before_clipping": 0.0
+      },
+      "test": {
+        "rmse": 59798.40869930194,
+        "mae": 484.41731607694976,
+        "r2": 0.0008069727942533467,
+        "rmsle": 1.636770478010108,
+        "log_rmse": 1.636770478010108,
+        "median_absolute_error": 44.946388117332866,
+        "negative_prediction_percentage_before_clipping": 0.0
+      },
+      "training_time_seconds": 384.9897475000007,
+      "test_inference_seconds": 0.45053250000000844,
+      "artifact_size_bytes": 933751
+    },
+    "random_forest": {
+      "target_strategy": "raw",
+      "training_coverage": "full",
+      "validation": {
+        "rmse": 8766.295850620325,
+        "mae": 365.49115078841976,
+        "r2": 0.010571918435963612,
+        "rmsle": 1.6864348144234296,
+        "log_rmse": 1.6864348144234296,
+        "median_absolute_error": 44.631826610743076,
+        "negative_prediction_percentage_before_clipping": 0.0
+      },
+      "test": {
+        "rmse": 59372.41992956598,
+        "mae": 518.0020090961677,
+        "r2": 0.014992263801576033,
+        "rmsle": 1.6677369027078295,
+        "log_rmse": 1.6677369027078295,
+        "median_absolute_error": 48.45612495427761,
+        "negative_prediction_percentage_before_clipping": 0.0
+      },
+      "training_time_seconds": 1631.9431806999992,
+      "test_inference_seconds": 1.9233304999997927,
+      "artifact_size_bytes": 27321439
+    },
+    "xgboost": {
+      "target_strategy": "raw",
+      "training_coverage": "full",
+      "validation": {
+        "rmse": 8731.46120706343,
+        "mae": 702.0707567948084,
+        "r2": 0.018419678901579695,
+        "rmsle": 2.8854164699459655,
+        "log_rmse": 2.8854164699459655,
+        "median_absolute_error": 377.7978163957596,
+        "negative_prediction_percentage_before_clipping": 0.014469173107095125
+      },
+      "test": {
+        "rmse": 59926.46691842314,
+        "mae": 1024.7393358826664,
+        "r2": -0.0034771508143041086,
+        "rmsle": 2.9272781594332127,
+        "log_rmse": 2.9272781594332127,
+        "median_absolute_error": 383.49214363098145,
+        "negative_prediction_percentage_before_clipping": 0.06343968384963829
+      },
+      "training_time_seconds": 70.38287200000013,
+      "test_inference_seconds": 0.8083610999983648,
+      "artifact_size_bytes": 1779459
+    },
+    "lightgbm": {
+      "target_strategy": "log",
+      "training_coverage": "full",
+      "validation": {
+        "rmse": 8730.623056290207,
+        "mae": 382.79153105446807,
+        "r2": 0.018608117651677247,
+        "rmsle": 1.319876237975916,
+        "log_rmse": 1.319876237975916,
+        "median_absolute_error": 32.61902426430238,
+        "negative_prediction_percentage_before_clipping": 0.0778081236562264
+      },
+      "test": {
+        "rmse": 59794.51770317576,
+        "mae": 527.7050957045245,
+        "r2": 0.000937000659346432,
+        "rmsle": 1.334012713662116,
+        "log_rmse": 1.334012713662116,
+        "median_absolute_error": 33.2958487959614,
+        "negative_prediction_percentage_before_clipping": 0.03483766671945988
+      },
+      "training_time_seconds": 243.80530869999893,
+      "test_inference_seconds": 23.161844199999905,
+      "artifact_size_bytes": 2755875
+    },
+    "catboost": {
+      "target_strategy": "log",
+      "training_coverage": "full",
+      "validation": {
+        "rmse": 8754.261687563567,
+        "mae": 408.78569714601025,
+        "r2": 0.013286580657631664,
+        "rmsle": 1.413148255318992,
+        "log_rmse": 1.413148255318992,
+        "median_absolute_error": 38.8436260959288,
+        "negative_prediction_percentage_before_clipping": 0.06711604393050148
+      },
+      "test": {
+        "rmse": 59791.497677110965,
+        "mae": 533.9449540056759,
+        "r2": 0.0010379169379587383,
+        "rmsle": 1.3814409506174181,
+        "log_rmse": 1.3814409506174181,
+        "median_absolute_error": 36.55852781849476,
+        "negative_prediction_percentage_before_clipping": 0.020551295829462888
+      },
+      "training_time_seconds": 2280.558876699999,
+      "test_inference_seconds": 3.4034694000001764,
+      "artifact_size_bytes": 1956394
+    }
+  },
+  "drift_analysis": {
+    "extreme_definition": "training target >= 0.999 quantile",
+    "target_statistics": {
+      "train": {
+        "rows": 13358457,
+        "mean": 2885.961669921875,
+        "median": 77.0,
+        "std": 186006.6875,
+        "maximum": 21904700.0,
+        "zero_percentage": 10.082893555745247,
+        "extreme_threshold_from_train": 38625.0,
+        "extreme_percentage": 0.1001837263091089
+      },
+      "validation": {
+        "rows": 3441800,
+        "mean": 550.5805053710938,
+        "median": 85.0,
+        "std": 8813.005859375,
+        "maximum": 880374.0,
+        "zero_percentage": 8.173891568365391,
+        "extreme_threshold_from_train": 38625.0,
+        "extreme_percentage": 0.0885002033819513
+      },
+      "test": {
+        "rows": 3415843,
+        "mean": 688.8347778320312,
+        "median": 79.12020111083984,
+        "std": 59822.55859375,
+        "maximum": 21847900.0,
+        "zero_percentage": 7.193773250117175,
+        "extreme_threshold_from_train": 38625.0,
+        "extreme_percentage": 0.11388111221739407
+      }
+    }
+  },
+  "selection": {
+    "best_validation_model": "lightgbm",
+    "best_test_model": "catboost",
+    "fastest_advanced_model": "xgboost",
+    "smallest_advanced_model": "xgboost",
+    "recommended_candidate": "random_forest",
+    "target_strategy": "raw",
+    "rationale": "LightGBM is the best advanced validation candidate, but it does not improve Random Forest validation MAE or test RMSE; retain Random Forest for Task 2.6.",
+    "best_advanced_candidate": "lightgbm",
+    "meaningful_improvement_over_random_forest": false
+  },
+  "leakage_checks": {
+    "exact_baseline_split_reused": true,
+    "shuffle_used": false,
+    "split_overlap": false,
+    "training_only_category_mapping": true,
+    "validation_used_for_early_stopping": true,
+    "test_used_for_selection": false,
+    "target_derived_predictors": false
+  },
+  "integrity": {
+    "input_unchanged": true,
+    "baseline_artifacts_unchanged": true,
+    "input_before": {
+      "path": "data/processed/feature_dataset.parquet",
+      "sha256": "c96c89e9e3ca82892ab86c46906ce9d167eacea92ff512a359590fe4f571572b",
+      "size_bytes": 328740131,
+      "mtime_ns": 1784977278527487300
+    },
+    "input_after": {
+      "path": "data/processed/feature_dataset.parquet",
+      "sha256": "c96c89e9e3ca82892ab86c46906ce9d167eacea92ff512a359590fe4f571572b",
+      "size_bytes": 328740131,
+      "mtime_ns": 1784977278527487300
+    },
+    "baseline_before": {
+      "scripts\\week2_baseline_models.py": {
+        "path": "scripts/week2_baseline_models.py",
+        "sha256": "6b942541c146ce1d0464303e2c20435bee5a564946b0c386fce7a1644a318dc3",
+        "size_bytes": 22891,
+        "mtime_ns": 1784979803778768500
+      },
+      "reports\\week2_baseline_report.md": {
+        "path": "reports/week2_baseline_report.md",
+        "sha256": "2300dd3d68d43c003cfea9930cbdf92e934ba9f356a821c1027997dfde0cdc65",
+        "size_bytes": 5402,
+        "mtime_ns": 1784982165371430500
+      },
+      "reports\\week2_baseline_metrics.json": {
+        "path": "reports/week2_baseline_metrics.json",
+        "sha256": "db4d8bab7db6d57e486ac954cc20ed239137cf923f6b2d89daded50863d5c2e2",
+        "size_bytes": 22683,
+        "mtime_ns": 1784982165370372300
+      },
+      "models\\baseline\\linear_regression.joblib": {
+        "path": "models/baseline/linear_regression.joblib",
+        "sha256": "22fa26c6d850c8c0e4a73899fef2679960dd093875d130e5a94572b259a1c4b1",
+        "size_bytes": 3919,
+        "mtime_ns": 1784980140136513600
+      },
+      "models\\baseline\\decision_tree.joblib": {
+        "path": "models/baseline/decision_tree.joblib",
+        "sha256": "c13a7976a453497a9996f76fd508af41bee037fff4eb6f49d772d709fbbdcbee",
+        "size_bytes": 933751,
+        "mtime_ns": 1784980526757034400
+      },
+      "models\\baseline\\random_forest.joblib": {
+        "path": "models/baseline/random_forest.joblib",
+        "sha256": "67f244e576cb2b2b161a04f72499e5b00d2ac2361669561472edee5a14bff507",
+        "size_bytes": 27321439,
+        "mtime_ns": 1784982164432194000
+      }
+    },
+    "baseline_after": {
+      "scripts\\week2_baseline_models.py": {
+        "path": "scripts/week2_baseline_models.py",
+        "sha256": "6b942541c146ce1d0464303e2c20435bee5a564946b0c386fce7a1644a318dc3",
+        "size_bytes": 22891,
+        "mtime_ns": 1784979803778768500
+      },
+      "reports\\week2_baseline_report.md": {
+        "path": "reports/week2_baseline_report.md",
+        "sha256": "2300dd3d68d43c003cfea9930cbdf92e934ba9f356a821c1027997dfde0cdc65",
+        "size_bytes": 5402,
+        "mtime_ns": 1784982165371430500
+      },
+      "reports\\week2_baseline_metrics.json": {
+        "path": "reports/week2_baseline_metrics.json",
+        "sha256": "db4d8bab7db6d57e486ac954cc20ed239137cf923f6b2d89daded50863d5c2e2",
+        "size_bytes": 22683,
+        "mtime_ns": 1784982165370372300
+      },
+      "models\\baseline\\linear_regression.joblib": {
+        "path": "models/baseline/linear_regression.joblib",
+        "sha256": "22fa26c6d850c8c0e4a73899fef2679960dd093875d130e5a94572b259a1c4b1",
+        "size_bytes": 3919,
+        "mtime_ns": 1784980140136513600
+      },
+      "models\\baseline\\decision_tree.joblib": {
+        "path": "models/baseline/decision_tree.joblib",
+        "sha256": "c13a7976a453497a9996f76fd508af41bee037fff4eb6f49d772d709fbbdcbee",
+        "size_bytes": 933751,
+        "mtime_ns": 1784980526757034400
+      },
+      "models\\baseline\\random_forest.joblib": {
+        "path": "models/baseline/random_forest.joblib",
+        "sha256": "67f244e576cb2b2b161a04f72499e5b00d2ac2361669561472edee5a14bff507",
+        "size_bytes": 27321439,
+        "mtime_ns": 1784982164432194000
+      }
+    }
+  }
+}

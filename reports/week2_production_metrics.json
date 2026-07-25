@@ -1,0 +1,104 @@
+{
+  "task": "Week 2 Task 2.6 - Production Model Packaging",
+  "status": "passed",
+  "completion_percentage": 100,
+  "readiness": "ready_for_week_3_integration_with_documented_limits",
+  "selected_model": {
+    "name": "energy-consumption-random-forest",
+    "algorithm": "RandomForestRegressor",
+    "target_strategy": "raw",
+    "source_artifact": "models/baseline/random_forest.joblib",
+    "source_sha256": "67f244e576cb2b2b161a04f72499e5b00d2ac2361669561472edee5a14bff507",
+    "training_coverage": "full",
+    "validation": {"rmse": 8766.295850412074, "mae": 365.49115070043587, "r2": 0.010571918399819857},
+    "test": {"rmse": 59372.41992953956, "mae": 518.002009093732, "r2": 0.014992263802580341}
+  },
+  "selection_summary": {
+    "best_advanced_validation_model": "lightgbm",
+    "best_advanced_test_model": "catboost",
+    "best_mae_model": "random_forest",
+    "recommended_production_model": "random_forest",
+    "reason": "LightGBM improved validation RMSE by only 0.41% while worsening validation MAE and test RMSE. Random Forest provided the strongest overall accuracy and stability balance."
+  },
+  "production": {
+    "version": "v1.0.0",
+    "manifest": "models/production/current.json",
+    "package_directory": "models/production/v1.0.0",
+    "package_size_bytes": 27341364,
+    "model_sha256": "67f244e576cb2b2b161a04f72499e5b00d2ac2361669561472edee5a14bff507",
+    "input_schema_version": "1.0.0",
+    "feature_pipeline_version": "week2-task2.3",
+    "input_schema": {
+      "path": "models/production/v1.0.0/feature_schema.json",
+      "sha256": "d9c6bf662f160ced74d1d6c20fd7c6f700b89cbe01bc00ea8bc73ac2e1eeac5d",
+      "required_fields": ["building_id", "meter", "timestamp", "site_id", "primary_use", "square_feet", "year_built", "floor_count", "air_temperature", "cloud_coverage", "dew_temperature", "precip_depth_1_hr", "sea_level_pressure", "wind_direction", "wind_speed"],
+      "additional_properties": false,
+      "target_field_prohibited": "meter_reading"
+    },
+    "feature_schema": {
+      "predictor_count": 42,
+      "transformed_feature_count": 60,
+      "formulas_source": "scripts/week2_feature_engineering.py",
+      "alignment_source": "ml_service/inference.py"
+    }
+  },
+  "package_hashes": {
+    "model.joblib": "67f244e576cb2b2b161a04f72499e5b00d2ac2361669561472edee5a14bff507",
+    "feature_schema.json": "d9c6bf662f160ced74d1d6c20fd7c6f700b89cbe01bc00ea8bc73ac2e1eeac5d",
+    "model_metadata.json": "b7332af1455249a73dde33a72ec869c3c5ebc49c103a91263bb41f25b58868b2",
+    "metrics.json": "3999d8bc0233030ae77306ebf226f294ab9f5fc27148dc413554a3039d91e1ff",
+    "requirements.json": "bda3dad0a2aaa611587d79289cf70e038588f7e27e91e75c24e07bb71ead9882",
+    "model_card.md": "ff4220d96e4b07da145aa0622ec128b46b758a588d23df45f324c475830b9dff",
+    "example_request.json": "04c305a7573d18f6fc5bb812769ff8a2c54e073465dda16e8b7ec1e069ad067e",
+    "example_response.json": "a6af3528044c36b11b0698604a3e499055bffcb3755ab36428946cbe5cc9d91b",
+    "README.md": "e8a675077874fdfb481f774d291f26ccf064e57f4a87257b000fb64106f16acd"
+  },
+  "parity_test": {
+    "status": "passed",
+    "sample_method": "first 25 rows of feature dataset row group 0",
+    "absolute_tolerance": 1e-10,
+    "source_and_package_numerically_equal": true
+  },
+  "smoke_tests": {
+    "status": "passed",
+    "checks_passed": 16,
+    "checks_failed": 0,
+    "result_path": "reports/week2_production_smoke_results.json"
+  },
+  "formal_tests": {
+    "status": "passed",
+    "tests_passed": 30,
+    "tests_failed": 0,
+    "duration_seconds": 2.81
+  },
+  "latency": {
+    "cold_load_seconds": 1.464579200001026,
+    "warm_single_median_seconds": 0.04111209999973653,
+    "batch_10_median_seconds": 0.04125869999916176,
+    "batch_100_median_seconds": 0.0443422999996983,
+    "batch_1000_median_seconds": 0.06109250000008615,
+    "batch_1000_throughput_per_second": 16368.621352843473,
+    "observed_process_rss_mb": 312.51171875
+  },
+  "unseen_category_behaviour": {
+    "primary_use": "Accepted with warning; fitted OneHotEncoder emits all-zero category indicators.",
+    "building_id": "Required but excluded from predictors; unseen values accepted with warning.",
+    "site_id": "Required but excluded from predictors; unseen values accepted with warning.",
+    "meter": "Only fitted codes 0, 1, 2, and 3 are accepted."
+  },
+  "environment": {
+    "python": "3.12.10",
+    "scikit_learn": "1.8.0",
+    "pandas": "3.0.2",
+    "numpy": "2.3.5",
+    "joblib": "1.5.3"
+  },
+  "unresolved_risks": [
+    "Extreme target values dominate RMSE",
+    "Substantial late-period drift",
+    "Low explained variance",
+    "Meter-dependent output units",
+    "Unknown primary-use categories receive no learned category effect",
+    "Only one calendar year was evaluated"
+  ]
+}

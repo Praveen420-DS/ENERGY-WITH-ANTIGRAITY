@@ -1,0 +1,9 @@
+{
+  "active_version": "v1.0.0",
+  "version_directory": "v1.0.0",
+  "model_path": "model.joblib",
+  "created_at": "2026-07-25T13:40:03.264150+00:00",
+  "algorithm": "RandomForestRegressor",
+  "input_schema_version": "1.0.0",
+  "feature_pipeline_version": "week2-task2.3"
+}

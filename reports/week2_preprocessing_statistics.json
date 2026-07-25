@@ -1,0 +1,129 @@
+{
+  "input": {
+    "path": "data/processed/merged_energy_data.parquet",
+    "rows": 20216100,
+    "columns": 16
+  },
+  "output": {
+    "path": "data/processed/clean_dataset.parquet",
+    "rows": 20216100,
+    "columns": 16,
+    "file_size_mb": 147.78
+  },
+  "missing_before": {
+    "building_id": 0,
+    "meter": 0,
+    "timestamp": 0,
+    "meter_reading": 0,
+    "site_id": 0,
+    "primary_use": 0,
+    "square_feet": 0,
+    "year_built": 12127645,
+    "floor_count": 16709167,
+    "air_temperature": 96658,
+    "cloud_coverage": 8825365,
+    "dew_temperature": 100140,
+    "precip_depth_1_hr": 3749023,
+    "sea_level_pressure": 1231669,
+    "wind_direction": 1449048,
+    "wind_speed": 143676
+  },
+  "missing_after": {
+    "building_id": 0,
+    "meter": 0,
+    "timestamp": 0,
+    "meter_reading": 0,
+    "site_id": 0,
+    "primary_use": 0,
+    "square_feet": 0,
+    "year_built": 0,
+    "floor_count": 0,
+    "air_temperature": 0,
+    "cloud_coverage": 0,
+    "dew_temperature": 0,
+    "precip_depth_1_hr": 0,
+    "sea_level_pressure": 0,
+    "wind_direction": 0,
+    "wind_speed": 0
+  },
+  "imputation_decisions": {
+    "static_metadata": {
+      "year_built": {
+        "method": "primary_use median, then global median; rounded to whole-number semantics",
+        "missing_unique_buildings_before": 774,
+        "global_fallback": 1970.0,
+        "missing_unique_buildings_after": 0
+      },
+      "floor_count": {
+        "method": "primary_use median, then global median; rounded to whole-number semantics",
+        "missing_unique_buildings_before": 1094,
+        "global_fallback": 3.0,
+        "missing_unique_buildings_after": 0
+      }
+    },
+    "weather": {
+      "air_temperature": {
+        "method": "linear interpolation within site, then site median, then global median",
+        "missing_site_hours_before": 823,
+        "global_fallback": 15.0,
+        "missing_site_hours_after": 0
+      },
+      "cloud_coverage": {
+        "method": "linear interpolation within site, then site median, then global median",
+        "missing_site_hours_before": 69865,
+        "global_fallback": 2.0,
+        "missing_site_hours_after": 0
+      },
+      "dew_temperature": {
+        "method": "linear interpolation within site, then site median, then global median",
+        "missing_site_hours_before": 881,
+        "global_fallback": 8.2,
+        "missing_site_hours_after": 0
+      },
+      "precip_depth_1_hr": {
+        "method": "linear interpolation within site, then site median, then global median",
+        "missing_site_hours_before": 50959,
+        "global_fallback": 0.0,
+        "missing_site_hours_after": 0
+      },
+      "sea_level_pressure": {
+        "method": "linear interpolation within site, then site median, then global median",
+        "missing_site_hours_before": 11386,
+        "global_fallback": 1016.4,
+        "missing_site_hours_after": 0
+      },
+      "wind_direction": {
+        "method": "linear interpolation within site, then site median, then global median",
+        "missing_site_hours_before": 7031,
+        "global_fallback": 190.0,
+        "missing_site_hours_after": 0
+      },
+      "wind_speed": {
+        "method": "linear interpolation within site, then site median, then global median",
+        "missing_site_hours_before": 1072,
+        "global_fallback": 3.1,
+        "missing_site_hours_after": 0
+      }
+    }
+  },
+  "consistency_checks": {
+    "weather_value_conflicts": 0,
+    "negative_meter_reading": 0,
+    "nonpositive_square_feet": 0,
+    "negative_building_id": 0,
+    "negative_site_id": 0,
+    "invalid_meter_code": 0,
+    "invalid_timestamp": 0,
+    "air_temperature_outside_-100_70": 0,
+    "negative_wind_speed": 0,
+    "wind_direction_outside_0_360": 0
+  },
+  "records_removed": 0,
+  "integrity": {
+    "row_count_preserved": true,
+    "column_order_preserved": true,
+    "column_types_preserved": true,
+    "remaining_missing_values": 0,
+    "passed": true
+  }
+}
