@@ -1,0 +1,22 @@
+import { AtSign, Eye, EyeOff, Mail, UserRound, UserRoundPlus } from "lucide-react";
+import { useMemo, useState } from "react";
+import AuthLayout from "../components/AuthLayout";
+import Button from "../components/Button";
+import ErrorAlert from "../components/ErrorAlert";
+import FormField from "../components/FormField";
+import { registerUser } from "../services/api";
+
+export default function Register({ onLogin }) {
+    const [form, setForm] = useState({ full_name: "", username: "", email: "", password: "", confirm: "" }); const [show, setShow] = useState(false); const [errors, setErrors] = useState({}); const [error, setError] = useState(""); const [success, setSuccess] = useState(""); const [loading, setLoading] = useState(false);
+    const strength = useMemo(() => [form.password.length >= 8, /[A-Z]/.test(form.password), /[0-9]/.test(form.password), /[^A-Za-z0-9]/.test(form.password)].filter(Boolean).length, [form.password]);
+    const update = ({ target: { name, value } }) => setForm((current) => ({ ...current, [name]: value }));
+    const submit = async (event) => {
+        event.preventDefault(); const next = {}; if (!form.full_name.trim()) next.full_name = "Full name is required."; if (!form.username.trim()) next.username = "Username is required."; if (!/^\S+@\S+\.\S+$/.test(form.email)) next.email = "Enter a valid email address."; if (form.password.length < 8) next.password = "Use at least 8 characters."; if (form.password !== form.confirm) next.confirm = "Passwords do not match."; setErrors(next); if (Object.keys(next).length) return;
+        setLoading(true); setError("");
+        try { await registerUser({ full_name: form.full_name.trim(), username: form.username.trim(), email: form.email.trim(), password: form.password }); setSuccess("Account created. Redirecting you to sign in…"); window.setTimeout(onLogin, 900); }
+        catch (requestError) { const detail = requestError.response?.data?.detail; setError(typeof detail === "string" ? detail : "Registration could not be completed."); }
+        finally { setLoading(false); }
+    };
+    const fields = [["full_name", "Full name", UserRound, "Your full name", "name"], ["username", "Username", AtSign, "Choose a username", "username"], ["email", "Email address", Mail, "you@company.com", "email"]];
+    return <AuthLayout title="Create your account" subtitle="Start forecasting and monitoring energy consumption."><ErrorAlert title="Registration failed" message={error} onDismiss={() => setError("")}/>{success && <div className="success-alert">{success}</div>}<form className="auth-form register-form" onSubmit={submit} noValidate>{fields.map(([name, label, Icon, placeholder, autoComplete]) => <FormField key={name} name={`register-${name}`} label={label} error={errors[name]} required><div className="input-with-icon"><Icon/><input id={`register-${name}`} name={name} type={name === "email" ? "email" : "text"} value={form[name]} onChange={update} placeholder={placeholder} autoComplete={autoComplete}/></div></FormField>)}<FormField name="register-password" label="Password" error={errors.password} required><div className="input-with-icon"><UserRound/><input id="register-password" name="password" type={show ? "text" : "password"} value={form.password} onChange={update} autoComplete="new-password" placeholder="At least 8 characters"/><button className="password-toggle" type="button" onClick={() => setShow((value) => !value)} aria-label={show ? "Hide password" : "Show password"}>{show ? <EyeOff/> : <Eye/>}</button></div>{form.password && <div className="strength"><div>{[1,2,3,4].map((level) => <span key={level} className={strength >= level ? `filled level-${strength}` : ""}/>)}</div><small>{["Very weak", "Weak", "Good", "Strong"][Math.max(0, strength - 1)]}</small></div>}</FormField><FormField name="register-confirm" label="Confirm password" error={errors.confirm} required><div className="input-with-icon"><UserRound/><input id="register-confirm" name="confirm" type={show ? "text" : "password"} value={form.confirm} onChange={update} autoComplete="new-password" placeholder="Repeat your password"/></div></FormField><div className="role-note"><span>Default access</span><strong>Consumer</strong></div><Button type="submit" loading={loading} icon={UserRoundPlus} className="auth-submit">Create account</Button></form><p className="auth-switch">Already have an account? <button className="link-button" onClick={onLogin}>Sign in</button></p></AuthLayout>;
+}

@@ -1,6 +1,8 @@
 import { useState } from "react";
 
 import Login from "./pages/Login";
+import Register from "./pages/Register";
+import ForgotPassword from "./pages/ForgotPassword";
 import Dashboard from "./pages/Dashboard";
 
 function App() {
@@ -13,6 +15,7 @@ function App() {
       "access_token"
     )
   );
+  const [authScreen, setAuthScreen] = useState("login");
 
   const handleLogin = () => {
 
@@ -31,12 +34,12 @@ function App() {
   };
 
   if (!isAuthenticated) {
-
-    return (
-      <Login
-        onLogin={handleLogin}
-      />
-    );
+    if (authScreen === "forgot-password") {
+      return <ForgotPassword onBack={() => setAuthScreen("login")} />;
+    }
+    return authScreen === "register"
+      ? <Register onLogin={() => setAuthScreen("login")} />
+      : <Login onLogin={handleLogin} onRegister={() => setAuthScreen("register")} onForgot={() => setAuthScreen("forgot-password")} />;
 
   }
 

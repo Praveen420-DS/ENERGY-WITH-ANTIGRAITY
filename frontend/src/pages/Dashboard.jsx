@@ -1,100 +1,50 @@
-import { useEffect, useState } from "react";
-
+import { useCallback, useEffect, useState } from "react";
+import ErrorAlert from "../components/ErrorAlert";
+import LoadingSpinner from "../components/LoadingSpinner";
 import Navbar from "../components/Navbar";
-import PredictionPage from "./PredictionPage";
 import Sidebar from "../components/Sidebar";
-import StatCard from "../components/StatCard";
-import UserProfile from "../components/UserProfile";
-import { getUsers } from "../services/api";
+import { getCurrentUser, getModelHealth, getPredictions } from "../services/api";
+import OverviewPage from "./OverviewPage";
+import PredictionPage from "./PredictionPage";
+import ProfilePage from "./ProfilePage";
+import ReportsPage from "./ReportsPage";
 
-function Dashboard({ onLogout }) {
+export default function Dashboard({ onLogout }) {
     const [activePage, setActivePage] = useState("overview");
+    const [sidebarOpen, setSidebarOpen] = useState(false);
     const [user, setUser] = useState(null);
+    const [predictions, setPredictions] = useState([]);
+    const [health, setHealth] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                setLoading(true);
-                const users = await getUsers();
-                if (users && users.length > 0) setUser(users[0]);
-            } catch {
-                setError("Unable to load authenticated user data.");
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchUser();
+    const loadData = useCallback(async () => {
+        setLoading(true); setError("");
+        const [userResult, predictionsResult, healthResult] = await Promise.allSettled([getCurrentUser(), getPredictions(), getModelHealth()]);
+        if (userResult.status === "fulfilled") setUser(userResult.value);
+        if (predictionsResult.status === "fulfilled") setPredictions(predictionsResult.value || []);
+        if (healthResult.status === "fulfilled") setHealth(healthResult.value);
+        if (userResult.status === "rejected" || predictionsResult.status === "rejected") setError("Some dashboard data could not be loaded. You can still create a prediction.");
+        setLoading(false);
     }, []);
-
+    useEffect(() => {
+        const timer = window.setTimeout(loadData, 0);
+        return () => window.clearTimeout(timer);
+    }, [loadData]);
     return (
-        <div className="dashboard">
-            <Navbar onLogout={onLogout} />
-            <div className="dashboard-layout">
-                <Sidebar activePage={activePage} setActivePage={setActivePage} />
+        <div className="app-shell">
+            <Sidebar activePage={activePage} setActivePage={setActivePage} open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+            <div className="workspace">
+                <Navbar onLogout={onLogout} user={user} onMenu={() => setSidebarOpen(true)} />
                 <main className="dashboard-main">
-                    <div className="dashboard-header">
-                        <h1>Energy Prediction Dashboard</h1>
-                        <p>Monitor, analyze, and predict energy consumption using AI.</p>
-                    </div>
-
-                    {activePage === "overview" && (
-                        <>
-                            <div className="stats-grid">
-                                <StatCard
-                                    title="Total Energy"
-                                    value="--"
-                                    subtitle="Awaiting prediction data"
-                                    icon="Energy"
-                                />
-                                <StatCard
-                                    title="Today's Consumption"
-                                    value="--"
-                                    subtitle="No data available"
-                                    icon="Trend"
-                                />
-                                <StatCard
-                                    title="Prediction Status"
-                                    value="Ready"
-                                    subtitle="Production model integrated"
-                                    icon="Model"
-                                />
-                                <StatCard
-                                    title="System Status"
-                                    value="Online"
-                                    subtitle="Application is available"
-                                    icon="Status"
-                                />
-                            </div>
-                            <div className="dashboard-section">
-                                <h2>Authenticated User</h2>
-                                {loading && <p>Loading user information...</p>}
-                                {error && <p className="error-message">{error}</p>}
-                                {!loading && !error && user && <UserProfile user={user} />}
-                            </div>
-                        </>
-                    )}
-
-                    {activePage === "prediction" && <PredictionPage />}
-
-                    {activePage === "reports" && (
-                        <div className="dashboard-section">
-                            <h2>Energy Reports</h2>
-                            <p>Generated energy reports will appear here.</p>
-                        </div>
-                    )}
-
-                    {activePage === "profile" && (
-                        <div className="dashboard-section">
-                            <h2>My Profile</h2>
-                            {!loading && user && <UserProfile user={user} />}
-                        </div>
-                    )}
+                    {loading && activePage === "overview" ? <LoadingSpinner label="Preparing your energy dashboard…" /> : <>
+                        <ErrorAlert message={error} title="Dashboard partially unavailable" onDismiss={() => setError("")} />
+                        {activePage === "overview" && <OverviewPage predictions={predictions} health={health} onNavigate={setActivePage} />}
+                        {activePage === "prediction" && <PredictionPage onPrediction={loadData} />}
+                        {activePage === "reports" && <ReportsPage predictions={predictions} />}
+                        {activePage === "profile" && <ProfilePage user={user} />}
+                    </>}
                 </main>
             </div>
         </div>
     );
 }
-
-export default Dashboard;

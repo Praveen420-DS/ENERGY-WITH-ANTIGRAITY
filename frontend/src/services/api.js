@@ -70,6 +70,33 @@ export const getUsers = async () => {
     return response.data;
 };
 
+export const getCurrentUser = async () => {
+    const users = await getUsers();
+    const token = localStorage.getItem("access_token");
+    if (!token) return null;
+    try {
+        const payload = JSON.parse(atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
+        return users.find((user) => user.email === payload.sub) || null;
+    } catch {
+        return null;
+    }
+};
+
+export const registerUser = async (payload) => {
+    const response = await API.post("/auth/register", payload);
+    return response.data;
+};
+
+export const getPredictions = async () => {
+    const response = await API.get("/predictions/");
+    return response.data;
+};
+
+export const getModelHealth = async () => {
+    const response = await API.get("/predictions/health");
+    return response.data;
+};
+
 export class PredictionApiError extends Error {
     constructor(message, kind, details = []) {
         super(message);

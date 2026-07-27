@@ -14,13 +14,14 @@ describe("PredictionPage", () => {
         predictEnergy.mockReset();
     });
 
-    it("loads the raw production sample and resets it", async () => {
+    it("loads the business sample and resets it", async () => {
         const user = userEvent.setup();
         render(<PredictionPage />);
         await user.click(screen.getByRole("button", { name: "Use sample" }));
-        expect(screen.getByLabelText(/Square feet/)).toHaveValue(7432);
+        expect(screen.getByLabelText(/Building/)).toHaveValue("0");
+        expect(screen.getByLabelText(/Meter/)).toHaveValue("0");
         await user.click(screen.getByRole("button", { name: "Reset" }));
-        expect(screen.getByLabelText(/Square feet/)).toHaveValue(null);
+        expect(screen.getByLabelText(/Building/)).toHaveValue("");
     });
 
     it("converts raw numeric form fields and displays the API result", async () => {
@@ -38,12 +39,13 @@ describe("PredictionPage", () => {
         });
         render(<PredictionPage />);
         await user.click(screen.getByRole("button", { name: "Use sample" }));
-        await user.click(screen.getByRole("button", { name: "Generate prediction" }));
+        await user.click(screen.getByRole("button", { name: "Generate forecast" }));
 
         await waitFor(() => expect(predictEnergy).toHaveBeenCalledOnce());
         const payload = predictEnergy.mock.calls[0][0];
         expect(payload.square_feet).toBe(7432);
         expect(payload.timestamp).toBe("2016-07-15T14:00");
+        expect(payload).not.toHaveProperty("forecastPeriod");
         expect(payload).not.toHaveProperty("hour");
         expect(screen.getByText("174.3369")).toBeInTheDocument();
     });
@@ -57,7 +59,7 @@ describe("PredictionPage", () => {
         });
         render(<PredictionPage />);
         await user.click(screen.getByRole("button", { name: "Use sample" }));
-        await user.click(screen.getByRole("button", { name: "Generate prediction" }));
+        await user.click(screen.getByRole("button", { name: "Generate forecast" }));
 
         expect(await screen.findByText("Meter must be between 0 and 3."))
             .toBeInTheDocument();

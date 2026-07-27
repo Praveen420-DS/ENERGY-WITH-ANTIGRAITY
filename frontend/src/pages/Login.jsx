@@ -1,125 +1,51 @@
+import { Eye, EyeOff, LogIn, Mail, ShieldCheck } from "lucide-react";
 import { useState } from "react";
+import AuthLayout from "../components/AuthLayout";
+import Button from "../components/Button";
+import ErrorAlert from "../components/ErrorAlert";
+import FormField from "../components/FormField";
 import { loginUser } from "../services/api";
 
-function Login({ onLogin }) {
+export default function Login({ onLogin, onRegister, onForgot }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
+    const [showPassword, setShowPassword] = useState(false);
+    const [remember, setRemember] = useState(false);
     const [error, setError] = useState("");
+    const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
-
-    const handleLogin = async (e) => {
-        e.preventDefault();
-
-        setError("");
+    const submit = async (event) => {
+        event.preventDefault();
+        const next = {};
+        if (!email) next.email = "Email is required.";
+        if (!password) next.password = "Password is required.";
+        setErrors(next);
+        if (Object.keys(next).length) return;
         setLoading(true);
-
+        setError("");
         try {
-            // Call backend login API
             const data = await loginUser(email, password);
-
-            // Check if access token exists
-            if (data.access_token) {
-
-                // Save JWT token
-                localStorage.setItem(
-                    "access_token",
-                    data.access_token
-                );
-
-                // Tell App.jsx login was successful
-                if (onLogin) {
-                    onLogin();
-                }
-
-            } else {
-                setError("Login failed: No access token received");
-            }
-
-        } catch (error) {
-
-            if (error.response) {
-                setError(
-                    error.response.data?.detail ||
-                    "Incorrect email or password"
-                );
-            } else {
-                setError(
-                    "Unable to connect to the backend server"
-                );
-            }
-
+            if (!data.access_token) throw new Error("No access token received.");
+            localStorage.setItem("access_token", data.access_token);
+            if (remember) localStorage.setItem("remember_login", "true");
+            else localStorage.removeItem("remember_login");
+            onLogin?.();
+        } catch (requestError) {
+            setError(requestError.response?.data?.detail || (requestError.response ? "Incorrect email or password." : "Unable to connect to the server."));
         } finally {
             setLoading(false);
         }
     };
-
-
     return (
-        <div className="login-container">
-
-            <h1>Energy Prediction System</h1>
-
-            <h2>Login</h2>
-
-            <form onSubmit={handleLogin}>
-
-                <div>
-                    <label htmlFor="email">
-                        Email
-                    </label>
-
-                    <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={email}
-                        onChange={(e) =>
-                            setEmail(e.target.value)
-                        }
-                        placeholder="Enter your email"
-                        required
-                    />
-                </div>
-
-
-                <div>
-                    <label htmlFor="password">
-                        Password
-                    </label>
-
-                    <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        value={password}
-                        onChange={(e) =>
-                            setPassword(e.target.value)
-                        }
-                        placeholder="Enter your password"
-                        required
-                    />
-                </div>
-
-
-                <button
-                    type="submit"
-                    disabled={loading}
-                >
-                    {loading ? "Logging in..." : "Login"}
-                </button>
-
+        <AuthLayout title="Welcome back" subtitle="Sign in to continue to your energy workspace.">
+            <ErrorAlert title="Sign in failed" message={error} onDismiss={() => setError("")} />
+            <form className="auth-form" onSubmit={submit} noValidate>
+                <FormField name="login-email" label="Email address" error={errors.email} required><div className="input-with-icon"><Mail /><input id="login-email" type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@company.com" /></div></FormField>
+                <FormField name="login-password" label="Password" error={errors.password} required><div className="input-with-icon"><ShieldCheck /><input id="login-password" type={showPassword ? "text" : "password"} autoComplete="current-password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Enter your password" /><button type="button" className="password-toggle" onClick={() => setShowPassword((value) => !value)} aria-label={showPassword ? "Hide password" : "Show password"}>{showPassword ? <EyeOff /> : <Eye />}</button></div></FormField>
+                <div className="auth-options"><label className="checkbox"><input type="checkbox" checked={remember} onChange={(event) => setRemember(event.target.checked)} /><span>Remember me</span></label><button type="button" className="link-button" onClick={onForgot}>Forgot password?</button></div>
+                <Button type="submit" loading={loading} icon={LogIn} className="auth-submit">Sign in</Button>
             </form>
-
-
-            {error && (
-                <p className="login-error" role="alert">
-                    {error}
-                </p>
-            )}
-
-        </div>
+            <p className="auth-switch">New to Enerlytics? <button className="link-button" onClick={onRegister}>Create an account</button></p>
+        </AuthLayout>
     );
 }
-
-export default Login;

@@ -1,0 +1,5 @@
+import { BarChart3, BrainCircuit, ChartNoAxesCombined, Leaf } from "lucide-react";
+
+export default function AuthLayout({ children, title, subtitle }) {
+    return <main className="auth-layout"><section className="auth-brand"><div className="auth-logo"><span><BarChart3 /></span><strong>Enerlytics</strong></div><div className="brand-copy"><p className="eyebrow">AI-powered energy intelligence</p><h1>Make every kilowatt count.</h1><p>Forecast energy consumption with production-grade machine learning and turn complex data into clear, actionable insight.</p><div className="feature-list"><span><BrainCircuit />Production ML inference</span><span><ChartNoAxesCombined />Real-time analytics</span><span><Leaf />Smarter energy decisions</span></div></div><div className="brand-orb orb-one"/><div className="brand-orb orb-two"/></section><section className="auth-pane"><div className="auth-card"><div className="mobile-auth-logo"><BarChart3 /><strong>Enerlytics</strong></div><header><h2>{title}</h2><p>{subtitle}</p></header>{children}<p className="auth-security">Protected by secure JWT authentication</p></div></section></main>;
+}
