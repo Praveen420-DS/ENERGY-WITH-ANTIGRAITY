@@ -1,4 +1,4 @@
-"""Validated application configuration."""
+﻿"""Validated application configuration."""
 
 from urllib.parse import urlsplit
 
@@ -57,6 +57,10 @@ class Settings(BaseSettings):
             "postgres:5432/energy_prediction"
         ),
         validation_alias="DATABASE_URL",
+    )
+    migration_database_url: str | None = Field(
+        default=None,
+        validation_alias="MIGRATION_DATABASE_URL",
     )
     test_database_url: str | None = Field(
         default=None,
