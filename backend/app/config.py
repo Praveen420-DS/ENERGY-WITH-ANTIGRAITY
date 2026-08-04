@@ -1,6 +1,7 @@
 ﻿"""Validated application configuration."""
 
 from urllib.parse import urlsplit
+from pathlib import Path
 
 from pydantic import AliasChoices, Field, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -46,6 +47,8 @@ class Settings(BaseSettings):
         default="models/production/current.json",
         validation_alias="PRODUCTION_MODEL_MANIFEST",
     )
+    electricity_candidate_enabled: bool = Field(default=False, validation_alias="ELECTRICITY_CANDIDATE_ENABLED")
+    electricity_candidate_package: str = Field(default="models/candidates/v2.0.0-electricity", validation_alias="ELECTRICITY_CANDIDATE_PACKAGE")
     allowed_origins: str = Field(
         default="http://localhost:5173,http://localhost",
         validation_alias="ALLOWED_ORIGINS",
@@ -123,6 +126,14 @@ class Settings(BaseSettings):
         if not normalized:
             raise ValueError("ALLOWED_ORIGINS must contain at least one origin.")
         return ",".join(dict.fromkeys(normalized))
+
+    @field_validator("electricity_candidate_package")
+    @classmethod
+    def validate_candidate_package(cls, value: str) -> str:
+        path = Path(value)
+        if path.is_absolute() or ".." in path.parts or path.parts[:2] != ("models", "candidates"):
+            raise ValueError("ELECTRICITY_CANDIDATE_PACKAGE must be a trusted relative models/candidates path.")
+        return path.as_posix()
 
     @model_validator(mode="after")
     def validate_security_settings(self) -> "Settings":

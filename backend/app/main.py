@@ -23,11 +23,13 @@ from app.config import Settings
 from app.database import engine
 from app.docs import JSON_CSP, SWAGGER_CSP, swagger_ui_html
 from app.ml.model_manager import get_model_manager
+from app.ml.electricity_candidate_manager import ElectricityCandidateError, get_electricity_candidate_manager
 from app.routers import (
     alerts,
     anomalies,
     auth,
     energy,
+    electricity_predictions,
     meters,
     models,
     predictions,
@@ -60,6 +62,11 @@ async def lifespan(application: FastAPI):
     production_model = manager.load(configured.production_model_manifest)
     application.state.production_model_manager = manager
     application.state.production_model = production_model
+    candidate_manager = get_electricity_candidate_manager()
+    if configured.electricity_candidate_enabled:
+        try: candidate_manager.load(configured.electricity_candidate_package)
+        except ElectricityCandidateError: LOGGER.error("Application continuing with production v1; electricity candidate unavailable")
+    else: candidate_manager.clear()
 
     try:
         async with engine.connect() as conn:
@@ -73,6 +80,7 @@ async def lifespan(application: FastAPI):
     finally:
         LOGGER.info("Application shutdown started")
         manager.clear()
+        candidate_manager.clear()
         await engine.dispose()
         LOGGER.info("Application shutdown completed")
 
@@ -146,7 +154,8 @@ def create_app(app_settings: Settings | None = None) -> FastAPI:
         exc: RequestValidationError,
     ) -> JSONResponse:
         """Return client-safe prediction validation details."""
-        if not request.url.path.startswith("/api/predictions"):
+        is_candidate = request.url.path.startswith("/api/electricity-candidate")
+        if not request.url.path.startswith("/api/predictions") and not is_candidate:
             return await request_validation_exception_handler(request, exc)
         details = [
             {
@@ -160,8 +169,8 @@ def create_app(app_settings: Settings | None = None) -> FastAPI:
             status_code=422,
             content={
                 "error": {
-                    "code": "INVALID_PREDICTION_INPUT",
-                    "message": "The request payload is invalid.",
+                    "code": "INVALID_CANDIDATE_INPUT" if is_candidate else "INVALID_PREDICTION_INPUT",
+                    "message": "The candidate request payload is invalid." if is_candidate else "The request payload is invalid.",
                     "details": details,
                     "request_id": getattr(
                         request.state,
@@ -235,6 +244,7 @@ def create_app(app_settings: Settings | None = None) -> FastAPI:
         prefix="/api/predictions",
         tags=["predictions"],
     )
+    application.include_router(electricity_predictions.router,prefix="/api/electricity-candidate",tags=["experimental-electricity-candidate"])
     application.include_router(
         anomalies.router,
         prefix="/api/anomalies",
