@@ -1,0 +1,167 @@
+{
+  "scope": "Original ASHRAE training data filtered to meter == 0; no model training",
+  "source_files": [
+    "data/raw/train.csv",
+    "data/raw/weather_train.csv",
+    "data/raw/building_metadata.csv"
+  ],
+  "output": {
+    "path": "data/processed/electricity_processed.csv",
+    "format": "csv",
+    "file_size_bytes": 1120986255,
+    "parquet_fallback_reason": "ImportError: DLL load failed while importing lib: An Application Control policy has blocked this file."
+  },
+  "counts": {
+    "source_train_rows": 20216100,
+    "source_meter_zero_rows": 12060910,
+    "negative_readings_rejected": 0,
+    "zero_readings_preserved": 530169,
+    "electricity_rows": 12060910,
+    "buildings": 1413,
+    "sites": 16
+  },
+  "date_range": {
+    "minimum": "2016-01-01T00:00:00",
+    "maximum": "2016-12-31T23:00:00"
+  },
+  "duplicates": {
+    "observation_key_columns": [
+      "building_id",
+      "meter",
+      "timestamp"
+    ],
+    "duplicate_observation_keys": 0,
+    "duplicate_full_rows": 0,
+    "method": "Exact pandas 64-bit row hashes; collision risk is negligible"
+  },
+  "merge_quality": {
+    "building_metadata_unmatched_rows": 0,
+    "weather_unmatched_rows": 43502
+  },
+  "missing_values": {
+    "building_id": 0,
+    "meter": 0,
+    "timestamp": 0,
+    "meter_reading": 0,
+    "site_id": 0,
+    "primary_use": 0,
+    "square_feet": 0,
+    "year_built": 6470035,
+    "floor_count": 9096083,
+    "air_temperature": 47325,
+    "cloud_coverage": 5329652,
+    "dew_temperature": 49091,
+    "precip_depth_1_hr": 2513679,
+    "sea_level_pressure": 1018383,
+    "wind_direction": 678715,
+    "wind_speed": 66795
+  },
+  "statistics": {
+    "building_id": {
+      "count": 12060910,
+      "mean": 706.6479888333467,
+      "std_population": 415.23300916592825,
+      "min": 0.0,
+      "max": 1448.0
+    },
+    "meter": {
+      "count": 12060910,
+      "mean": 0.0,
+      "std_population": 0.0,
+      "min": 0.0,
+      "max": 0.0
+    },
+    "meter_reading": {
+      "count": 12060910,
+      "mean": 170.82563644799603,
+      "std_population": 380.83429077833654,
+      "min": 0.0,
+      "max": 79769.0
+    },
+    "site_id": {
+      "count": 12060910,
+      "mean": 6.749956014927563,
+      "std_population": 4.946888049747445,
+      "min": 0.0,
+      "max": 15.0
+    },
+    "square_feet": {
+      "count": 12060910,
+      "mean": 92714.31195025914,
+      "std_population": 112109.98997143668,
+      "min": 283.0,
+      "max": 875000.0
+    },
+    "year_built": {
+      "count": 5590875,
+      "mean": 1968.334837033559,
+      "std_population": 31.015556663289566,
+      "min": 1900.0,
+      "max": 2017.0
+    },
+    "floor_count": {
+      "count": 2964827,
+      "mean": 3.7980799554240434,
+      "std_population": 3.367542267052083,
+      "min": 1.0,
+      "max": 26.0
+    },
+    "air_temperature": {
+      "count": 12013585,
+      "mean": 16.009652730637857,
+      "std_population": 10.397743254334218,
+      "min": -28.9,
+      "max": 47.2
+    },
+    "cloud_coverage": {
+      "count": 6731258,
+      "mean": 2.284164119099283,
+      "std_population": 2.5534757807403397,
+      "min": 0.0,
+      "max": 9.0
+    },
+    "dew_temperature": {
+      "count": 12011819,
+      "mean": 8.334990079354343,
+      "std_population": 9.836795268523618,
+      "min": -35.0,
+      "max": 26.1
+    },
+    "precip_depth_1_hr": {
+      "count": 9547231,
+      "mean": 0.8015275842807197,
+      "std_population": 7.718844301666765,
+      "min": -1.0,
+      "max": 343.0
+    },
+    "sea_level_pressure": {
+      "count": 11042527,
+      "mean": 1016.4078980291374,
+      "std_population": 7.035791623228748,
+      "min": 968.2,
+      "max": 1045.5
+    },
+    "wind_direction": {
+      "count": 11382195,
+      "mean": 176.35989806886985,
+      "std_population": 112.8772127100385,
+      "min": 0.0,
+      "max": 360.0
+    },
+    "wind_speed": {
+      "count": 11994115,
+      "mean": 3.5593235432543393,
+      "std_population": 2.317834434253993,
+      "min": 0.0,
+      "max": 19.0
+    }
+  },
+  "integrity": {
+    "meter_is_zero_only": true,
+    "negative_readings_remaining": 0,
+    "zero_readings_preserved": true,
+    "filtered_row_accounting_passed": true,
+    "original_files_modified": false,
+    "model_trained": false
+  }
+}
