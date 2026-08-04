@@ -1,0 +1,11 @@
+{
+  "predicted_electricity_consumption_value": 231.29280431994886,
+  "model_version": "v2.0.0-electricity",
+  "dataset_scope": "electricity_only",
+  "prediction_timestamp": "2026-08-04T10:35:46.256358+00:00",
+  "input_timestamp": "2016-11-01 00:00:00",
+  "output_unit": "unverified",
+  "warnings": [
+    "Candidate model; not approved for production."
+  ]
+}

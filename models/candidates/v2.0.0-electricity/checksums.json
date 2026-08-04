@@ -1,0 +1,24 @@
+{
+  "algorithm": "SHA-256",
+  "package_version": "v2.0.0-electricity",
+  "package_files": {
+    "example_request.json": "47bd2cc86aca776d936e9c1d616231717ff6726a8428906a531f13ae977408ee",
+    "example_response.json": "d3da3a00c1ddf21888a081c21494445380724b5ada0eacab305a94eff918a77a",
+    "feature_schema.json": "5dc6d7ca1048aedc95a5b9e1f84cf65489793c89424e279cc772e5d7f4bd561b",
+    "metrics.json": "73c7a0db2f45f4c189db94c2e21594f343120cc1bb989d9b48d0da66e0447982",
+    "model.joblib": "13f469882de5b70f9f2ea3136bacd2c4bb6d0bd8d4d32b3e7daffa35f00d9ef6",
+    "model_card.md": "db590edaaa08d1fac239cf00c59ec6a47edb4f625a03f9a47b3d366b43224629",
+    "model_metadata.json": "5c6c74070f3a3db102c61f9ef70aaaa90e594a9e87bf40c975e40ab7a9151f96",
+    "README.md": "899bf0432e28acc072da1226ad0cf0cc6a8d0959bb97de35f387b5b6a37db407",
+    "requirements.json": "7a8cf7b6d970a0b2b92a9cbcbed067a631582896bb801b9586615f7ff0b9f4e5",
+    "validation_report.json": "c67cbfee8ac4bf71b103cf71367e28b05b16ded3641b1628263f2533dc14006b",
+    "validation_report.md": "0219b6bf1dd22cec91f5275ad3df8f17e8e0d6d206aa4ed39384a72a875793fb"
+  },
+  "source_artifact_hash": "13f469882de5b70f9f2ea3136bacd2c4bb6d0bd8d4d32b3e7daffa35f00d9ef6",
+  "feature_schema_source_hash": "bf67f859ea6f8f592965b628032fd1a85e541022d0bde69d92f09b29c320bd46",
+  "training_report_source_hashes": {
+    "phase2_training_metrics.json": "cdedf54218341bc8b3d63bfa886a0b558e83802dc7a85783435c82d7132fdeb3",
+    "phase2_model_comparison.json": "e96bd8f8d7729f3840aee195e9d0cbd904c147a2921e347cd21b5f868548695d"
+  },
+  "generation_timestamp": "2026-08-04T10:35:46.256358+00:00"
+}

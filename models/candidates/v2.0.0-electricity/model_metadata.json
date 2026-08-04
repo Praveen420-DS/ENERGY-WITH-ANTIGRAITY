@@ -1,0 +1,41 @@
+{
+  "model_version": "v2.0.0-electricity",
+  "release_status": "candidate",
+  "dataset_scope": "electricity_only",
+  "meter_code": 0,
+  "algorithm": "RandomForestRegressor",
+  "target": "meter_reading",
+  "target_strategy": "raw",
+  "output_unit": "unverified",
+  "training_start": "2016-01-01T00:00:00",
+  "training_end": "2016-08-31T23:59:59",
+  "validation_start": "2016-09-01T00:00:00",
+  "validation_end": "2016-10-31T23:59:59",
+  "test_start": "2016-11-01T00:00:00",
+  "test_end": "2016-12-31T23:00:00",
+  "training_rows_available": 7992493,
+  "training_rows_sampled": 249766,
+  "validation_rows": 2045185,
+  "test_rows": 2023232,
+  "feature_count": 45,
+  "numeric_feature_count": 43,
+  "categorical_feature_count": 2,
+  "random_seed": 42,
+  "training_timestamp": "2026-08-04T10:00:21.400302+00:00",
+  "package_timestamp": "2026-08-04T10:35:46.256358+00:00",
+  "source_commit": "cbf5924bc6aebd3a077a52183d7a42284ebc6287",
+  "preprocessing": "Fitted ColumnTransformer embedded in model.joblib; no separate preprocessor required.",
+  "known_limitations": [
+    "Peak-reading errors",
+    "Temporal test degradation",
+    "Unverified electricity unit",
+    "Bounded training sample"
+  ],
+  "promotion_blockers": [
+    "peak-reading performance",
+    "temporal test degradation",
+    "unverified electricity unit",
+    "training-cap sensitivity not yet completed",
+    "XGBoost not evaluated in approved environment"
+  ]
+}

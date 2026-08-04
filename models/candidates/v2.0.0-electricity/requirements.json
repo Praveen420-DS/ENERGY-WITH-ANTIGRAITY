@@ -1,0 +1,12 @@
+{
+  "python": "3.12.13",
+  "python_packages": {
+    "numpy": "2.5.1",
+    "pandas": "3.0.5",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.5.3",
+    "scipy": "1.18.0"
+  },
+  "pyarrow_required": false,
+  "xgboost_required": false
+}

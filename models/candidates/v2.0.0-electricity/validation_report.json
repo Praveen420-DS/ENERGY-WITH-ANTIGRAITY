@@ -1,0 +1,23 @@
+{
+  "model_version": "v2.0.0-electricity",
+  "direct_prediction": 231.29280431994886,
+  "packaged_prediction": 231.29280431994886,
+  "absolute_parity_difference": 0.0,
+  "parity_tolerance": 1e-10,
+  "gates": {
+    "package_integrity": "pass",
+    "deterministic_inference": "pass",
+    "schema_compatibility": "pass",
+    "electricity_only_scope": "pass",
+    "missing_input_validation": "pass",
+    "corruption_detection": "pass",
+    "runtime_dependency_compatibility": "pass",
+    "production_isolation": "pass",
+    "test_period_robustness": "open",
+    "peak_consumption_robustness": "open",
+    "output_unit_verification": "open",
+    "rollback_availability": "pass"
+  },
+  "promotion_decision": "not_yet_approved",
+  "reason": "Integrity/inference gates pass; robustness and unit gates remain open."
+}
