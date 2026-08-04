@@ -1,0 +1,328 @@
+{
+  "input_path": "data\\processed\\electricity_processed.csv",
+  "output_path": "data\\processed\\electricity_features.csv",
+  "input_rows": 12060910,
+  "output_rows": 12060910,
+  "feature_count": 45,
+  "numeric_feature_count": 43,
+  "categorical_feature_count": 2,
+  "missing_values_before_weather_treatment": {
+    "air_temperature": 47325,
+    "cloud_coverage": 5329652,
+    "dew_temperature": 49091,
+    "precip_depth_1_hr": 2513679,
+    "sea_level_pressure": 1018383,
+    "wind_direction": 678715,
+    "wind_speed": 66795
+  },
+  "missing_values_after_deterministic_treatment": {
+    "building_id": 0,
+    "site_id": 0,
+    "primary_use": 0,
+    "square_feet": 0,
+    "year_built": 6470035,
+    "floor_count": 9096083,
+    "timestamp": 0,
+    "air_temperature": 0,
+    "cloud_coverage": 0,
+    "dew_temperature": 0,
+    "precip_depth_1_hr": 0,
+    "sea_level_pressure": 0,
+    "wind_direction": 0,
+    "wind_speed": 0,
+    "meter_reading": 0,
+    "air_temperature_missing": 0,
+    "cloud_coverage_missing": 0,
+    "dew_temperature_missing": 0,
+    "precip_depth_1_hr_missing": 0,
+    "sea_level_pressure_missing": 0,
+    "wind_direction_missing": 0,
+    "wind_speed_missing": 0,
+    "year": 0,
+    "quarter": 0,
+    "month": 0,
+    "week_of_year": 0,
+    "day": 0,
+    "day_of_year": 0,
+    "weekday": 0,
+    "hour": 0,
+    "is_weekend": 0,
+    "season": 0,
+    "hour_sin": 0,
+    "hour_cos": 0,
+    "weekday_sin": 0,
+    "weekday_cos": 0,
+    "month_sin": 0,
+    "month_cos": 0,
+    "building_age": 6478817,
+    "log_square_feet": 0,
+    "area_per_floor": 9096083,
+    "temperature_difference": 0,
+    "relative_humidity_proxy": 0,
+    "wind_x": 0,
+    "wind_y": 0,
+    "temperature_x_square_feet": 0,
+    "hour_x_temperature": 0,
+    "cooling_demand_proxy": 0,
+    "heating_demand_proxy": 0
+  },
+  "rows_with_unresolved_weather_values": 0,
+  "invalid_square_foot_rows": 0,
+  "invalid_year_built_rows": 6478817,
+  "invalid_floor_count_rows": 9096083,
+  "meter_validation": {
+    "all_rows_meter_zero": true,
+    "meter_removed_from_predictors": true
+  },
+  "duplicate_full_rows": 0,
+  "infinite_value_count": 0,
+  "nan_count_by_feature": {
+    "building_id": 0,
+    "site_id": 0,
+    "primary_use": 0,
+    "square_feet": 0,
+    "year_built": 6470035,
+    "floor_count": 9096083,
+    "timestamp": 0,
+    "air_temperature": 0,
+    "cloud_coverage": 0,
+    "dew_temperature": 0,
+    "precip_depth_1_hr": 0,
+    "sea_level_pressure": 0,
+    "wind_direction": 0,
+    "wind_speed": 0,
+    "meter_reading": 0,
+    "air_temperature_missing": 0,
+    "cloud_coverage_missing": 0,
+    "dew_temperature_missing": 0,
+    "precip_depth_1_hr_missing": 0,
+    "sea_level_pressure_missing": 0,
+    "wind_direction_missing": 0,
+    "wind_speed_missing": 0,
+    "year": 0,
+    "quarter": 0,
+    "month": 0,
+    "week_of_year": 0,
+    "day": 0,
+    "day_of_year": 0,
+    "weekday": 0,
+    "hour": 0,
+    "is_weekend": 0,
+    "season": 0,
+    "hour_sin": 0,
+    "hour_cos": 0,
+    "weekday_sin": 0,
+    "weekday_cos": 0,
+    "month_sin": 0,
+    "month_cos": 0,
+    "building_age": 6478817,
+    "log_square_feet": 0,
+    "area_per_floor": 9096083,
+    "temperature_difference": 0,
+    "relative_humidity_proxy": 0,
+    "wind_x": 0,
+    "wind_y": 0,
+    "temperature_x_square_feet": 0,
+    "hour_x_temperature": 0,
+    "cooling_demand_proxy": 0,
+    "heating_demand_proxy": 0
+  },
+  "numeric_minimum_maximum": {
+    "building_id": {
+      "minimum": 0.0,
+      "maximum": 1448.0
+    },
+    "site_id": {
+      "minimum": 0.0,
+      "maximum": 15.0
+    },
+    "square_feet": {
+      "minimum": 283.0,
+      "maximum": 875000.0
+    },
+    "year_built": {
+      "minimum": 1900.0,
+      "maximum": 2017.0
+    },
+    "air_temperature": {
+      "minimum": -28.9,
+      "maximum": 47.2
+    },
+    "cloud_coverage": {
+      "minimum": 0.0,
+      "maximum": 9.0
+    },
+    "dew_temperature": {
+      "minimum": -35.0,
+      "maximum": 26.1
+    },
+    "precip_depth_1_hr": {
+      "minimum": -1.0,
+      "maximum": 343.0
+    },
+    "sea_level_pressure": {
+      "minimum": 968.2,
+      "maximum": 1045.5
+    },
+    "wind_direction": {
+      "minimum": 0.0,
+      "maximum": 360.0
+    },
+    "wind_speed": {
+      "minimum": 0.0,
+      "maximum": 19.0
+    },
+    "meter_reading": {
+      "minimum": 0.0,
+      "maximum": 79769.0
+    },
+    "air_temperature_missing": {
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "cloud_coverage_missing": {
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "dew_temperature_missing": {
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "precip_depth_1_hr_missing": {
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "sea_level_pressure_missing": {
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "wind_direction_missing": {
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "wind_speed_missing": {
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "year": {
+      "minimum": 2016.0,
+      "maximum": 2016.0
+    },
+    "quarter": {
+      "minimum": 1.0,
+      "maximum": 4.0
+    },
+    "month": {
+      "minimum": 1.0,
+      "maximum": 12.0
+    },
+    "week_of_year": {
+      "minimum": 1.0,
+      "maximum": 53.0
+    },
+    "day": {
+      "minimum": 1.0,
+      "maximum": 31.0
+    },
+    "day_of_year": {
+      "minimum": 1.0,
+      "maximum": 366.0
+    },
+    "weekday": {
+      "minimum": 0.0,
+      "maximum": 6.0
+    },
+    "hour": {
+      "minimum": 0.0,
+      "maximum": 23.0
+    },
+    "is_weekend": {
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "hour_sin": {
+      "minimum": -1.0,
+      "maximum": 1.0
+    },
+    "hour_cos": {
+      "minimum": -1.0,
+      "maximum": 1.0
+    },
+    "weekday_sin": {
+      "minimum": -0.9749279022216797,
+      "maximum": 0.9749279022216797
+    },
+    "weekday_cos": {
+      "minimum": -0.9009688496589661,
+      "maximum": 1.0
+    },
+    "month_sin": {
+      "minimum": -1.0,
+      "maximum": 1.0
+    },
+    "month_cos": {
+      "minimum": -1.0,
+      "maximum": 1.0
+    },
+    "building_age": {
+      "minimum": 0.0,
+      "maximum": 116.0
+    },
+    "log_square_feet": {
+      "minimum": 5.648974418640137,
+      "maximum": 13.68198013305664
+    },
+    "temperature_difference": {
+      "minimum": -1.2000000476837158,
+      "maximum": 51.70000076293945
+    },
+    "relative_humidity_proxy": {
+      "minimum": 3.7593791484832764,
+      "maximum": 100.0
+    },
+    "wind_x": {
+      "minimum": -16.24932861328125,
+      "maximum": 15.03508186340332
+    },
+    "wind_y": {
+      "minimum": -18.218942642211914,
+      "maximum": 13.531573295593262
+    },
+    "temperature_x_square_feet": {
+      "minimum": -24898044.0,
+      "maximum": 38209816.0
+    },
+    "hour_x_temperature": {
+      "minimum": -581.9000244140625,
+      "maximum": 1085.5999755859375
+    },
+    "cooling_demand_proxy": {
+      "minimum": 0.0,
+      "maximum": 29.200000762939453
+    },
+    "heating_demand_proxy": {
+      "minimum": 0.0,
+      "maximum": 46.900001525878906
+    },
+    "floor_count": {
+      "minimum": 1.0,
+      "maximum": 26.0
+    },
+    "area_per_floor": {
+      "minimum": 356.0,
+      "maximum": 875000.0
+    }
+  },
+  "categorical_cardinalities": {
+    "primary_use": 16,
+    "season": 4
+  },
+  "zero_targets_preserved": 530169,
+  "target_derived_features": false,
+  "processing_duration_seconds": 516.531,
+  "output_size_bytes": 3206423326,
+  "output_sha256": "e1169ad3476b244f9c2e7e633a22a7f91e1014e9f808eb344d970e324e7cce64",
+  "sample_row_limit": null,
+  "training_period_end_inclusive": "2016-08-31T23:59:59",
+  "model_trained": false
+}
