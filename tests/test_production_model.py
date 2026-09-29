@@ -1,9 +1,9 @@
 import json
+from datetime import datetime, timedelta
 from pathlib import Path
 
 import joblib
 import numpy as np
-import pyarrow.parquet as pq
 
 from ml_service.inference import (build_feature_frame, load_production_model,
                                   predict_batch, verify_package_checksums)
@@ -39,10 +39,19 @@ def test_loadability_determinism_and_output_contract():
 
 def test_packaged_model_matches_original_on_deterministic_sample():
     loaded = load_production_model(MANIFEST)
-    table = pq.ParquetFile(ROOT/"data/processed/feature_dataset.parquet").read_row_group(0).slice(0, 25)
-    frame = table.to_pandas()
-    raw_columns = [f["name"] for f in loaded.schema["fields"]]
-    records = frame[raw_columns].to_dict("records")
+    example = json.loads((loaded.package_dir/"example_request.json").read_text())
+    start = datetime.fromisoformat(example["timestamp"].replace("Z", "+00:00"))
+    records = []
+    for index in range(25):
+        record = dict(example)
+        record["timestamp"] = (start + timedelta(hours=index)).isoformat()
+        for field, scale in (("air_temperature", 0.25), ("dew_temperature", 0.15),
+                             ("wind_speed", 0.1)):
+            if field in record and record[field] is not None:
+                record[field] = float(record[field]) + (index % 7) * scale
+        if "cloud_coverage" in record and record["cloud_coverage"] is not None:
+            record["cloud_coverage"] = (int(record["cloud_coverage"]) + index) % 10
+        records.append(record)
     features, _ = build_feature_frame(records, loaded)
     source = joblib.load(ROOT/"models/baseline/random_forest.joblib")
     source_predictions = np.maximum(source.predict(features), 0)

@@ -33,6 +33,7 @@ from app.routers import (
     meters,
     models,
     predictions,
+    peaks,
     system,
     users,
 )
@@ -250,6 +251,7 @@ def create_app(app_settings: Settings | None = None) -> FastAPI:
         prefix="/api/anomalies",
         tags=["anomalies"],
     )
+    application.include_router(peaks.router, prefix="/api/peaks", tags=["peak-predictions"])
     application.include_router(alerts.router, prefix="/api/alerts", tags=["alerts"])
     application.include_router(models.router, prefix="/api/models", tags=["models"])
     application.include_router(system.router, prefix="/api/system", tags=["system"])

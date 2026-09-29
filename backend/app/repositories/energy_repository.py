@@ -7,6 +7,24 @@ from app.schemas.energy import EnergyRecordCreate
 
 class EnergyRepository:
     @staticmethod
+    async def list_valid_history(db: AsyncSession, meter_id: int | None = None, limit: int = 5000) -> list[EnergyRecord]:
+        query = select(EnergyRecord).where(EnergyRecord.is_valid.is_(True))
+        if meter_id is not None:
+            query = query.where(EnergyRecord.meter_id == meter_id)
+        result = await db.execute(query.order_by(EnergyRecord.meter_id, EnergyRecord.timestamp).limit(limit))
+        return list(result.scalars().all())
+
+    @staticmethod
+    async def list_meter_history(db: AsyncSession, meter_id: int, limit: int = 5000) -> list[EnergyRecord]:
+        result = await db.execute(
+            select(EnergyRecord)
+            .where(EnergyRecord.meter_id == meter_id, EnergyRecord.is_valid.is_(True))
+            .order_by(EnergyRecord.timestamp.desc())
+            .limit(limit)
+        )
+        return list(reversed(result.scalars().all()))
+
+    @staticmethod
     async def list_records(db: AsyncSession, limit: int = 100) -> list[EnergyRecord]:
         result = await db.execute(
             select(EnergyRecord).order_by(EnergyRecord.timestamp.desc()).limit(limit)

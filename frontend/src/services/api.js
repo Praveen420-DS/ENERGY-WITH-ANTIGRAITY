@@ -97,6 +97,10 @@ export const getModelHealth = async () => {
     return response.data;
 };
 
+export const getAnomalies = async () => (await API.get("/anomalies/")).data;
+export const detectAnomalies = async (payload = {}) => (await API.post("/anomalies/detect", payload)).data;
+export const predictPeak = async (payload) => (await API.post("/peaks/predict", payload)).data;
+
 export class PredictionApiError extends Error {
     constructor(message, kind, details = []) {
         super(message);

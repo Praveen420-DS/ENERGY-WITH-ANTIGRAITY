@@ -1,6 +1,6 @@
-﻿from datetime import datetime
+from datetime import datetime
 
-from sqlalchemy import Boolean, DateTime, Float, ForeignKey, String, func
+from sqlalchemy import Boolean, DateTime, Float, ForeignKey, String, UniqueConstraint, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import Base
@@ -8,6 +8,9 @@ from app.models.base import Base
 
 class Anomaly(Base):
     __tablename__ = "anomalies"
+    __table_args__ = (
+        UniqueConstraint("meter_id", "timestamp", name="uq_anomalies_meter_timestamp"),
+    )
 
     id: Mapped[int] = mapped_column(primary_key=True)
     meter_id: Mapped[int] = mapped_column(ForeignKey("meters.id"), index=True)

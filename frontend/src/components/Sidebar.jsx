@@ -1,9 +1,11 @@
-import { BarChart3, Bolt, FileBarChart, Gauge, UserRound, X } from "lucide-react";
+import { Activity, BarChart3, Bolt, FileBarChart, Gauge, TrendingUp, UserRound, X } from "lucide-react";
 
 const items = [
     { id: "overview", label: "Overview", icon: Gauge },
     { id: "prediction", label: "New prediction", icon: Bolt },
     { id: "reports", label: "Reports", icon: FileBarChart },
+    { id: "anomalies", label: "Anomaly review", icon: Activity },
+    { id: "peaks", label: "Peak outlook", icon: TrendingUp },
     { id: "profile", label: "Profile", icon: UserRound },
 ];
 

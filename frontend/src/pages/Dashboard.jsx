@@ -8,6 +8,8 @@ import OverviewPage from "./OverviewPage";
 import PredictionPage from "./PredictionPage";
 import ProfilePage from "./ProfilePage";
 import ReportsPage from "./ReportsPage";
+import AnomaliesPage from "./AnomaliesPage";
+import PeakPredictionPage from "./PeakPredictionPage";
 
 export default function Dashboard({ onLogout }) {
     const [activePage, setActivePage] = useState("overview");
@@ -41,6 +43,8 @@ export default function Dashboard({ onLogout }) {
                         {activePage === "overview" && <OverviewPage predictions={predictions} health={health} onNavigate={setActivePage} />}
                         {activePage === "prediction" && <PredictionPage onPrediction={loadData} />}
                         {activePage === "reports" && <ReportsPage predictions={predictions} />}
+                        {activePage === "anomalies" && <AnomaliesPage />}
+                        {activePage === "peaks" && <PeakPredictionPage />}
                         {activePage === "profile" && <ProfilePage user={user} />}
                     </>}
                 </main>
