@@ -3,7 +3,8 @@ name: CI
 on:
   push:
   pull_request:
-
+env:
+  PYTHONPATH: ${{ github.workspace }}
 jobs:
   backend-ml-tests:
     runs-on: ubuntu-latest
