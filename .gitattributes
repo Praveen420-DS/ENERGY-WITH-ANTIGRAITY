@@ -1,1 +1,4 @@
 models/production/v1.0.0/** text eol=crlf
+models/production/v1.0.0/model.joblib -text
+reports/week2_baseline_metrics.json text eol=crlf
+reports/week2_advanced_metrics.json text eol=crlf
