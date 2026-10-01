@@ -11,6 +11,9 @@ from fastapi.concurrency import run_in_threadpool
 from app.dependencies import DbSession, get_current_user
 from app.ml.model_manager import get_model_manager
 from app.models.user import User
+from app.repositories.meter_repository import MeterRepository
+from app.repositories.model_repository import ModelRepository
+from app.repositories.prediction_repository import PredictionRepository
 from app.schemas.prediction import (
     ErrorBody,
     ErrorResponse,
@@ -70,13 +73,22 @@ async def prediction_health(response: Response) -> ModelReadinessResponse:
 async def create_prediction(
     prediction_request: ProductionPredictionRequest,
     request: Request,
+    db: DbSession,
     current_user: User = Depends(get_current_user),
 ) -> ProductionPredictionResponse:
     """Generate one production prediction for an authenticated user."""
     del current_user
     request_id = request.state.request_id
+    if prediction_request.meter != 0:
+        raise _error(
+            status.HTTP_400_BAD_REQUEST,
+            "UNSUPPORTED_METER",
+            "Only electricity predictions are currently supported.",
+            request_id,
+        )
+
     try:
-        return await run_in_threadpool(
+        prediction_response = await run_in_threadpool(
             PredictionService.predict,
             prediction_request,
             get_model_manager(),
@@ -103,6 +115,42 @@ async def create_prediction(
             "The prediction could not be completed.",
             request_id,
         ) from exc
+
+    meter = await MeterRepository.get_by_meter_identifier(
+        db,
+        "electricity-default",
+    )
+    if meter is None:
+        raise _error(
+            status.HTTP_503_SERVICE_UNAVAILABLE,
+            "ELECTRICITY_METER_NOT_CONFIGURED",
+            "The electricity meter is not configured.",
+            request_id,
+        )
+
+    model = await ModelRepository.get_production_by_version(
+        db,
+        prediction_response.model_version,
+    )
+    if model is None:
+        raise _error(
+            status.HTTP_503_SERVICE_UNAVAILABLE,
+            "PRODUCTION_MODEL_NOT_REGISTERED",
+            "The production prediction model is not registered.",
+            request_id,
+        )
+
+    await PredictionRepository.create(
+        db,
+        meter_id=meter.id,
+        model_id=model.id,
+        horizon=model.horizon,
+        target_start=prediction_request.timestamp,
+        predicted_kwh=prediction_response.predicted_meter_reading,
+        actual_kwh=prediction_request.actual_kwh,
+        confidence=0.0,
+    )
+    return prediction_response
 
 
 @router.get("/", response_model=list[PredictionRead])

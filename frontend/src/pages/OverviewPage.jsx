@@ -5,7 +5,7 @@ import DataTable from "../components/DataTable";
 import PageHeader from "../components/PageHeader";
 import StatCard from "../components/StatCard";
 
-const meterNames = ["Electricity", "Chilled water", "Steam", "Hot water"];
+const meters = ["Electricity"];
 const colors = ["#8b5cf6", "#3b82f6", "#22c55e", "#f59e0b"];
 const formatEnergy = (value) => Number(value || 0).toLocaleString(undefined, { maximumFractionDigits: 1 });
 
@@ -14,11 +14,24 @@ export default function OverviewPage({ predictions, health, onNavigate }) {
     const average = total ? predictions.reduce((sum, item) => sum + Number(item.predicted_kwh || 0), 0) / total : 0;
     const todayKey = new Date().toDateString();
     const today = predictions.filter((item) => new Date(item.predicted_at).toDateString() === todayKey).reduce((sum, item) => sum + Number(item.predicted_kwh || 0), 0);
-    const trend = [...predictions].slice(-12).map((item) => ({ date: new Date(item.predicted_at).toLocaleDateString(undefined, { month: "short", day: "numeric" }), value: Number(item.predicted_kwh || 0) }));
-    const distribution = meterNames.map((name, meter) => ({ name, value: predictions.filter((item) => Number(item.meter_id) === meter).length }));
+    const trend = [...predictions].slice(-12).map((item) => ({
+        date: new Date(item.predicted_at).toLocaleDateString("en-IN", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+        }),
+        value: Number(item.predicted_kwh || 0),
+    }));
+
+    const distribution = [
+        {
+            name: "Electricity",
+            value: predictions.length,
+        },
+    ];
     const columns = [
         { key: "id", label: "Prediction ID", render: (row) => <span className="mono">#{row.id}</span> },
-        { key: "meter_id", label: "Meter", render: (row) => meterNames[row.meter_id] || `Meter ${row.meter_id}` },
+        { key: "meter_id", label: "Meter", render: () => "Electricity" },
         { key: "predicted_kwh", label: "Consumption", render: (row) => <strong>{formatEnergy(row.predicted_kwh)} kWh</strong> },
         { key: "predicted_at", label: "Generated", render: (row) => new Date(row.predicted_at).toLocaleString() },
     ];
@@ -50,7 +63,7 @@ export default function OverviewPage({ predictions, health, onNavigate }) {
                 </section>
             </div>
             <section className="panel recent-panel"><div className="panel-heading"><div><h2>Recent predictions</h2><p>Latest persisted forecasting activity</p></div><button className="text-button" onClick={() => onNavigate("reports")}>View reports <ArrowUpRight size={15}/></button></div><DataTable columns={columns} rows={[...predictions].reverse().slice(0, 6)} emptyTitle="No predictions recorded" emptyDescription="Generate a forecast to start building your analytics history." /></section>
-            <section className="recommendation"><span><Lightbulb /></span><div><p className="eyebrow">Energy-saving recommendation</p><h2>Build a baseline before optimizing demand</h2><p>Generate forecasts across representative days and meter types. A broader history makes it easier to spot peak-load patterns and prioritize efficiency work.</p></div><button className="button button-secondary" onClick={() => onNavigate("prediction")}>Run analysis</button></section>
+            <section className="recommendation"><span><Lightbulb /></span><div><p className="eyebrow">Energy-saving recommendation</p><h2>Build a baseline before optimizing demand</h2><p>Generate forecasts across representative days. A broader history makes it easier to spot peak-load patterns and prioritize efficiency work.</p></div><button className="button button-secondary" onClick={() => onNavigate("prediction")}>Run analysis</button></section>
         </>
     );
 }

@@ -24,6 +24,7 @@ class ProductionPredictionRequest(BaseModel):
                 {
                     "building_id": 0,
                     "meter": 0,
+                    "actual_kwh": 174.3,
                     "timestamp": "2016-07-15T14:00:00",
                     "site_id": 0,
                     "primary_use": "Education",
@@ -43,6 +44,11 @@ class ProductionPredictionRequest(BaseModel):
     )
 
     building_id: int = Field(ge=0, description="Nonnegative building identifier.")
+    actual_kwh: float | None = Field(
+        default=None,
+        ge=0,
+        description="Optional observed electricity consumption in kWh; not an ML feature.",
+    )
     meter: Literal[0, 1, 2, 3] = Field(
         description=(
             "Meter type: 0 electricity, 1 chilled water, "
@@ -108,7 +114,7 @@ class ProductionPredictionRequest(BaseModel):
 
     def to_inference_record(self) -> dict[str, Any]:
         """Return the exact raw record contract expected by inference."""
-        record = self.model_dump()
+        record = self.model_dump(exclude={"actual_kwh"})
         record["timestamp"] = self.timestamp.isoformat()
         return record
 
@@ -173,4 +179,5 @@ class PredictionRead(BaseModel):
     predicted_at: datetime
     target_start: datetime
     predicted_kwh: float
+    actual_kwh: float | None = None
     confidence: float

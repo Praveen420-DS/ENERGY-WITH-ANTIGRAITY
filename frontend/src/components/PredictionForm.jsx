@@ -10,8 +10,8 @@ const BUILDINGS = [
     { id: "3", name: "South Distribution Hub · Warehouse", site_id: "2", primary_use: "Warehouse/storage", square_feet: "210000", year_built: "2012", floor_count: "2" },
 ];
 const WEATHER_DEFAULTS = { air_temperature: "25", cloud_coverage: "6", dew_temperature: "20", precip_depth_1_hr: "0", sea_level_pressure: "1019.7", wind_direction: "180", wind_speed: "3.1" };
-const EMPTY_INPUT = { building_id: "", meter: "", timestamp: "", site_id: "0", primary_use: "Education", square_feet: "7432", year_built: "2008", floor_count: "4", ...WEATHER_DEFAULTS };
-const SAMPLE_INPUT = { ...EMPTY_INPUT, building_id: "0", meter: "0", timestamp: "2016-07-15T14:00" };
+const EMPTY_INPUT = { building_id: "", meter: "", actual_kwh: "", timestamp: "", site_id: "0", primary_use: "Education", square_feet: "7432", year_built: "2008", floor_count: "4", ...WEATHER_DEFAULTS };
+const SAMPLE_INPUT = { ...EMPTY_INPUT, building_id: "0", meter: "0", actual_kwh: "174.3", timestamp: "2016-07-15T14:00" };
 
 export default function PredictionForm({ values, setValues, onSubmit, onReset, loading, fieldErrors }) {
     const [forecastPeriod, setForecastPeriod] = useState("24");
@@ -27,6 +27,7 @@ export default function PredictionForm({ values, setValues, onSubmit, onReset, l
             <div className="business-form-grid">
                 <FormField name="building_id" label="Building" hint="Managed property in your portfolio" error={fieldErrors.building_id} required><div className="select-with-icon"><Building2 /><select id="building_id" name="building_id" value={values.building_id} onChange={selectBuilding} required><option value="">Select a building</option>{BUILDINGS.map((building) => <option key={building.id} value={building.id}>{building.name}</option>)}</select></div></FormField>
                 <FormField name="meter" label="Meter" hint="Energy stream to forecast" error={fieldErrors.meter} required><div className="select-with-icon"><Gauge /><select id="meter" name="meter" value={values.meter} onChange={update} required><option value="">Select a meter</option><option value="0">Electricity</option><option value="1">Chilled water</option><option value="2">Steam</option><option value="3">Hot water</option></select></div></FormField>
+                <FormField name="actual_kwh" label="Current meter reading" unit="kWh" hint="Enter the latest actual electricity consumption reading." error={fieldErrors.actual_kwh} required><div className="input-with-leading-icon"><Gauge /><input id="actual_kwh" type="number" name="actual_kwh" value={values.actual_kwh} onChange={update} min="0" step="any" required /></div></FormField>
                 <FormField name="timestamp" label="Prediction date" hint="Starting date and time" error={fieldErrors.timestamp} required><div className="input-with-leading-icon"><CalendarDays /><input id="timestamp" type="datetime-local" name="timestamp" value={values.timestamp} onChange={update} min="1900-01-01T00:00" max="2100-12-31T23:59" required /></div></FormField>
                 <FormField name="forecast-period" label="Forecast period" hint="Planning horizon for this analysis"><div className="select-with-icon"><Clock3 /><select id="forecast-period" value={forecastPeriod} onChange={(event) => setForecastPeriod(event.target.value)}><option value="24">Next 24 hours</option><option value="168">Next 7 days</option><option value="720">Next 30 days</option></select></div></FormField>
             </div>

@@ -19,6 +19,7 @@ class Prediction(Base):
     target_start: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
     target_end: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     predicted_kwh: Mapped[float] = mapped_column(Float)
+    actual_kwh: Mapped[float | None] = mapped_column(Float, nullable=True)
     confidence: Mapped[float] = mapped_column(Float, default=0.0)
 
     meter: Mapped["Meter"] = relationship(back_populates="predictions")

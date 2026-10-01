@@ -20,6 +20,7 @@ describe("PredictionPage", () => {
         await user.click(screen.getByRole("button", { name: "Use sample" }));
         expect(screen.getByLabelText(/Building/)).toHaveValue("0");
         expect(screen.getByLabelText(/Meter/)).toHaveValue("0");
+        expect(screen.getByLabelText(/Current meter reading/)).toHaveValue(174.3);
         await user.click(screen.getByRole("button", { name: "Reset" }));
         expect(screen.getByLabelText(/Building/)).toHaveValue("");
     });
@@ -44,6 +45,7 @@ describe("PredictionPage", () => {
         await waitFor(() => expect(predictEnergy).toHaveBeenCalledOnce());
         const payload = predictEnergy.mock.calls[0][0];
         expect(payload.square_feet).toBe(7432);
+        expect(payload.actual_kwh).toBe(174.3);
         expect(payload.timestamp).toBe("2016-07-15T14:00");
         expect(payload).not.toHaveProperty("forecastPeriod");
         expect(payload).not.toHaveProperty("hour");

@@ -54,6 +54,7 @@ def test_prediction_requires_authentication(prediction_client):
 
 def test_api_prediction_matches_direct_inference(prediction_client):
     payload = example_request()
+    payload["actual_kwh"] = 123.45
     direct = predict_one(payload, MANIFEST)
     response = prediction_client.post("/api/predictions/", json=payload)
     assert response.status_code == 200
@@ -70,9 +71,15 @@ def test_api_prediction_matches_direct_inference(prediction_client):
     assert "confidence" not in body
 
 
+def test_api_accepts_legacy_request_without_actual_reading(prediction_client):
+    response = prediction_client.post("/api/predictions/", json=example_request())
+    assert response.status_code == 200
+
+
 @pytest.mark.parametrize(
     ("field", "value"),
     [
+        ("actual_kwh", -1),
         ("meter", 9),
         ("square_feet", -1),
         ("timestamp", "invalid"),

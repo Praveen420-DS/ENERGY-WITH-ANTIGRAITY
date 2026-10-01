@@ -12,7 +12,11 @@ class MeterRepository:
         return list(result.scalars().all())
 
     @staticmethod
-    async def create(db: AsyncSession, meter: MeterCreate, owner_id: int | None = None) -> Meter:
+    async def create(
+        db: AsyncSession,
+        meter: MeterCreate,
+        owner_id: int | None = None,
+    ) -> Meter:
         db_meter = Meter(
             meter_id=meter.meter_id,
             name=meter.name,
@@ -27,6 +31,21 @@ class MeterRepository:
         return db_meter
 
     @staticmethod
-    async def get_by_id(db: AsyncSession, meter_id: int) -> Meter | None:
-        result = await db.execute(select(Meter).where(Meter.id == meter_id))
+    async def get_by_id(
+        db: AsyncSession,
+        meter_id: int,
+    ) -> Meter | None:
+        result = await db.execute(
+            select(Meter).where(Meter.id == meter_id)
+        )
+        return result.scalar_one_or_none()
+
+    @staticmethod
+    async def get_by_meter_identifier(
+        db: AsyncSession,
+        meter_identifier: str,
+    ) -> Meter | None:
+        result = await db.execute(
+            select(Meter).where(Meter.meter_id == meter_identifier)
+        )
         return result.scalar_one_or_none()

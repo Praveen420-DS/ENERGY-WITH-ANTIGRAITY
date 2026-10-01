@@ -4,7 +4,7 @@ import PredictionForm, { EMPTY_INPUT } from "../components/PredictionForm";
 import PredictionResult from "../components/PredictionResult";
 import { predictEnergy } from "../services/api";
 
-const numericFields = ["building_id", "meter", "site_id", "square_feet", "year_built", "floor_count", "air_temperature", "cloud_coverage", "dew_temperature", "precip_depth_1_hr", "sea_level_pressure", "wind_direction", "wind_speed"];
+const numericFields = ["building_id", "meter", "actual_kwh", "site_id", "square_feet", "year_built", "floor_count", "air_temperature", "cloud_coverage", "dew_temperature", "precip_depth_1_hr", "sea_level_pressure", "wind_direction", "wind_speed"];
 export default function PredictionPage({ onPrediction }) {
     const [values, setValues] = useState({ ...EMPTY_INPUT });
     const [result, setResult] = useState(null);

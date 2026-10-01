@@ -3,7 +3,7 @@
 from urllib.parse import urlsplit
 from pathlib import Path
 
-from pydantic import AliasChoices, Field, field_validator, model_validator
+from pydantic import AliasChoices, Field, SecretStr, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from sqlalchemy.engine import make_url
 
@@ -52,6 +52,16 @@ class Settings(BaseSettings):
     allowed_origins: str = Field(
         default="http://localhost:5173,http://localhost",
         validation_alias="ALLOWED_ORIGINS",
+    )
+
+    weather_api_key: SecretStr = Field(
+        default=SecretStr(""),
+        validation_alias="WEATHER_API_KEY",
+        repr=False,
+    )
+    weather_api_url: str = Field(
+        default="https://api.openweathermap.org/data/2.5",
+        validation_alias="WEATHER_API_URL",
     )
 
     database_url: str = Field(
