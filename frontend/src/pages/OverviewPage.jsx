@@ -5,7 +5,6 @@ import DataTable from "../components/DataTable";
 import PageHeader from "../components/PageHeader";
 import StatCard from "../components/StatCard";
 
-const meters = ["Electricity"];
 const colors = ["#8b5cf6", "#3b82f6", "#22c55e", "#f59e0b"];
 const formatEnergy = (value) => Number(value || 0).toLocaleString(undefined, { maximumFractionDigits: 1 });
 
